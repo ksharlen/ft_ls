@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/07/27 23:21:00 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/07/28 13:20:35 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ CC			:=	gcc
 CFLAGS		:=	-g
 HEADERS		:=	libft.h ft_printf.h ft_getopt.h ft_ls.h
 LIBFT		:=	libft.a
+REMOVE		:=	rm -rf
 SRC			:=	main.c\
 					ft_ls.c
 
-OBJS := $(SRC:.c=.o)
+OBJS 		:= $(SRC:.c=.o)
+LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))
 
 vpath %.c $(DIR_SRC)
 vpath %.o $(DIR_BIN)
@@ -30,7 +32,7 @@ vpath %.h $(DIR_INCLUDE)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(addprefix $(DIR_BIN), $^) -o $@
+	$(CC) $(CFLAGS) $(addprefix $(DIR_BIN), $(OBJS)) $(LIBFT) -o $@
 
 $(OBJS):%.o:%.c $(HEADERS) | $(DIR_BIN)
 	$(CC) -c $(CFLAGS) $< -o $(DIR_BIN)$@ -I $(DIR_INCLUDE)
