@@ -19,21 +19,21 @@ int		main(int argc, char **argv)
 	char *m;
 	char *c;
 
-	opt = 0;
-	size = 1000;
-	path = "/Users/ksharlen/Library";
-	buf_listxattr = (char *)ft_memalloc(sizeof(char) * size);
-	if (!buf_listxattr)
-		exit(0);
-	// list_ret = listxattr(path, buf_listxattr, size, 0);
-	// ft_printf("buf_listxattr: %s\n", buf_listxattr);
+	// opt = 0;
+	// size = 1000;
+	// path = "/Users/ksharlen/Library";
+	// buf_listxattr = (char *)ft_memalloc(sizeof(char) * size);
+	// if (!buf_listxattr)
+	// 	exit(0);
+	// // list_ret = listxattr(path, buf_listxattr, size, 0);
+	// // ft_printf("buf_listxattr: %s\n", buf_listxattr);
+	// // ft_printf("list_ret = %ld\n", list_ret);
+
+	// list_ret = getxattr("/Usert/ksharlen/Library", "com", buf_listxattr, size, 0, 0);
+	// ft_printf("getxattr:\n");
+
+	// ft_printf("getxattr: %s\n", buf_listxattr);
 	// ft_printf("list_ret = %ld\n", list_ret);
-
-	list_ret = getxattr("/Usert/ksharlen/Library", "com", buf_listxattr, size, 0, 0);
-	ft_printf("getxattr:\n");
-
-	ft_printf("getxattr: %s\n", buf_listxattr);
-	ft_printf("list_ret = %ld\n", list_ret);
 	//buf = (struct stat *)ft_memalloc(sizeof(struct stat));
 	// err = stat("Makefile", &buf);
 	// // ft_printf("err = %d\n", err);
@@ -58,5 +58,18 @@ int		main(int argc, char **argv)
 	// m = ctime(&buf.st_mtime);
 	// c = ctime(&buf.st_ctime);
 	// ft_printf("st_atime: %s\nst_mtime: %s\nst_ctime: %s\n", a, m, c);
+	//printf("%s\n", "Привет мир!\n");
+	//ft_printf("%ls\n", L"Привет мир!\n");
+	// wchar_t *str = L"Привет";
+
+	// printf("%s", "Привет мир\n");
+	// printf("%d\n", str[0]);
+
+	unsigned char str[3];
+
+	str[0] = 208;
+	str[1] = 191;
+	str[2] = 0;
+	printf("str: %s\n", str);
 	return (0);
 }
