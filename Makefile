@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/07/28 13:20:35 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/08/11 19:16:58 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ HEADERS		:=	libft.h ft_printf.h ft_getopt.h ft_ls.h
 LIBFT		:=	libft.a
 REMOVE		:=	rm -rf
 SRC			:=	main.c\
-					ft_ls.c
+					ft_ls.c\
+					lists.c\
+					lists_filename.c
 
 OBJS 		:= $(SRC:.c=.o)
 LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))
