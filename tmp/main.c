@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/12 15:49:26 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/12 20:20:41 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,32 @@ static void print_arr(int *num, size_t size)
 	}
 }
 
+static char *read_all_files_from_dir(DIR	*dir)
+{
+	register size_t	i;
+	struct dirent	*dent;
+
+	while ((dent = readdir(dir)))
+	{
+		write(1, dent->d_name, ft_strlen(dent->d_name));
+		write(1, " ", 1);
+	}
+	//printf("errno: %d\n", errno);
+	perror("ls");
+}
+
 int		main(int argc, char **argv)
 {
-	//int	arr[5];// = {0};
-	// int		*arr;
-	// int		i = 0;
-
-	char *str1 = "hello";
-	char *str2 = " world";
-
-	// arr = (int[15]){ [3] = 6 };
-	// arr = (int[7]){ [2] = 10 };
-	// printf("arr[9] = %d\n", arr[17]);
-	//print_arr(arr, 15);
-	DIR				*dir;
-	struct dirent	*dirent;
-	char			*filename;
-	char			*str;
-
-	// filename = argv[1];
-	// dir = opendir(filename);
-	// if (dir)
-	// 	printf("success\n");
-	// else
-	// 	perror(ft_strjoin("ls: ", filename));
-	// printf("dir: %x\n", dir);
-	//printf("%s\n", FT_CAT(str1, str2));
-	write(2, STRING, strlen(STRING));
+	DIR		*dir;
+	dir = opendir(argv[1]);
+	if (dir)
+		read_all_files_from_dir(dir);
+	else if (errno == 20)
+	{
+		write(1, argv[1], ft_strlen(argv[1]));
+		write(1, "\n", 1);
+		//printf("errno: %d\n", errno);
+		//perror("ls");
+	}
 	return (0);
 }
