@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 12:15:04 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/07/25 14:06:44 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/12 12:20:11 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@
 typedef	struct				s_utf
 {
 	wchar_t					unicode;
-	unsigned				bytes;
+	unsigned				t_bytes;
 	wchar_t					utf_sym;
 }							t_utf;
 
@@ -222,7 +222,7 @@ void						push_double_to_str(unsigned char *buf, t_long *res,\
 /*
 **UTF-8
 */
-unsigned					def_num_bytes(wchar_t unicode);
+unsigned					def_num_t_bytes(wchar_t unicode);
 unsigned					inst_mask(t_utf utf);
 t_utf						push_unicode(t_utf utf);
 unsigned char				*push_wchar_to_buf(t_utf utf);

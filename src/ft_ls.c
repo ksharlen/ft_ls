@@ -9,7 +9,7 @@ static void	print_lists(t_filename *beg)
 	}
 }
 
-static void	print_options(l_utype *flags)
+static void	print_options(t_ubyte *flags)
 {
 	register size_t	i;
 
@@ -22,7 +22,7 @@ static void	print_options(l_utype *flags)
 }
 
 static void		collect_flags_files(t_filename **beg,
-	int argc, char *const argv[], l_utype *flags)
+	size_t argc, char *const argv[], t_ubyte *flags)
 	{
 		register size_t i;
 
@@ -38,22 +38,20 @@ static void		collect_flags_files(t_filename **beg,
 		valid_flags(flags);
 	}
 
-int		ft_ls(int argc, char *const argv[])
+int		ft_ls(size_t argc, char *const argv[])
 {
 	t_filename	*beg;
-	l_utype		flags[NUM_FLAGS];
+	t_ubyte		*flags;
 
 	beg = NULL;
-	ft_bzero(flags, NUM_FLAGS);
-	//Параллельно собирать флаги и именя файлов
+	flags = (t_ubyte[NUM_FLAGS]){0}; //ЭТО РАБОТАЕТ!!!!!
 	if (argc > 1)
 		collect_flags_files(&beg, argc, argv, flags);
-		//list_push_filename(&beg, argc, argv);
 	else
 		;//вывести содержимое текущей директории
 		//Могут быть другие ключи
 		//Надо будет проверить первый элемент flags на их наличие
-	//printf("list_size: %ld\n", list_filename_size(beg));
 	print_options(flags);
 	print_lists(beg);
+	return (0);
 }

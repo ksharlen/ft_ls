@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-void	valid_flags(const l_utype *flags)
+void	valid_flags(const t_ubyte *flags)
 {
 	register size_t	i;
 
@@ -19,7 +19,7 @@ void	valid_flags(const l_utype *flags)
 	}
 }
 
-int		get_options(const char *options, l_utype *flags)
+int		get_options(const char *options, t_ubyte *flags)
 {
 	if (*(options + 1))
 	{

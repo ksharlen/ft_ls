@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/08/11 19:59:28 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/08/12 12:06:32 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ DIR_SRC		:=	src/
 DIR_BIN		:=	bin/
 DIR_INCLUDE :=	include/
 CC			:=	gcc
-CFLAGS		:=	-g
+CFLAGS		:=	-g -Wextra -Werror -Wall
 HEADERS		:=	libft.h ft_printf.h ft_getopt.h ft_ls.h
 LIBFT		:=	libft.a
 REMOVE		:=	rm -rf
