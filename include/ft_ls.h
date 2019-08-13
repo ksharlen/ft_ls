@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/12 13:29:45 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/13 08:12:42 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@
 # define ESTATE_ENOMEM				ENOMEM
 # define ESTATE_ENAMETOOLONG		ENAMETOOLONG
 
-
+# define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
 
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
@@ -100,6 +100,7 @@
 # define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)
 # define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z' ? 1 : 0)
 # define FLAG_VALID(x) ((FLAG_LOW_REG(x) || FLAG_UPP_REG(x) ? 1 : 0))
+# define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
 
 //?Прежде чем вызвать ft_strlen проверяет не пустая ли строка, если пустая, вызова не происходит
 
