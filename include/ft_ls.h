@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/13 08:12:42 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:26:24 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,19 @@
 # define ESTATE_ENOMEM				ENOMEM
 # define ESTATE_ENAMETOOLONG		ENAMETOOLONG
 
+# define U_TYPE						DT_UNKNOWN
+# define F_TYPE						DT_FIFO
+# define C_TYPE						DT_CHR
+# define D_TYPE						DT_DIR
+# define B_TYPE						DT_BLK
+# define R_TYPE						DT_REG
+# define L_TYPE						DT_LNK
+# define S_TYPE						DT_SOCK
+# define W_TYPE						DT_WHT
+
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
+//# define EPERM	"ls: %s: Permission denied\n" //%s dirname
+# define FILE_ERROR(filename)	ft_printf("%vls: %s: ", 2, filename)
 
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
@@ -101,6 +113,12 @@
 # define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z' ? 1 : 0)
 # define FLAG_VALID(x) ((FLAG_LOW_REG(x) || FLAG_UPP_REG(x) ? 1 : 0))
 # define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
+# define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
+# define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
+
+#define	P_UNUSED(variable) ((void)variable)
+
+# define CURRENT_DIR "."
 
 //?Прежде чем вызвать ft_strlen проверяет не пустая ли строка, если пустая, вызова не происходит
 
@@ -117,30 +135,62 @@ typedef enum
 }						t_return;
 
 //*Отсортировать по размеру для экономии места
-typedef struct			s_ls
+typedef struct			s_fullinfo
 {
-	struct stat			*buf;
-	struct s_ls			*next;
-	char				*name;
-	char				*pw_name;
-	char				*gr_name;
-	//*Тут будут еще расширенные атрибуты;
-	//*Подумать про указатель на предыдущий элемент
-}						t_ls;
+	struct stat			buf;
+	const unsigned char	*pw_name;
+	const char			*gr_name;
+}						t_fullinfo;
 
 typedef struct			s_filename
 {
-	t_ls				*full_descript;
 	struct s_filename	*next;
-	char				*filename;
+	t_fullinfo			*info;
+	const char 			*filename;
+	uint8_t				f_type;
 }						t_filename;
 
 int						ft_ls(size_t argc, char *const argv[]);
-int						list_push_files(t_ls **beg, size_t argc, char *const argv[]);
-//*int						list_push_filename(t_filename **beg, int argc, char *const argv[]);
-int						get_options(const char *options, t_ubyte *flags);
+
+/*
+**Lists filename
+*/
 size_t					list_filename_size(t_filename *beg);
-void					list_filename_add_end(t_filename **beg, char *filename);
+void					list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type);
+void					push_list_filename_dir_content(DIR *dir, t_filename **beg);
+
+/*
+**Lists fullinfo
+*/
+//oid					list_fullinfo_create(void);
+void					list_add_fullinfo_to_filename(t_filename *beg);
+
+/*
+**Validation
+*/
 void					valid_flags(const t_ubyte *flags);
+DIR						*valid_opendir(const char *filename);
+struct dirent			*valid_readdir(DIR *dir);
+
+/*
+**Errors
+*/
+void					sys_errors(void);
+void					file_errors(const char *filename);
+
+/*
+**Sorts
+*/
+void					sort_list_by_flags(t_filename **beg, t_ubyte *flags);
+void					sort_by_atime(t_filename **beg);
+void					sort_by_mtime(t_filename **beg);
+void					sort_by_name(t_filename **beg);
+
+/*
+**Other
+*/
+int						get_options(const char *options, t_ubyte *flags);
+void					list_revers(t_filename **beg);
+
 
 #endif
