@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/14 12:26:24 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/14 13:33:35 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 # define ESTATE_ENOTDIR				ENOTDIR
 # define ESTATE_ELOOP				ELOOP
 # define ESTATE_EFAULT				EFAULT
-# define ESTATE_EACCESS				EACCESS
+# define ESTATE_EACCES				EACCES
 # define ESTATE_ENOMEM				ENOMEM
 # define ESTATE_ENAMETOOLONG		ENAMETOOLONG
 
@@ -162,8 +162,7 @@ void					push_list_filename_dir_content(DIR *dir, t_filename **beg);
 /*
 **Lists fullinfo
 */
-//oid					list_fullinfo_create(void);
-void					list_add_fullinfo_to_filename(t_filename *beg);
+void					push_fullinfo_to_filename(t_filename **beg);
 
 /*
 **Validation
@@ -171,6 +170,7 @@ void					list_add_fullinfo_to_filename(t_filename *beg);
 void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
+int						valid_stat(const char *filename, struct stat *buf);
 
 /*
 **Errors

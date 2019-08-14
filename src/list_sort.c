@@ -6,7 +6,7 @@ void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 	{
 		if (flags[FIND_FLAG('t')])
 		{
-			//push_fullinfo_to_filename(beg);
+			push_fullinfo_to_filename(beg);
 			if (flags[FIND_FLAG('u')])
 				sort_by_atime(beg);
 			else

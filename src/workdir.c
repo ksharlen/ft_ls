@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/13 15:42:43 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/14 13:32:25 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ struct dirent *valid_readdir(DIR *dir)
 	if (errno == EREADDIR_ENBADF)
 		sys_errors();
 	return (dent);
+}
+
+int		valid_stat(const char *filename, struct stat *buf)
+{
+	int	ret_stat;
+	errno = 0;
+
+	ret_stat = stat(filename, buf);
+	if (errno == ESTATE_EACCES)
+		file_errors(filename);
+	else if (errno == ESTATE_EBADF)
+		file_errors(filename);
+	else if (errno == ESTATE_EFAULT)
+		sys_errors();
+	else if (errno == ESTATE_ELOOP)
+		file_errors(filename);
+	else if (errno == ESTATE_ENAMETOOLONG)
+		file_errors(filename);
+	else if (errno == ESTATE_ENOENT)
+		file_errors(filename);
+	else if (errno == ESTATE_ENOMEM)
+		sys_errors();
+	else if (errno == ESTATE_ENOTDIR)
+		;//Подумать
+	return (SUCCESSFUL_COMPLETION);
 }
 
 /*

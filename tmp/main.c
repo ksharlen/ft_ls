@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/14 11:57:47 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/14 12:37:54 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -59,19 +60,20 @@ int		main(int argc, char **argv)
 	// else if (argc == 1)
 	// 	_val_diropen_(".");
 	// return (0);
-	DIR	*dir;
-	struct dirent *dent;
+	// DIR	*dir;
+	// struct dirent *dent;
 
-	dir = opendir(argv[1]);
-	if (dir)
-		while ((dent = readdir(dir)))
-		{
-			if (!strcmp(dent->d_name, ".") || !strcmp(dent->d_name, ".."))
-				;
-			else
-				ft_printf("%s -- %d\n", dent->d_name, dent->d_type);
-		}
-	else
-		printf("error\n");
+	// dir = opendir(argv[1]);
+	// if (dir)
+	// 	while ((dent = readdir(dir)))
+	// 	{
+	// 		if (!strcmp(dent->d_name, ".") || !strcmp(dent->d_name, ".."))
+	// 			;
+	// 		else
+	// 			ft_printf("%s -- %d\n", dent->d_name, dent->d_type);
+	// 	}
+	// else
+	// 	printf("error\n");
+	perror(strerror(ENAMETOOLONG));
 	return (0);
 }

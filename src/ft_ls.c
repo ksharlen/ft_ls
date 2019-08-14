@@ -71,7 +71,7 @@ static void			ls_internal(const char *filename, t_ubyte *flags)
 	{
 		push_list_filename_dir_content(dir, &beg);
 		print_lists(beg);
-		//sort_list_by_flags(&beg, flags);
+		sort_list_by_flags(&beg, flags);
 
 		//Тут список уже создан нужно отсортировать
 	}

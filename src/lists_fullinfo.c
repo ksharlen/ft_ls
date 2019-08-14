@@ -12,7 +12,7 @@ static t_fullinfo	*list_fullinfo_create(void)
 	return (new);
 }
 
-void	list_add_fullinfo_to_filename(t_filename *beg)
+static void		list_add_fullinfo_to_filename(t_filename *beg)
 {
 	if (beg)
 	{
@@ -26,6 +26,13 @@ void	list_add_fullinfo_to_filename(t_filename *beg)
 
 void	push_fullinfo_to_filename(t_filename **beg)
 {
-	P_UNUSED(*beg);
-	return ;
+	t_filename	*elem;
+
+	elem = (*beg);
+	list_add_fullinfo_to_filename(*beg);
+	while (elem)
+	{
+		valid_stat(elem->filename, &elem->info->buf);
+		elem = elem->next;
+	}
 }
