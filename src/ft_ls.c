@@ -44,15 +44,15 @@ static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 static size_t		collect_flags(size_t argc, char *const argv[],
 	t_ubyte *flags)
 	{
-		register size_t i;
+		size_t	skip_opt_argv;
 
-		i = 1;
-		if (CHECK_KEY(argv[i]))
+		skip_opt_argv = 0;
+		if (CHECK_KEY(argv[1]))
 		{
-			i += push_flags(argc, argv, flags);
+			skip_opt_argv = push_flags(argc, argv, flags);
 			valid_flags(flags);
 		}
-		return (i);
+		return (skip_opt_argv);
 	}
 
 static void			ls_internal(const char *filename, t_ubyte *flags)
@@ -86,7 +86,7 @@ int		ft_ls(size_t argc, char *const argv[])
 	if (argc > 1)
 	{
 		i = collect_flags(argc, argv, flags);
-		printf("i: %ld\n", i);
+		//printf("i: %ld\n", i);
 		while (i < argc)
 		{
 			ls_internal(argv[i], flags);

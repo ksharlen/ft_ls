@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/14 12:37:54 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/14 16:14:06 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,12 @@ int		main(int argc, char **argv)
 	// 	printf("error\n");
 	perror(strerror(ENAMETOOLONG));
 	return (0);
+}
+
+void		quick_sort_list(t_filename **beg, t_filename *s_beg, t_filename *e_beg)
+{
+	if (!p_beg->next)
+		return ;
+	quick_sort_list(beg, e_beg->next);
+	
 }
