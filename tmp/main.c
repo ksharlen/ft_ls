@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/14 16:14:06 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:13:51 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <pwd.h>
 #include <grp.h>
 #include <uuid/uuid.h>
+
+#define SIZE 8
 
 static void		_val_diropen_(char *filename)
 {
@@ -53,35 +55,62 @@ static void		_val_diropen_(char *filename)
 	}
 }
 
-int		main(int argc, char **argv)
+static void	print_num(int *num, size_t size)
 {
-	// if (argc == 2)
-	// 	_val_diropen_(argv[1]);
-	// else if (argc == 1)
-	// 	_val_diropen_(".");
-	// return (0);
-	// DIR	*dir;
-	// struct dirent *dent;
+	register size_t i;
 
-	// dir = opendir(argv[1]);
-	// if (dir)
-	// 	while ((dent = readdir(dir)))
-	// 	{
-	// 		if (!strcmp(dent->d_name, ".") || !strcmp(dent->d_name, ".."))
-	// 			;
-	// 		else
-	// 			ft_printf("%s -- %d\n", dent->d_name, dent->d_type);
-	// 	}
-	// else
-	// 	printf("error\n");
-	perror(strerror(ENAMETOOLONG));
-	return (0);
+	i = 0;
+	while (i < size)
+	{
+		printf("num[%ld] = %d\n", i, num[i]);
+		++i;
+	}
 }
 
-void		quick_sort_list(t_filename **beg, t_filename *s_beg, t_filename *e_beg)
+static void	merge_sort(int	*num, size_t size)
 {
-	if (!p_beg->next)
+	register size_t i;
+	register size_t j;
+	register size_t k;
+	int *left;
+	int	*right;
+	int main_arr[size];
+
+	ft_bzero(main_arr, size);
+	//main_arr = (int[size]){0};
+	if (size == 1)
 		return ;
-	quick_sort_list(beg, e_beg->next);
-	
+	merge_sort(num, size / 2);
+	left = num;
+	right = num + (size / 2);
+	i = 0;
+	k = 0;
+	j = size / 2;
+	//printf("here\n");
+	while (i < (size / 2) || j < (size / 2))
+		main_arr[k++] = (left[i] >= right[j] ? right[j++] : left[i++]);
+	if (j == (size / 2))
+	{
+		while (i < (size / 2))
+			main_arr[k++] = left[i++];
+	}
+	else if (i == (size / 2))
+	{
+		while (j < (size / 2))
+			main_arr[k++] = right[j++];
+	}
+	printf("main_arr: \n");
+	print_num(main_arr, size);
+	printf("==================\n");
+}
+
+int		main(int argc, char **argv)
+{
+	int		num[SIZE] = { 31, 23 ,4242, 31, 23232, 42, 32323, 41 };
+	printf("BEFORE:\n");
+	print_num(num, SIZE);
+	merge_sort(num, SIZE);
+	printf("AFTER:\n");
+	print_num(num, SIZE);
+	return (0);
 }
