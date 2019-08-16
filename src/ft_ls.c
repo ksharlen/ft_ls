@@ -4,7 +4,7 @@ static void	print_lists(t_filename *beg)
 {
 	while (beg)
 	{
-		if (!ft_strcmp(beg->filename, ".") || !ft_strcmp(beg->filename, ".."))
+		if (!ft_strncmp(beg->filename, ".", 1) || !ft_strncmp(beg->filename, "..", 2))
 			;
 		else
 			printf("%s	", beg->filename);
@@ -64,8 +64,6 @@ static void			ls_internal(const char *filename, t_ubyte *flags)
 	t_filename		*beg;
 	DIR				*dir;
 
-	P_UNUSED(flags);
-
 	//dir = opendir(dir);//Проверить errno на значение 20(это не каталог)//так же проверить на что не нашел.
 	//printf("here\n");
 	beg = NULL;
@@ -73,7 +71,7 @@ static void			ls_internal(const char *filename, t_ubyte *flags)
 	if (dir)
 	{
 		push_list_filename_dir_content(dir, &beg);
-		sort_list_by_flags(&beg, flags);
+		beg = sort_list_by_flags(&beg, flags);
 		print_lists(beg);
 
 		//Тут список уже создан нужно отсортировать
@@ -89,14 +87,14 @@ int		ft_ls(size_t argc, char *const argv[])
 	if (argc > 1)
 	{
 		i = collect_flags(argc, argv, flags);
+		if (i == argc)
+			ls_internal(CURRENT_DIR, flags);
 		//printf("i: %ld\n", i);
 		while (i < argc)
 		{
 			ls_internal(argv[i], flags);
 			++i;
 		}
-		if (i == argc)
-			ls_internal(CURRENT_DIR, flags);
 	}
 	else
 		ls_internal(CURRENT_DIR, flags);//вывести содержимое текущей директории

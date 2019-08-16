@@ -19,7 +19,7 @@ static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_
 	return (list_filename_merge(merge_sort(left, sort_key), right, sort_key));
 }
 
-void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
+t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
 	if (!flags[FIND_FLAG('f')])
 	{
@@ -27,15 +27,21 @@ void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 		{
 			push_fullinfo_to_filename(beg);
 			if (flags[FIND_FLAG('u')])
-				merge_sort(*beg, cmp_atime);
+				(*beg) = merge_sort(*beg, cmp_atime);
 			else
-				merge_sort(*beg, cmp_mtime);
+			{
+				(*beg) = merge_sort(*beg, cmp_mtime);
+			}
 		}
 		else
-			merge_sort(*beg, cmp_name);
+		{
+			(*beg) = merge_sort(*beg, cmp_name);
+			//printf("list_size: %ld\n", list_filename_size(*beg));
+		}
 		if (flags[FIND_FLAG('r')])
 			list_revers(beg);
 	}
 	else
 		flags[FIND_FLAG('a')] = 1;
+	return (*beg);
 }

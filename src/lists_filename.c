@@ -21,11 +21,11 @@ void		list_revers(t_filename **beg)
 t_filename	*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)(t_filename *, t_filename *))
 {
 	t_filename tmp;
-	t_filename *new;
-	t_filename *res;
+	t_filename *new = &tmp;
+	t_filename *res = new;
 
-	new = &tmp;
-	res = new;
+	//new = &tmp;
+	//res = new;
 	while (l_one && l_two)
 	{
 		if (key(l_one, l_two) == TRUE)
@@ -41,7 +41,7 @@ t_filename	*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)
 			l_two = l_two->next;
 		}
 	}
-	res->next = l_one ? l_one : l_two;
+	res->next = (l_one ? l_one : l_two);
 	return (new->next);
 }
 
