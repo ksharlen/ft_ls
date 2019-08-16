@@ -1,8 +1,22 @@
 #include "ft_ls.h"
 
-static void	sort_by_atime(t_filename **beg)
+static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_filename *))
 {
-	P_UNUSED(*beg);
+	t_filename *left;
+	t_filename *right;
+
+	if (!list || !list->next)
+		return (list);
+	left = list;
+	right = left->next;
+	while (right && right->next)
+	{
+		list = list->next;
+		right = right->next->next;
+	}
+	right = list->next;
+	list->next = NULL;
+	return (list_filename_merge(merge_sort(left, sort_key), right, sort_key));
 }
 
 void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
@@ -13,12 +27,12 @@ void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 		{
 			push_fullinfo_to_filename(beg);
 			if (flags[FIND_FLAG('u')])
-				sort_by_atime(beg);
+				merge_sort(*beg, cmp_atime);
 			else
-				sort_by_mtime(beg);
+				merge_sort(*beg, cmp_mtime);
 		}
 		else
-			sort_by_name(beg);
+			merge_sort(*beg, cmp_name);
 		if (flags[FIND_FLAG('r')])
 			list_revers(beg);
 	}

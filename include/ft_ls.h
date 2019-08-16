@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/16 21:43:26 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/16 22:58:21 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,12 @@ typedef enum
 						SUCCESSFUL_COMPLETION
 }						t_return;
 
+typedef enum
+{
+						FALSE,
+						TRUE
+}						t_bool;
+
 //*Отсортировать по размеру для экономии места
 typedef struct			s_fullinfo
 {
@@ -182,9 +188,10 @@ void					file_errors(const char *filename);
 **Sorts
 */
 void					sort_list_by_flags(t_filename **beg, t_ubyte *flags);
+t_filename				*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)(t_filename *, t_filename *));
 // void					sort_by_atime(t_filename **beg);
-void					sort_by_mtime(t_filename **beg);
-void					sort_by_name(t_filename **beg);
+// void					sort_by_mtime(t_filename **beg);
+// void					sort_by_name(t_filename **beg);
 
 /*
 **Other
@@ -192,5 +199,11 @@ void					sort_by_name(t_filename **beg);
 int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 
+/*
+**Compare
+*/
+int						cmp_atime(t_filename *one, t_filename *two);
+int						cmp_mtime(t_filename *one, t_filename *two);
+int						cmp_name(t_filename *one, t_filename *two);
 
 #endif

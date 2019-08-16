@@ -1,5 +1,50 @@
 #include "ft_ls.h"
 
+void		list_revers(t_filename **beg)
+{
+	t_filename *curr;
+	t_filename *next;
+	t_filename *prev;
+
+	curr = (*beg);
+	prev = NULL;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	(*beg) = prev;
+}
+
+t_filename	*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)(t_filename *, t_filename *))
+{
+	t_filename tmp;
+	t_filename *new;
+	t_filename *res;
+
+	new = &tmp;
+	res = new;
+	while (l_one && l_two)
+	{
+		if (key(l_one, l_two) == TRUE)
+		{
+			res->next = l_one;
+			res = l_one;
+			l_one = l_one->next;
+		}
+		else
+		{
+			res->next = l_two;
+			res = l_two;
+			l_two = l_two->next;
+		}
+	}
+	res->next = l_one ? l_one : l_two;
+	return (new->next);
+}
+
 size_t				list_filename_size(t_filename *beg)
 {
 	if (!beg->next)
@@ -13,10 +58,7 @@ static t_filename	*list_filename_create(const char *filename, uint8_t f_type)
 
 	new = (t_filename *)ft_memalloc(sizeof(t_filename));
 	if (!new)
-	{
-		perror(NULL);
-		exit(EXIT_FAILURE);
-	}//Добавить врапп
+		sys_errors();
 	new->filename = filename;
 	new->f_type = f_type;
 	new->next = NULL;

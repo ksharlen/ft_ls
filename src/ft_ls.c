@@ -4,7 +4,10 @@ static void	print_lists(t_filename *beg)
 {
 	while (beg)
 	{
-		printf("%s	", beg->filename);
+		if (!ft_strcmp(beg->filename, ".") || !ft_strcmp(beg->filename, ".."))
+			;
+		else
+			printf("%s	", beg->filename);
 		beg = beg->next;
 	}
 	printf("\n");
@@ -38,7 +41,7 @@ static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 		else
 			return (i);
 	}
-	return (i);
+	return (i);//Сменить на макрос
 }
 
 static size_t		collect_flags(size_t argc, char *const argv[],
@@ -70,8 +73,8 @@ static void			ls_internal(const char *filename, t_ubyte *flags)
 	if (dir)
 	{
 		push_list_filename_dir_content(dir, &beg);
-		print_lists(beg);
 		sort_list_by_flags(&beg, flags);
+		print_lists(beg);
 
 		//Тут список уже создан нужно отсортировать
 	}
@@ -92,6 +95,8 @@ int		ft_ls(size_t argc, char *const argv[])
 			ls_internal(argv[i], flags);
 			++i;
 		}
+		if (i == argc)
+			ls_internal(CURRENT_DIR, flags);
 	}
 	else
 		ls_internal(CURRENT_DIR, flags);//вывести содержимое текущей директории
@@ -131,4 +136,3 @@ int		ft_ls(size_t argc, char *const argv[])
 	6)	Вывести буффер в зависимости от флагов вывода
 	7)	вызываем эту ф-ию рекурсивно и передаем туда первый элемент списка(возвращаемся к пункту 1))
 */
-
