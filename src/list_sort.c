@@ -1,5 +1,10 @@
 #include "ft_ls.h"
 
+static void	sort_by_atime(t_filename **beg)
+{
+	P_UNUSED(*beg);
+}
+
 void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
 	if (!flags[FIND_FLAG('f')])
@@ -19,9 +24,4 @@ void	sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 	}
 	else
 		flags[FIND_FLAG('a')] = 1;
-}
-
-static void	sort_by_atime(t_filename **beg)
-{
-	
 }

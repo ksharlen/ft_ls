@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/14 13:33:35 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/16 21:43:26 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void					file_errors(const char *filename);
 **Sorts
 */
 void					sort_list_by_flags(t_filename **beg, t_ubyte *flags);
-void					sort_by_atime(t_filename **beg);
+// void					sort_by_atime(t_filename **beg);
 void					sort_by_mtime(t_filename **beg);
 void					sort_by_name(t_filename **beg);
 
