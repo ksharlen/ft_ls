@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 20:07:45 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/17 21:24:36 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,9 @@ DIR		*valid_opendir(const char *filename)
 	errno = 0;
 	dir = opendir(filename);
 	if (errno == EOPENDIR_EACCES)
-	{
 		file_errors(filename);
-		printf("here\n");
-	}
 	else if (errno == EOPENDIR_ENOENT)
-	{
 		file_errors(filename);
-		ft_printf("%venoent:\n", 2);
-	}
 	else if (errno == EOPENDIR_EMFILE)
 		sys_errors();
 	else if (errno == EOPENDIR_ENFILE)
@@ -71,7 +65,6 @@ int		valid_stat(const char *filename, struct stat *buf)
 		file_errors(filename);
 	else if (errno == ESTATE_ENOMEM)
 		sys_errors();
-	printf("filename: %s\n", filename);
 	// else if (errno == ESTATE_ENOTDIR)
 	// 	;//Подумать
 	return (SUCCESSFUL_COMPLETION);

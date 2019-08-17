@@ -35,3 +35,20 @@ int		get_options(const char *options, t_ubyte *flags)
 	}
 	return (SUCCESSFUL_COMPLETION);
 }
+
+int		chk_flags_for_create_fullinfo(t_ubyte *flags)
+{
+	//l, g, t
+	if (flags[FIND_FLAG('l')] || flags[FIND_FLAG('g')] || flags[FIND_FLAG('t')])
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+int		chk_flags_for_print_fullinfo(t_ubyte *flags)
+{
+	if (flags[FIND_FLAG('l')] || flags[FIND_FLAG('g')])
+		return (TRUE);
+	else
+		return (FALSE);
+}

@@ -1,17 +1,17 @@
 #include "ft_ls.h"
 
-static void	print_lists(t_filename *beg)
-{
-	while (beg)
-	{
-		if (!ft_strncmp(beg->filename, ".", 1) || !ft_strncmp(beg->filename, "..", 2))
-			;
-		else
-			printf("%s	", beg->filename);
-		beg = beg->next;
-	}
-	printf("\n");
-}
+// static void	print_lists_p(t_filename *beg)
+// {
+// 	while (beg)
+// 	{
+// 		if (!ft_strncmp(beg->filename, ".", 1) || !ft_strncmp(beg->filename, "..", 2))
+// 			;
+// 		else
+// 			printf("%s	", beg->filename);
+// 		beg = beg->next;
+// 	}
+// 	printf("\n");
+// }
 
 // static void	print_options(t_ubyte *flags)
 // {
@@ -71,9 +71,10 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	if (dir)
 	{
 		push_list_filename_dir_content(dir, &beg);
-		
+		push_fullinfo_to_filename(beg, dirname, flags);//Тут уже будет понятно есть fullinfo или нет
 		beg = sort_list_by_flags(&beg, flags);
-		print_lists(beg);
+		print_list(beg, flags);
+		//print_lists_p(beg);
 
 		//Тут список уже создан нужно отсортировать
 	}
@@ -89,14 +90,9 @@ int		ft_ls(size_t argc, char *const argv[])
 	{
 		i = collect_flags(argc, argv, flags);
 		if (i == argc)
-		{
-			printf("3\n");
 			ls_internal(CURRENT_DIR, flags);
-		}
-		//printf("i: %ld\n", i);
 		while (i < argc)
 		{
-			printf("argv[%ld]: %s\n", i, argv[i]);
 			ls_internal(argv[i], flags);
 			++i;
 		}

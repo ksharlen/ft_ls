@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 15:59:37 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/17 22:51:15 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct			s_filename
 	struct s_filename	*next;
 	t_fullinfo			*info;
 	const char 			*filename;
+	char				*dirname;
 	uint8_t				f_type;
 }						t_filename;
 
@@ -168,7 +169,7 @@ void					push_list_filename_dir_content(DIR *dir, t_filename **beg);
 /*
 **Lists fullinfo
 */
-void					push_fullinfo_to_filename(t_filename **beg);
+void					push_fullinfo_to_filename(t_filename *beg, const char *dirname, t_ubyte *flags);
 
 /*
 **Validation
@@ -196,6 +197,8 @@ t_filename				*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*k
 /*
 **Other
 */
+int						chk_flags_for_create_fullinfo(t_ubyte *flags);
+int						chk_flags_for_print_fullinfo(t_ubyte *flags);
 int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 
@@ -205,5 +208,10 @@ void					list_revers(t_filename **beg);
 int						cmp_atime(t_filename *one, t_filename *two);
 int						cmp_mtime(t_filename *one, t_filename *two);
 int						cmp_name(t_filename *one, t_filename *two);
+
+/*
+**print_list
+*/
+void	print_list(t_filename *beg, t_ubyte *flags);
 
 #endif

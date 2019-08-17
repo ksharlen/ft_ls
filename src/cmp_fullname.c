@@ -28,14 +28,15 @@ static int	ls_strcasecmp(const char *s1, const char *s2)
 			p1 = skip_not_alpha(p1);
 		if (!ft_isalnum(*p2))
 			p2 = skip_not_alpha(p2);
-		if ((result = ft_tolower(*p1) - ft_tolower(*p2)))
-			break;
+		if ((ft_tolower(*p1) != ft_tolower(*p2)))
+			break ;
 		else
 		{
 			++p1;
 			++p2;
 		}
 	}
+	result = ft_tolower(*p1) - ft_tolower(*p2);
 	return (result);
 	// while ((result = ft_lower(*p1) - ft_tolower(*p2++)) == 0)
 	// {
