@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/15 14:13:51 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/17 13:07:15 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
-#include <uuid/uuid.h>
+#include <time.h>
 
 #define SIZE 8
 
@@ -67,50 +67,17 @@ static void	print_num(int *num, size_t size)
 	}
 }
 
-static void	merge_sort(int	*num, size_t size)
-{
-	register size_t i;
-	register size_t j;
-	register size_t k;
-	int *left;
-	int	*right;
-	int main_arr[size];
-
-	ft_bzero(main_arr, size);
-	//main_arr = (int[size]){0};
-	if (size == 1)
-		return ;
-	merge_sort(num, size / 2);
-	left = num;
-	right = num + (size / 2);
-	i = 0;
-	k = 0;
-	j = size / 2;
-	//printf("here\n");
-	while (i < (size / 2) || j < (size / 2))
-		main_arr[k++] = (left[i] >= right[j] ? right[j++] : left[i++]);
-	if (j == (size / 2))
-	{
-		while (i < (size / 2))
-			main_arr[k++] = left[i++];
-	}
-	else if (i == (size / 2))
-	{
-		while (j < (size / 2))
-			main_arr[k++] = right[j++];
-	}
-	printf("main_arr: \n");
-	print_num(main_arr, size);
-	printf("==================\n");
-}
-
 int		main(int argc, char **argv)
 {
-	int		num[SIZE] = { 31, 23 ,4242, 31, 23232, 42, 32323, 41 };
-	printf("BEFORE:\n");
-	print_num(num, SIZE);
-	merge_sort(num, SIZE);
-	printf("AFTER:\n");
-	print_num(num, SIZE);
+	DIR	*dir;
+	struct dient *dent;
+	struct stat buf;
+	char *t_time;
+
+	//dir = opendir(argv[1]);
+	//dent = readdir(dir);
+	stat(argv[1], &buf);
+	t_time = ctime(buf.st_atime);
+	printf("buf->atime: %s\n", t_time);
 	return (0);
 }

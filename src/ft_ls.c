@@ -58,7 +58,7 @@ static size_t		collect_flags(size_t argc, char *const argv[],
 		return (skip_opt_argv);
 	}
 
-static void			ls_internal(const char *filename, t_ubyte *flags)
+static void			ls_internal(const char *dirname, t_ubyte *flags)
 {
 	//!Не забыть сделать closedir and free
 	t_filename		*beg;
@@ -67,10 +67,11 @@ static void			ls_internal(const char *filename, t_ubyte *flags)
 	//dir = opendir(dir);//Проверить errno на значение 20(это не каталог)//так же проверить на что не нашел.
 	//printf("here\n");
 	beg = NULL;
-	dir = valid_opendir(filename);
+	dir = valid_opendir(dirname);
 	if (dir)
 	{
 		push_list_filename_dir_content(dir, &beg);
+		
 		beg = sort_list_by_flags(&beg, flags);
 		print_lists(beg);
 
@@ -88,10 +89,14 @@ int		ft_ls(size_t argc, char *const argv[])
 	{
 		i = collect_flags(argc, argv, flags);
 		if (i == argc)
+		{
+			printf("3\n");
 			ls_internal(CURRENT_DIR, flags);
+		}
 		//printf("i: %ld\n", i);
 		while (i < argc)
 		{
+			printf("argv[%ld]: %s\n", i, argv[i]);
 			ls_internal(argv[i], flags);
 			++i;
 		}

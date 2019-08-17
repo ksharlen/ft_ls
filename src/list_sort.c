@@ -16,7 +16,7 @@ static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_
 	}
 	right = list->next;
 	list->next = NULL;
-	return (list_filename_merge(merge_sort(left, sort_key), right, sort_key));
+	return (list_filename_merge(merge_sort(left, sort_key), merge_sort(right, sort_key), sort_key));
 }
 
 t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
@@ -27,7 +27,10 @@ t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 		{
 			push_fullinfo_to_filename(beg);
 			if (flags[FIND_FLAG('u')])
+			{
 				(*beg) = merge_sort(*beg, cmp_atime);
+				printf("here\n");
+			}
 			else
 			{
 				(*beg) = merge_sort(*beg, cmp_mtime);
