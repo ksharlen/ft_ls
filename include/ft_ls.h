@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 22:51:15 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/18 12:52:29 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int						ft_ls(size_t argc, char *const argv[]);
 */
 size_t					list_filename_size(t_filename *beg);
 void					list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type);
-void					push_list_filename_dir_content(DIR *dir, t_filename **beg);
+void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags);
 
 /*
 **Lists fullinfo
@@ -212,6 +212,7 @@ int						cmp_name(t_filename *one, t_filename *two);
 /*
 **print_list
 */
-void	print_list(t_filename *beg, t_ubyte *flags);
+void					print_list(t_filename *beg, t_ubyte *flags);
+void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
 
 #endif

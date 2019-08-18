@@ -28,51 +28,36 @@ static void		push_filename_to_buf(t_filename *beg, t_ubyte *buf)
 
 static t_ubyte	*generate_buf_for_print(t_filename *beg)
 {
-	t_ubyte		*buf;
 	size_t		size_buf;
+	t_ubyte		*buf;
 
-	P_UNUSED(buf);
 	size_buf = def_len_all_filename(beg);
 	buf = (t_ubyte *)ft_memalloc(sizeof(t_ubyte) * size_buf + 1); //1 - '\0'
 	buf[size_buf] = '\0';
 	push_filename_to_buf(beg, buf);
-	//printf("size_buf: %ld\n", size_buf);
-	//exit(EXIT_SUCCESS);
 	return (buf);
 }
 
-static void simple_print_lists(t_filename *beg, t_ubyte *flags)
+static void simple_print_lists(t_filename *beg)
 {
 	t_ubyte		*buf;
 
-	P_UNUSED(buf);
-	if (flags[FIND_FLAG('a')] || flags[FIND_FLAG('f')])
-	{
-		//Вывод невидимых файлов
-		buf = generate_buf_for_print(beg);
-		//printf("buf:\n");
-		printf("%s\n", buf);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		//Вывод только видемых файлов
-	}
+	//Простой вывод
+	buf = generate_buf_for_print(beg);
+	printf("%s\n", buf);
+	//!free(buf);
 }
 
 void	print_list(t_filename *beg, t_ubyte *flags)
 {
 	if (chk_flags_for_print_fullinfo(flags) == TRUE)
 	{
-	//printf("1\n");
+		//print_fullinfo(beg, flags);
 		//Нужно обработать флаги для полного вывода
-		
 	}
 	else
 	{
 		//Вывод простого списка
-		//Нужно создать буфер
-		//И вывести его
-		simple_print_lists(beg, flags);
+		simple_print_lists(beg);
 	}
 }

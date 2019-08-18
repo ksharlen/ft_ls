@@ -86,13 +86,21 @@ void	list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_typ
 	}
 }
 
-void	push_list_filename_dir_content(DIR *dir, t_filename **beg)
+void	push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags)
 {
 	struct dirent *dent;
 
 	while ((dent = valid_readdir(dir)))
 	{
-		list_filename_add_end(beg, dent->d_name, dent->d_type);
+		if (flags[FIND_FLAG('f')] || flags[FIND_FLAG('a')])
+			list_filename_add_end(beg, dent->d_name, dent->d_type);
+		else
+		{
+			if (!ft_strncmp(dent->d_name, ".", 1))
+				;
+			else
+				list_filename_add_end(beg, dent->d_name, dent->d_type);
+		}
 	}
 }
 

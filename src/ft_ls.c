@@ -70,13 +70,12 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	dir = valid_opendir(dirname);
 	if (dir)
 	{
-		push_list_filename_dir_content(dir, &beg);
+		//?Вставить filetype в структуру на макке
+		push_list_filename_dir_content(dir, &beg, flags);
 		push_fullinfo_to_filename(beg, dirname, flags);//Тут уже будет понятно есть fullinfo или нет
 		beg = sort_list_by_flags(&beg, flags);
 		print_list(beg, flags);
 		//print_lists_p(beg);
-
-		//Тут список уже создан нужно отсортировать
 	}
 }
 

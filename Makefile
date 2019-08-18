@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/08/17 22:20:13 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/08/18 12:50:05 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC			:=	main.c\
 					lists_fullinfo.c\
 					other.c\
 					cmp_fullname.c\
-					print_list.c
+					print_list.c\
+					print_fullinfo.c
 
 OBJS 		:= $(SRC:.c=.o)
 LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))
