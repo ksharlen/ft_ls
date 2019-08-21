@@ -6,7 +6,7 @@ static size_t	def_len_all_filename(t_filename *beg)
 	t_ubyte two_spaces;
 
 	all_len = 0;
-	two_spaces = 2;
+	two_spaces = 2; //Будет динамическое выравнивание
 	while (beg)
 	{
 		all_len += ft_strlen(beg->filename);
@@ -52,6 +52,7 @@ void	print_list(t_filename *beg, t_ubyte *flags)
 {
 	if (chk_flags_for_print_fullinfo(flags) == TRUE)
 	{
+		print_fullinfo(beg, flags);
 		//print_fullinfo(beg, flags);
 		//Нужно обработать флаги для полного вывода
 	}

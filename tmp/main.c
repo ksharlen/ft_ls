@@ -5,83 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/20 14:38:16 by ksharlen         ###   ########.fr       */
+/*   Created: 2019/08/21 12:13:26 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/08/21 18:41:39 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include <string.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/xattr.h>
+#include <errno.h>
 #include <sys/types.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <grp.h>
-#include <time.h>
+#include <sys/acl.h>
 
-#define SIZE 8
+#define P_UNUSED(x) (void)(x)
 
-static void		_val_diropen_(char *filename)
-{
-	DIR *dir;
-	struct dirent *dent;
+// int main (int argc, char **argv)
+// {
+//     acl_t acl = NULL;
+//     acl_entry_t dummy;
+//     ssize_t xattr = 0;
+//     char chr;
+// 	char *filename = argv[1];
+//     //char * filename = "/Users/john/desktop/mutations.txt";
 
-	dir = opendir(filename);
-	if (!dir)
-		perror("ls :");
-	else
-	{
-		printf("%s:\n", filename);
-		while ((dent = readdir(dir)))
-		{
-			if (!strcmp(dent->d_name, ".") || !strcmp(dent->d_name, ".."))
-				;
-			else
-			{
-				printf("%s\n", dent->d_name);
-				strcat(filename, "/");
-				strcat(filename, dent->d_name);
-				_val_diropen_(filename);
-			}
-		}
-	}
-}
+//     acl = acl_get_link_np(filename, ACL_TYPE_EXTENDED);
+// 	printf("acl: %zd\n", acl);
+//     if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+//         acl_free(acl);
+//         acl = NULL;
+//     }
+//     xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
+//     if (xattr < 0)
+//         xattr = 0;
 
-static void	print_num(int *num, size_t size)
-{
-	register size_t i;
+//     if (xattr > 0)
+//         chr = '@';
+//     else if (acl != NULL)
+//         chr = '+';
+//     else
+//         chr = ' ';
 
-	i = 0;
-	while (i < size)
-	{
-		printf("num[%ld] = %d\n", i, num[i]);
-		++i;
-	}
-}
+//     printf("%c\n", chr);
+// }
 
 int		main(int argc, char **argv)
 {
-	// DIR	*dir;
-	// struct dient *dent;
-	// struct stat buf;
-	// char *t_time;
+	acl_type_t	type = ACL_TYPE_ACCESS;
+	acl_type_t  typeD = ACL_TYPE_DEFAULT;
+	acl_type_t	typeE = ACL_TYPE_EXTENDED;
+	acl_t		acl = NULL;
+	ssize_t		xattr = 0;
 
-	// //dir = opendir(argv[1]);
-	// //dent = readdir(dir);
-	// stat(argv[1], &buf);
-	// t_time = ctime(buf.st_atime);
-	// printf("buf->atime: %s\n", t_time);
-	int	a = 20;
-	const int *const num = &a;
-
-	printf("a = %d\n", *num);
+	acl = acl_get_file(argv[1], typeE);
+	xattr = listxattr(argv[1], NULL, 0, XATTR_NOFOLLOW);
+	printf("xattr: %zd\n", xattr);
+	if (acl == NULL)
+		printf("NO\n");
+	else
+		printf("YES\n");
 	return (0);
 }

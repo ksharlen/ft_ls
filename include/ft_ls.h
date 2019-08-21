@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/20 14:27:24 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:51:27 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,21 @@
 # define S_TYPE						DT_SOCK
 # define W_TYPE						DT_WHT
 
+/*
+**Access permission
+*/
+# define U_R						S_IRUSR
+# define U_W						S_IWUSR
+# define U_X						S_IXUSR
+
+# define G_R						S_IRGRP
+# define G_W						S_IWGRP
+# define G_X						S_IXGRP
+
+# define O_R						S_IROTH
+# define O_W						S_IWOTH
+# define O_X						S_IXOTH
+
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
 //# define EPERM	"ls: %s: Permission denied\n" //%s dirname
 # define FILE_ERROR(filename)	ft_printf("%vls: %s: ", 2, filename)
@@ -140,12 +155,13 @@ typedef enum
 						TRUE
 }						t_bool;
 
+
 //*Отсортировать по размеру для экономии места
 typedef struct			s_fullinfo
 {
 	struct stat			buf;
-	const unsigned char	*pw_name;
-	const char			*gr_name;
+	unsigned char		*pw_name;
+	char				*gr_name;
 }						t_fullinfo;
 
 typedef struct			s_filename
@@ -211,5 +227,11 @@ int						cmp_name(t_filename *one, t_filename *two);
 */
 void					print_list(t_filename *beg, t_ubyte *flags);
 void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
+
+/*
+**pull_info
+*/
+char					pull_filetype(const t_filename *beg);
+char					*pull_access_permission(const t_filename *beg);
 
 #endif

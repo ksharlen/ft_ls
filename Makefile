@@ -31,7 +31,8 @@ SRC			:=	main.c\
 					other.c\
 					cmp_fullname.c\
 					print_list.c\
-					print_fullinfo.c
+					print_fullinfo.c\
+					pull.c
 
 OBJS 		:= $(SRC:.c=.o)
 LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))
