@@ -44,7 +44,6 @@ static int	ls_strcasecmp(const char *s1, const char *s2)
 	// }
 }
 
-
 int		cmp_atime(t_filename *one, t_filename *two)
 {
 	if (one->info->buf.st_atime > two->info->buf.st_atime)
@@ -63,7 +62,7 @@ int		cmp_mtime(t_filename *one, t_filename *two)
 
 int		cmp_name(t_filename *one, t_filename *two)
 {
-	if (ls_strcasecmp(one->filename, two->filename) < 0)
+	if (ft_strcmp(one->filename, two->filename) < 0)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -73,6 +72,28 @@ int		cmp_name(t_filename *one, t_filename *two)
 
 #if __APPLE__
 
-//...
+int		cmp_atime(t_filename *one, t_filename *two)
+{
+	if (one->info->buf.st_atimespec.tv_sec > two->info->buf.st_atimespec.tv_sec)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+int		cmp_mtime(t_filename *one, t_filename *two)
+{
+	if (one->info->buf.st_mtimespec.tv_sec > two->info->buf.st_mtimespec.tv_sec)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+int		cmp_name(t_filename *one, t_filename *two)
+{
+	if (ft_strcmp(one->filename, two->filename) < 0)
+		return (TRUE);
+	else
+		return (FALSE);
+}
 
 #endif

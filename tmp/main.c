@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 09:00:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 13:07:15 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:38:16 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,19 @@ static void	print_num(int *num, size_t size)
 
 int		main(int argc, char **argv)
 {
-	DIR	*dir;
-	struct dient *dent;
-	struct stat buf;
-	char *t_time;
+	// DIR	*dir;
+	// struct dient *dent;
+	// struct stat buf;
+	// char *t_time;
 
-	//dir = opendir(argv[1]);
-	//dent = readdir(dir);
-	stat(argv[1], &buf);
-	t_time = ctime(buf.st_atime);
-	printf("buf->atime: %s\n", t_time);
+	// //dir = opendir(argv[1]);
+	// //dent = readdir(dir);
+	// stat(argv[1], &buf);
+	// t_time = ctime(buf.st_atime);
+	// printf("buf->atime: %s\n", t_time);
+	int	a = 20;
+	const int *const num = &a;
+
+	printf("a = %d\n", *num);
 	return (0);
 }
