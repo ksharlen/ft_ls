@@ -1,34 +1,32 @@
 #include "ft_ls.h"
 
-static t_fullinfo	*list_fullinfo_create(void)
+static struct stat	*buf_stat_create(void)
 {
-	t_fullinfo	*new;
+	struct stat		*new;
 
-	new = (t_fullinfo *)malloc(sizeof(t_fullinfo));
+	new = (struct stat *)ft_memalloc(sizeof(struct stat));
 	if (!new)
 		sys_errors();
-	new->pw_name = NULL;
-	new->gr_name = NULL;
 	return (new);
 }
 
-static void		list_add_fullinfo_to_filename(t_filename *beg)
+static void			buf_stat_add_to_filename(t_filename *beg)
 {
 	if (beg)
 	{
 		while (beg)
 		{
-			beg->info = list_fullinfo_create();
+			beg->buf = buf_stat_create();
 			beg = beg->next;
 		}
 	}
 }
 
-void	push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags)
+void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
 {
 	if (chk_flags_for_create_fullinfo(flags) == TRUE)
 	{
-		list_add_fullinfo_to_filename(beg);
+		buf_stat_add_to_filename(beg);
 		while (beg)
 		{
 			beg->path = cat_path_filename(beg->dirname, beg->filename);
@@ -36,9 +34,8 @@ void	push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags)
 			//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
 			//!Зафришить
 			//beg->dirname = ft_strjoin(beg->dirname, beg->filename);
-			valid_stat(beg->path, &beg->info->buf);
+			valid_stat(beg->path, beg->buf, beg->f_type);
 			beg = beg->next;
 		}
-		//exit(EXIT_SUCCESS);
 	}
 }

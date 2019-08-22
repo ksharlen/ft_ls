@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/08/18 12:50:05 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/08/22 10:09:21 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRC			:=	main.c\
 					flags.c\
 					errors.c\
 					list_sort.c\
-					lists_fullinfo.c\
+					buf_stat.c\
 					other.c\
-					cmp_fullname.c\
+					cmp_elem_struct.c\
 					print_list.c\
 					print_fullinfo.c\
 					pull.c

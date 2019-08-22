@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 21:24:36 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:10:31 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ struct dirent *valid_readdir(DIR *dir)
 	return (dent);
 }
 
-int		valid_stat(const char *filename, struct stat *buf)
+int		valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 {
 	errno = 0;
-	stat(filename, buf);
+	if (f_type == L_TYPE)
+		lstat(filename, buf);
+	else
+		stat(filename, buf);
 	if (errno == ESTATE_EACCES)
 		file_errors(filename);
 	else if (errno == ESTATE_EBADF)

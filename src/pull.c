@@ -24,24 +24,6 @@ char	pull_acl_xattr(const char *path)
 	return (ret);
 }
 
-static void push_permission_str(uint16_t r, uint16_t w, uint16_t x, char *str)
-{
-    if (!r)
-        *str = '-';
-    else
-        *str = 'r';
-    ++str;
-    if (!w)
-        *str = '-';
-    else
-        *str = 'w';
-    ++str;
-    if (!x)
-        *str = '-';
-    else
-        *str = 'x';
-}
-
 char    *pull_access_permission(const t_filename *beg)
 {
     size_t          size_permission;
@@ -52,11 +34,11 @@ char    *pull_access_permission(const t_filename *beg)
     return_str = (char *)ft_memalloc(sizeof(char) * (size_permission + 1));
     p_run = return_str;
     return_str[size_permission] = '\0';
-    push_permission_str(beg->info->buf.st_mode & U_R, beg->info->buf.st_mode & U_W, beg->info->buf.st_mode & U_X, p_run);
+    push_permission_ug(beg->buf->st_mode & U_R, beg->buf->st_mode & U_W, beg->buf->st_mode & U_X, p_run);
     p_run += 3;
-    push_permission_str(beg->info->buf.st_mode & G_R, beg->info->buf.st_mode & G_W, beg->info->buf.st_mode & G_X, p_run);
+    push_permission_ug(beg->buf->st_mode & G_R, beg->buf->st_mode & G_W, beg->buf->st_mode & G_X, p_run);
     p_run += 3;
-    push_permission_str(beg->info->buf.st_mode & O_R, beg->info->buf.st_mode & O_W, beg->info->buf.st_mode & O_X, p_run);
+    push_permission_o(beg->buf->st_mode, p_run);
     return (return_str);
 }
 

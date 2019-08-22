@@ -89,7 +89,7 @@ int		cmp_name(t_filename *one, t_filename *two)
 
 int		cmp_atime(t_filename *one, t_filename *two)
 {
-	if (one->info->buf.st_atimespec.tv_sec > two->info->buf.st_atimespec.tv_sec)
+	if (one->buf->st_atimespec.tv_sec > two->buf->st_atimespec.tv_sec)
 		return (TRUE);
 	else
 		return (FALSE);
@@ -97,7 +97,7 @@ int		cmp_atime(t_filename *one, t_filename *two)
 
 int		cmp_mtime(t_filename *one, t_filename *two)
 {
-	if (one->info->buf.st_mtimespec.tv_sec > two->info->buf.st_mtimespec.tv_sec)
+	if (one->buf->st_mtimespec.tv_sec > two->buf->st_mtimespec.tv_sec)
 		return (TRUE);
 	else
 		return (FALSE);

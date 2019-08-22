@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 08:54:33 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:07:04 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,13 @@
 # define O_R						S_IROTH
 # define O_W						S_IWOTH
 # define O_X						S_IXOTH
+# define O_XX						S_IXGRP
+# define O_S						S_ISGID
+# define O_T						S_ISVTX
 
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
 //# define EPERM	"ls: %s: Permission denied\n" //%s dirname
-# define FILE_ERROR(filename)	ft_printf("%vls: %s: ", 2, filename)
+# define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
@@ -158,22 +161,45 @@ typedef enum
 
 
 //*Отсортировать по размеру для экономии места
-typedef struct			s_fullinfo
-{
-	struct stat			buf;
-	unsigned char		*pw_name;
-	char				*gr_name;
-}						t_fullinfo;
+// typedef struct			s_fullinfo
+// {
+// 	struct stat			buf;
+// 	//char				*pw_name;
+// 	//char				*gr_name;
+// }						t_fullinfo;
 
 typedef struct			s_filename
 {
 	struct s_filename	*next;
-	t_fullinfo			*info;
+	struct stat			*buf;
 	const char 			*filename;
 	const char			*dirname;
 	char				*path;
 	uint8_t				f_type;
+	//t_fullinfo			*info;
 }						t_filename;
+
+struct					s_num
+{
+	int					max_num_link;
+	int					max_num_size_file;
+	int					max_len_user;
+	int					max_len_group;
+};
+
+struct					s_print
+{
+	struct s_num		align;
+	ssize_t				size_file;
+	const char			*filename;
+	const char			*user;
+	const char			*group;
+	const char			*permission;
+	const char			*date;
+	int					num_link;
+	char				acl_xattr;
+	char				filetype;
+};
 
 int						ft_ls(size_t argc, char *const argv[]);
 
@@ -187,7 +213,7 @@ void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *fla
 /*
 **Lists fullinfo
 */
-void					push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags);
+void					push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags);
 
 /*
 **Validation
@@ -195,7 +221,7 @@ void					push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags);
 void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
-int						valid_stat(const char *filename, struct stat *buf);
+int						valid_stat(const char *filename, struct stat *buf, uint8_t f_type);
 
 /*
 **Errors
@@ -217,7 +243,9 @@ int						chk_flags_for_print_fullinfo(t_ubyte *flags);
 int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname, const char *filename);
-void					max_weight(const t_filename *beg, int *max_link, int *max_num_size_file);
+void					max_weight(t_filename *beg, struct s_num *align);
+void					push_permission_o(mode_t st_mode, char *str);
+void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
 
 /*
 **Compare

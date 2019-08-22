@@ -63,7 +63,7 @@ static t_filename	*list_filename_create(const char *filename, uint8_t f_type, co
 	new->f_type = f_type;
 	new->dirname = dirname;
 	new->next = NULL;
-	new->info = NULL;
+	new->buf = NULL;
 	return (new);
 }
 
