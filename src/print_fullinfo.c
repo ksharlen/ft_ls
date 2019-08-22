@@ -3,6 +3,7 @@
 void	print_fullinfo(const t_filename *beg, const t_ubyte *flags)
 {
 	char *permission;
+	char *path;
 
 	if (flags[FIND_FLAG('g')])
 	{
@@ -13,7 +14,10 @@ void	print_fullinfo(const t_filename *beg, const t_ubyte *flags)
 		while (beg)
 		{
 			permission = pull_access_permission(beg);
-			printf("%c%s%c\n", pull_filetype(beg), permission, );
+			path = cat_path_filename(beg->dirname, beg->filename);
+			//printf("path: %s\n", path);
+			exit(EXIT_SUCCESS);
+			//printf("%c%s%c\n", pull_filetype(beg), permission, );
 			ft_strdel(&permission);
 			beg = beg->next;
 		}

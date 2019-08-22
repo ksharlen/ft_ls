@@ -52,7 +52,7 @@ size_t				list_filename_size(t_filename *beg)
 	return (1 + list_filename_size(beg->next));
 }
 
-static t_filename	*list_filename_create(const char *filename, uint8_t f_type)
+static t_filename	*list_filename_create(const char *filename, uint8_t f_type, const char *dirname)
 {
 	t_filename	*new;
 
@@ -61,17 +61,18 @@ static t_filename	*list_filename_create(const char *filename, uint8_t f_type)
 		sys_errors();
 	new->filename = filename;
 	new->f_type = f_type;
+	new->dirname = dirname;
 	new->next = NULL;
 	new->info = NULL;
 	return (new);
 }
 
-void	list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type)
+void	list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type, const char *dirname)
 {
 	t_filename	*res;
 	t_filename	*new;
 
-	new = list_filename_create(filename, f_type);
+	new = list_filename_create(filename, f_type, dirname);
 	if (beg)
 	{
 		if (*beg)
@@ -86,20 +87,20 @@ void	list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_typ
 	}
 }
 
-void	push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags)
+void	push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags, const char *dirname)
 {
 	struct dirent *dent;
 
 	while ((dent = valid_readdir(dir)))
 	{
 		if (flags[FIND_FLAG('f')] || flags[FIND_FLAG('a')])
-			list_filename_add_end(beg, dent->d_name, dent->d_type);
+			list_filename_add_end(beg, dent->d_name, dent->d_type, dirname);
 		else
 		{
 			if (!ft_strncmp(dent->d_name, ".", 1))
 				;
 			else
-				list_filename_add_end(beg, dent->d_name, dent->d_type);
+				list_filename_add_end(beg, dent->d_name, dent->d_type, dirname);
 		}
 	}
 }

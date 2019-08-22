@@ -24,18 +24,22 @@ static void		list_add_fullinfo_to_filename(t_filename *beg)
 	}
 }
 
-void	push_fullinfo_to_filename(t_filename *beg, const char *dirname, t_ubyte *flags)
+void	push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags)
 {
 	if (chk_flags_for_create_fullinfo(flags) == TRUE)
 	{
 		list_add_fullinfo_to_filename(beg);
 		while (beg)
 		{
-			beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
+			beg->path = cat_path_filename(beg->dirname, beg->filename);
+			printf("beg->path: %s\n", beg->path);
+			//beg->path = cat_path_filename()
+			//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
 			//!Зафришить
-			beg->dirname = ft_strjoin(beg->dirname, beg->filename);
+			//beg->dirname = ft_strjoin(beg->dirname, beg->filename);
 			valid_stat(beg->dirname, &beg->info->buf);
 			beg = beg->next;
 		}
+		//exit(EXIT_SUCCESS);
 	}
 }

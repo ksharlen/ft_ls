@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/21 12:51:27 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 07:28:25 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <pwd.h>
 # include <grp.h>
 # include <errno.h>
+# include <sys/acl.h>
 
 /*
 **ERRORS
@@ -149,11 +150,11 @@ typedef enum
 						SUCCESSFUL_COMPLETION
 }						t_return;
 
-typedef enum
-{
-						FALSE,
-						TRUE
-}						t_bool;
+// typedef enum
+// {
+// 						FALSE,
+// 						TRUE
+// }						t_bool;
 
 
 //*Отсортировать по размеру для экономии места
@@ -169,7 +170,8 @@ typedef struct			s_filename
 	struct s_filename	*next;
 	t_fullinfo			*info;
 	const char 			*filename;
-	char				*dirname;
+	const char			*dirname;
+	char				*path;
 	uint8_t				f_type;
 }						t_filename;
 
@@ -179,13 +181,13 @@ int						ft_ls(size_t argc, char *const argv[]);
 **Lists filename
 */
 size_t					list_filename_size(t_filename *beg);
-void					list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type);
-void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags);
+void					list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type, const char *dirname);
+void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags, const char *dirname);
 
 /*
 **Lists fullinfo
 */
-void					push_fullinfo_to_filename(t_filename *beg, const char *dirname, t_ubyte *flags);
+void					push_fullinfo_to_filename(t_filename *beg, t_ubyte *flags);
 
 /*
 **Validation
@@ -214,6 +216,7 @@ int						chk_flags_for_create_fullinfo(t_ubyte *flags);
 int						chk_flags_for_print_fullinfo(t_ubyte *flags);
 int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
+char					*cat_path_filename(const char *dirname, const char *filename);
 
 /*
 **Compare
@@ -233,5 +236,6 @@ void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
 */
 char					pull_filetype(const t_filename *beg);
 char					*pull_access_permission(const t_filename *beg);
+char					pull_acl_xattr(const char *path);
 
 #endif

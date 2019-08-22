@@ -1,5 +1,29 @@
 #include "ft_ls.h"
 
+char	pull_acl_xattr(const char *path)
+{
+	ssize_t	xattr;
+	acl_t	acl;
+	acl_type_t type;
+	size_t option;
+	char	ret;
+
+	option = XATTR_NOFOLLOW;
+	type = ACL_TYPE_EXTENDED;
+	type = ACL_TYPE_EXTENDED;
+	xattr = listxattr(path, NULL, 0, option);
+	if (xattr < 0)
+		xattr = 0;
+	acl = acl_get_file(path, type);
+	if (xattr > 0)
+		ret = '@';
+	else if (acl != NULL)
+		ret = '+';
+	else
+		ret = ' ';
+	return (ret);
+}
+
 static void push_permission_str(uint16_t r, uint16_t w, uint16_t x, char *str)
 {
     if (!r)
