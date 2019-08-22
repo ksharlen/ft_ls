@@ -1,5 +1,25 @@
 #include "ft_ls.h"
 
+void	max_len_elem(t_filename *beg, struct s_num *align)
+{
+	int		cmp;
+
+	align->max_len_user = 0;
+	align->max_len_group = 0;
+	align->max_num_link = 0;
+	align->max_num_size_file = 0;
+
+	cmp = ft_strlen(beg->pw_name);
+	if (cmp > align->max_len_user)
+		align->max_len_user = cmp;
+	cmp = ft_strlen(beg->gr_name);
+	if (cmp > align->max_len_group)
+		align->max_len_group = cmp;
+	cmp = ft_size_num(beg->buf->st_nlink);
+	if (cmp > align->max_num_link)
+		align->max_num_link = cmp;
+}
+
 // void	max_weight(t_filename *beg, struct s_num *align)
 // {
 // 	int	num_cap;
