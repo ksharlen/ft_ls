@@ -72,6 +72,21 @@ int		cmp_name(t_filename *one, t_filename *two)
 
 #if __APPLE__
 
+// int		cmp_max_size_file(int num_cmp, const t_filename *elem)
+// {
+// 	P_UNUSED(num_cmp);
+// 	P_UNUSED(elem);
+// 	return (0);
+// }
+
+// int		cmp_max_num_link(int num_cmp, const t_filename *elem)
+// {
+// 	int	size_link;
+
+// 	size_link = ft_size_num(elem->info->buf.st_nlink);
+// 	return (num_cmp > size_link ? num_cmp : size_link);
+// }
+
 int		cmp_atime(t_filename *one, t_filename *two)
 {
 	if (one->info->buf.st_atimespec.tv_sec > two->info->buf.st_atimespec.tv_sec)

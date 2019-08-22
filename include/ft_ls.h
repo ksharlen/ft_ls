@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 07:28:25 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 08:54:33 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,10 +217,13 @@ int						chk_flags_for_print_fullinfo(t_ubyte *flags);
 int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname, const char *filename);
+void					max_weight(const t_filename *beg, int *max_link, int *max_num_size_file);
 
 /*
 **Compare
 */
+// int						cmp_max_num_link(int num_cmp, const t_filename *elem);
+// int						cmp_max_size_file(int num_cmp, const t_filename *elem);
 int						cmp_atime(t_filename *one, t_filename *two);
 int						cmp_mtime(t_filename *one, t_filename *two);
 int						cmp_name(t_filename *one, t_filename *two);
