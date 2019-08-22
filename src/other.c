@@ -1,6 +1,17 @@
 #include "ft_ls.h"
 
-void	max_len_elem(t_filename *beg, struct s_num *align)
+//const char	*cut_date(const __darwin_time_t sec)
+const char	*cut_date(const time_t sec)
+{
+	const char *s_time;
+
+	s_time = ctime(&sec);
+	printf("s_time: %s\n", s_time);
+	//exit(EXIT_SUCCESS);
+	return (NULL);
+}
+
+void	max_len_elem(const t_filename *beg, struct s_num *align)
 {
 	int		cmp;
 
@@ -8,16 +19,26 @@ void	max_len_elem(t_filename *beg, struct s_num *align)
 	align->max_len_group = 0;
 	align->max_num_link = 0;
 	align->max_num_size_file = 0;
-
-	cmp = ft_strlen(beg->pw_name);
-	if (cmp > align->max_len_user)
-		align->max_len_user = cmp;
-	cmp = ft_strlen(beg->gr_name);
-	if (cmp > align->max_len_group)
-		align->max_len_group = cmp;
-	cmp = ft_size_num(beg->buf->st_nlink);
-	if (cmp > align->max_num_link)
-		align->max_num_link = cmp;
+	align->total = 0;
+	while (beg)
+	{
+		align->total += beg->buf->st_blocks;
+		cmp = ft_strlen(beg->pw_name);
+		if (cmp > align->max_len_user)
+			align->max_len_user = cmp;
+		cmp = ft_strlen(beg->gr_name);
+		if (cmp > align->max_len_group)
+			align->max_len_group = cmp;
+		cmp = ft_size_num(beg->buf->st_nlink);
+		if (cmp > align->max_num_link)
+			align->max_num_link = cmp;
+		cmp = ft_size_num(beg->buf->st_size);
+		if (cmp > align->max_num_size_file)
+			align->max_num_size_file = cmp;
+		beg = beg->next;
+	}
+	printf("u: %d\ng: %d\nl: %d\ns: %d\n", align->max_len_user, align->max_len_group, align->max_num_link, align->max_num_size_file);
+	printf("total %lld\n", align->total);
 }
 
 // void	max_weight(t_filename *beg, struct s_num *align)

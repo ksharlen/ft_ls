@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 11:31:57 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 17:08:03 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,17 +187,22 @@ struct					s_num
 	int					max_num_size_file;
 	int					max_len_user;
 	int					max_len_group;
+	#if __APPLE__
+	quad_t				total;
+	#elif __linux__
+	blkcnt_t			total;
+	#endif
 };
 
 struct					s_print
 {
-	ssize_t				size_file;
+	off_t				size_file;
 	const char			*filename;
 	const char			*user;
 	const char			*group;
 	const char			*permission;
 	const char			*date;
-	int					num_link;
+	nlink_t				num_link;
 	char				acl_xattr;
 	char				filetype;
 };
@@ -247,6 +252,8 @@ char					*cat_path_filename(const char *dirname, const char *filename);
 void					max_weight(t_filename *beg, struct s_num *align);
 void					push_permission_o(mode_t st_mode, char *str);
 void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
+void					max_len_elem(const t_filename *beg, struct s_num *align);
+const char				*cut_date(const __darwin_time_t sec);
 
 /*
 **Compare
@@ -266,8 +273,9 @@ void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
 /*
 **pull_info
 */
-char					pull_filetype(const t_filename *beg);
-char					*pull_access_permission(const t_filename *beg);
+char					pull_filetype(const int8_t int_ftype);
+char					*pull_access_permission(const mode_t st_mode);
 char					pull_acl_xattr(const char *path);
+const char				*pull_date(const t_filename *beg, const t_ubyte *flags);
 
 #endif
