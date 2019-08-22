@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 11:07:04 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/22 11:31:57 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ typedef struct			s_filename
 	const char 			*filename;
 	const char			*dirname;
 	char				*path;
+	const char			*pw_name;
+	const char			*gr_name;
 	uint8_t				f_type;
 	//t_fullinfo			*info;
 }						t_filename;
@@ -189,7 +191,6 @@ struct					s_num
 
 struct					s_print
 {
-	struct s_num		align;
 	ssize_t				size_file;
 	const char			*filename;
 	const char			*user;

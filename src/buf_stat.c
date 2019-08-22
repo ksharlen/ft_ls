@@ -1,5 +1,15 @@
 #include "ft_ls.h"
 
+static void add_uname_grname(t_filename *beg)
+{
+	while (beg)
+	{
+		beg->pw_name = getpwuid(beg->buf->st_uid)->pw_name;
+		beg->gr_name = getgrgid(beg->buf->st_gid)->gr_name;
+		beg = beg->next;
+	}
+}
+
 static struct stat	*buf_stat_create(void)
 {
 	struct stat		*new;
@@ -24,6 +34,9 @@ static void			buf_stat_add_to_filename(t_filename *beg)
 
 void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
 {
+	t_filename *res;
+
+	res = beg;
 	if (chk_flags_for_create_fullinfo(flags) == TRUE)
 	{
 		buf_stat_add_to_filename(beg);
@@ -37,5 +50,6 @@ void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
 			valid_stat(beg->path, beg->buf, beg->f_type);
 			beg = beg->next;
 		}
+		add_uname_grname(res);
 	}
 }
