@@ -4,6 +4,7 @@ free()
 	t_filename all_lists
 	t_fullinfo all_elements
 	permission
+	date
 }
 
 close()

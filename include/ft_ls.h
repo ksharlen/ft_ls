@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 17:08:03 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/24 17:38:01 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ void					max_weight(t_filename *beg, struct s_num *align);
 void					push_permission_o(mode_t st_mode, char *str);
 void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
-const char				*cut_date(const __darwin_time_t sec);
+const char				*cut_date(const time_t sec);
 
 /*
 **Compare

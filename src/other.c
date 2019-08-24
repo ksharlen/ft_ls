@@ -1,16 +1,17 @@
 #include "ft_ls.h"
 
-//const char	*cut_date(const __darwin_time_t sec)
 const char	*cut_date(const time_t sec)
 {
 	const char *s_time;
+	const char *ret_date;
 
 	s_time = ctime(&sec);
-	printf("s_time: %s\n", s_time);
-	//exit(EXIT_SUCCESS);
-	return (NULL);
+	ret_date = ft_strsub(s_time, 4, 12);
+	if (!ret_date)
+		sys_errors();
+	return (ret_date);
 }
-
+//?Переделать
 void	max_len_elem(const t_filename *beg, struct s_num *align)
 {
 	int		cmp;
@@ -37,8 +38,8 @@ void	max_len_elem(const t_filename *beg, struct s_num *align)
 			align->max_num_size_file = cmp;
 		beg = beg->next;
 	}
-	printf("u: %d\ng: %d\nl: %d\ns: %d\n", align->max_len_user, align->max_len_group, align->max_num_link, align->max_num_size_file);
-	printf("total %lld\n", align->total);
+	//printf("u: %d\ng: %d\nl: %d\ns: %d\n", align->max_len_user, align->max_len_group, align->max_num_link, align->max_num_size_file);
+	//printf("total %lld\n", align->total);
 }
 
 // void	max_weight(t_filename *beg, struct s_num *align)

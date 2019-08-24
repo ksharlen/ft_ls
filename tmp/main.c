@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 12:13:26 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 11:22:38 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/24 16:14:59 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,39 @@
 //     printf("%c\n", chr);
 // }
 
-int		main(int argc, char **argv)
+// int		main(int argc, char **argv)
+// {
+// 	struct stat *buf;
+// 	char *pw_name;
+
+// 	printf("sizeof: %zd\n", sizeof(struct stat));
+// 	buf = (struct stat *)malloc(sizeof(struct stat));
+// 	stat(argv[1], buf);
+// 	pw_name = getpwuid(buf->st_uid)->pw_name;
+// 	printf("%s\n", pw_name);
+// 	free(buf);
+// 	// acl_type_t	type = ACL_TYPE_ACCESS;
+// 	// acl_type_t  typeD = ACL_TYPE_DEFAULT;
+// 	// acl_type_t	typeE = ACL_TYPE_EXTENDED;
+// 	// acl_t		acl = NULL;
+// 	// ssize_t		xattr = 0;
+
+// 	// acl = acl_get_file(argv[1], typeE);
+// 	// xattr = listxattr(argv[1], NULL, 0, XATTR_NOFOLLOW);
+// 	// printf("xattr: %zd\n", xattr);
+// 	// if (acl == NULL)
+// 	// 	printf("NO\n");
+// 	// else
+// 	// 	printf("YES\n");
+// 	//ft_printf("user  %s  %d", "", 84);
+// 	return (0);
+// }
+
+int		main(void)
 {
-	struct stat *buf;
-	char *pw_name;
+	int i;
 
-	printf("sizeof: %zd\n", sizeof(struct stat));
-	buf = (struct stat *)malloc(sizeof(struct stat));
-	stat(argv[1], buf);
-	pw_name = getpwuid(buf->st_uid)->pw_name;
-	printf("%s\n", pw_name);
-	free(buf);
-	// acl_type_t	type = ACL_TYPE_ACCESS;
-	// acl_type_t  typeD = ACL_TYPE_DEFAULT;
-	// acl_type_t	typeE = ACL_TYPE_EXTENDED;
-	// acl_t		acl = NULL;
-	// ssize_t		xattr = 0;
-
-	// acl = acl_get_file(argv[1], typeE);
-	// xattr = listxattr(argv[1], NULL, 0, XATTR_NOFOLLOW);
-	// printf("xattr: %zd\n", xattr);
-	// if (acl == NULL)
-	// 	printf("NO\n");
-	// else
-	// 	printf("YES\n");
-	//ft_printf("user  %s  %d", "", 84);
+	i = 0;
+	printf("%d %d\n", i, ++i);
 	return (0);
 }
