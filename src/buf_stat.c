@@ -37,12 +37,12 @@ void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
 	t_filename *res;
 
 	res = beg;
+	//добавляем в любом случае
 	if (chk_flags_for_create_fullinfo(flags) == TRUE)
 	{
 		buf_stat_add_to_filename(beg);
 		while (beg)
 		{
-			beg->path = cat_path_filename(beg->dirname, beg->filename);
 			//beg->path = cat_path_filename()
 			//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
 			//!Зафришить

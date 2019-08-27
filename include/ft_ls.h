@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/24 17:38:01 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/27 16:28:07 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@
 
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
+typedef	uint64_t		t_len;
 
 # define BYTE	t_byte;
 # define UBYTE 	t_ubyte;
@@ -277,5 +278,6 @@ char					pull_filetype(const int8_t int_ftype);
 char					*pull_access_permission(const mode_t st_mode);
 char					pull_acl_xattr(const char *path);
 const char				*pull_date(const t_filename *beg, const t_ubyte *flags);
+//void					pull_dir(t_filename *beg, t_ubyte *flags);
 
 #endif

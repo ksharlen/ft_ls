@@ -59,9 +59,10 @@ static t_filename	*list_filename_create(const char *filename, uint8_t f_type, co
 	new = (t_filename *)ft_memalloc(sizeof(t_filename));
 	if (!new)
 		sys_errors();
-	new->filename = filename;
+	new->filename = ft_strdup(filename);//Зафришить
 	new->f_type = f_type;
 	new->dirname = dirname;
+	new->path = cat_path_filename(new->dirname, new->filename);
 	new->next = NULL;
 	new->buf = NULL;
 	return (new);

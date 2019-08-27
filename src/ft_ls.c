@@ -1,5 +1,19 @@
 #include "ft_ls.h"
 
+static void		pull_dir(t_filename *beg, t_ubyte *flags);
+
+static void print_dir(t_filename *beg)
+{
+	if (beg)
+		while (beg)
+		{
+			printf("filename: %s\n", beg->filename);
+			printf("dirname: %s\n", beg->dirname);
+			printf("path: %s\n\n", beg->path);
+			beg = beg->next;
+		}
+}
+
 // static void	print_lists_p(t_filename *beg)
 // {
 // 	while (beg)
@@ -74,8 +88,27 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 		push_list_filename_dir_content(dir, &beg, flags, dirname);
 		push_buf_stat_to_filename(beg, flags);
 		beg = sort_list_by_flags(&beg, flags);
+		//exit(EXIT_SUCCESS);
 		print_list(beg, flags);
+		print_dir(NULL);
+		closedir(dir);
+		//printf("R: %d\n", flags[FIND_FLAG('R')]);
+		//printf("filename: %s path: %s\n", beg->filename, beg->path);
+		if (flags[FIND_FLAG('R')])
+			pull_dir(beg, flags);
 		//print_lists_p(beg);
+	}
+	// else
+		; //либо тут невалидный файл либо тут просто файл через рекурсию
+}
+
+static void		pull_dir(t_filename *beg, t_ubyte *flags)
+{
+	while (beg)
+	{
+		if (beg->path && (beg->f_type == D_TYPE))
+			ls_internal(beg->path, flags);
+		beg = beg->next;
 	}
 }
 

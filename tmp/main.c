@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 12:13:26 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/24 16:14:59 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:21:15 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/acl.h>
 #include <sys/stat.h>
 #include <pwd.h>
+#include "libft.h"
 
 #define P_UNUSED(x) (void)(x)
 
@@ -81,9 +82,9 @@
 
 int		main(void)
 {
-	int i;
+	char str[50] = {"hello world"};
 
-	i = 0;
-	printf("%d %d\n", i, ++i);
+	ft_setncat(str, 'n', 5);
+	printf("str: %s\n", str);
 	return (0);
 }
