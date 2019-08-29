@@ -38,18 +38,15 @@ void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
 
 	res = beg;
 	//добавляем в любом случае
-	if (chk_flags_for_create_fullinfo(flags) == TRUE)
+	buf_stat_add_to_filename(beg);
+	while (beg)
 	{
-		buf_stat_add_to_filename(beg);
-		while (beg)
-		{
-			//beg->path = cat_path_filename()
-			//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
-			//!Зафришить
-			//beg->dirname = ft_strjoin(beg->dirname, beg->filename);
-			valid_stat(beg->path, beg->buf, beg->f_type);
-			beg = beg->next;
-		}
-		add_uname_grname(res);
+		//beg->path = cat_path_filename()
+		//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
+		//!Зафришить
+		//beg->dirname = ft_strjoin(beg->dirname, beg->filename);
+		valid_stat(beg->path, beg->buf, beg->f_type);
+		beg = beg->next;
 	}
+	add_uname_grname(res);
 }

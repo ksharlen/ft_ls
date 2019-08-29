@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 09:00:21 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 10:16:26 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ typedef enum
 
 enum					e_typefile
 {
-						DIR = 0,
+						DIRF = 0,
 						LINK = 2,
 						SOCKET = 4,
 						PIPE = 6,
@@ -221,7 +221,7 @@ struct					s_print
 	nlink_t				num_link;
 	char				acl_xattr;
 	char				filetype;
-	char				ls_color;
+	const char			*ls_color;
 	const char			*color;
 };
 
@@ -272,7 +272,7 @@ void					push_permission_o(mode_t st_mode, char *str);
 void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
-const char				*push_color(uint8_t f_type, const char *ls_color);
+const char				*push_color(mode_t st_mode, const char *ls_color);
 
 /*
 **Compare
@@ -287,7 +287,7 @@ int						cmp_name(t_filename *one, t_filename *two);
 **print_list
 */
 void					print_list(t_filename *beg, t_ubyte *flags);
-void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
+void					print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_color);
 
 /*
 **pull_info

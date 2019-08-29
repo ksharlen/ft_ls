@@ -5,7 +5,7 @@
 static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_print *info)
 {
 	if (info->ls_color)
-		info->color = push_color(beg->f_type, info->ls_color);
+		info->color = push_color(beg->buf->st_mode, info->ls_color);
 	info->filetype = pull_filetype(beg->f_type);
 	info->permission = pull_access_permission(beg->buf->st_mode);
 	info->acl_xattr = pull_acl_xattr(beg->path);
@@ -24,14 +24,14 @@ static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_p
 	//!info->date need free
 }
 
-void	print_fullinfo(const t_filename *beg, const t_ubyte *flags)
+void	print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_color)
 {
 	struct s_print	print_info;
 	struct s_num	align;
 
 	//тут будет определение выравнивания
+	print_info.ls_color = ls_color;
 	max_len_elem(beg, &align);
-	print_info.ls_color = getenv("LSCOLORS");
 	align.max_len_group += 2;
 	align.max_num_size_file += 2;
 	if (flags[FIND_FLAG('g')])
@@ -45,7 +45,7 @@ void	print_fullinfo(const t_filename *beg, const t_ubyte *flags)
 	while (beg)
 	{
 		fill_s_print(beg, flags, &print_info);
-		printf("%c%s%c %*d %-*s%*s%*lld %s %s%s%s\n", print_info.filetype, print_info.permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
+		printf("%c%s%c %*d %-*s%*s%*lld %s %s%s\n", print_info.filetype, print_info.permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
 		print_info.acl_xattr, align.max_num_link, print_info.num_link, align.max_len_user, print_info.user, align.max_len_group, print_info.group,
 		align.max_num_size_file, print_info.size_file, print_info.date, print_info.color, print_info.filename);
 		beg = beg->next;

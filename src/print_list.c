@@ -101,8 +101,9 @@ static const char *push_filenames(t_filename *beg, size_t size_buf, const t_len 
 	return (buf);
 }
 
-static void 	simple_print_lists(t_filename *beg)
+static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 {
+	//! тут будет stat
 	const char *buf;
 	t_len	len_max_filename;
 	size_t	size_buf;
@@ -119,15 +120,18 @@ static void 	simple_print_lists(t_filename *beg)
 
 void			print_list(t_filename *beg, t_ubyte *flags)
 {
+	const char *ls_color;
+
+	ls_color = getenv("LSCOLORS");
 	if (chk_flags_for_print_fullinfo(flags) == TRUE)
 	{
-		print_fullinfo(beg, flags);
+		print_fullinfo(beg, flags, ls_color);
 		//print_fullinfo(beg, flags);
 		//Нужно обработать флаги для полного вывода
 	}
 	else
 	{
 		//Вывод простого списка
-		simple_print_lists(beg);
+		simple_print_lists(beg, ls_color);
 	}
 }
