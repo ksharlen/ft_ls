@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 12:13:26 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 09:56:17 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:38:30 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@
 int		main(void)
 {
 	//printf("\e[;37mhello world\n");
-	printf("\e[32;41;1mhello world\n");
+	//printf("\e[32;41;1mhello world\n");
+	printf("one \e[1mhello wolrd \e[22mhow are you?\n");
 	return (0);
 }

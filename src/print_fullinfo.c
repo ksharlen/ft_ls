@@ -45,9 +45,9 @@ void	print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_
 	while (beg)
 	{
 		fill_s_print(beg, flags, &print_info);
-		printf("%c%s%c %*d %-*s%*s%*lld %s %s%s\n", print_info.filetype, print_info.permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
+		printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s\n", print_info.filetype, print_info.permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
 		print_info.acl_xattr, align.max_num_link, print_info.num_link, align.max_len_user, print_info.user, align.max_len_group, print_info.group,
-		align.max_num_size_file, print_info.size_file, print_info.date, print_info.color, print_info.filename);
+		align.max_num_size_file, print_info.size_file, print_info.date, print_info.color, print_info.filename, DEFAULT_STYLE);
 		beg = beg->next;
 	}
 }

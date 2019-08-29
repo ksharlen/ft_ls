@@ -32,7 +32,7 @@ static void			buf_stat_add_to_filename(t_filename *beg)
 	}
 }
 
-void	push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags)
+void	push_buf_stat_to_filename(t_filename *beg)
 {
 	t_filename *res;
 

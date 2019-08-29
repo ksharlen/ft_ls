@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 10:16:28 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:38:59 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void def_font(char *color, const char ls_color)
 	if (ls_color >= 'A' && ls_color <= 'Z')
 		ft_strcat(color, "1m");
 	else
-		ft_strcat(color, "10m");
+		ft_strcat(color, "22m");
 }
 
 static void def_backgrnd(char *color, const char ls_color)
@@ -67,19 +67,28 @@ static void def_color(char *color, const char ls_color)
 static const char *def_style(const char *ls_color, const ssize_t index_color)
 {
 	char *color;
+	char sym;
 
+	sym = 0;
 	color = ft_strnew(sizeof(char) * 11);
 	if (!color)
 		sys_errors();
-	def_color(color, *(ls_color + index_color));
-	def_backgrnd(color, *(ls_color + index_color + 1));
-	def_font(color, *(ls_color + index_color));
+	if (ls_color)
+		sym = *(ls_color + index_color);
+	def_color(color, sym);
+	if (ls_color)
+		sym = *(ls_color + index_color + 1);
+	def_backgrnd(color, sym);
+	if (ls_color)
+		sym = *(ls_color + index_color);
+	def_font(color, sym);
+	return (color);
 }
 
 //! НЕ ЗАБЫТЬ ПРО EXECUTE
-static const char *color_stdf_or_ex(mode_t st_mode, const ssize_t index_color, const char *ls_color)
+static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
 {
-	char *color;
+	const char *color;
 
 	if ((st_mode & U_X) || (st_mode & G_X) || (st_mode & O_X))
 			color = def_style(ls_color, EX);
@@ -90,27 +99,54 @@ static const char *color_stdf_or_ex(mode_t st_mode, const ssize_t index_color, c
 
 const char *push_color(mode_t st_mode, const char *ls_color)
 {
-	char *color;
+	const char *color;
 
-	if (st_mode && S_IFDIR)
+	if (S_ISDIR(st_mode))
 		color = def_style(ls_color, DIRF);
-	else if (st_mode && S_IFLNK)
+	else if (S_ISLNK(st_mode))
 		color = def_style(ls_color, LINK);
-	else if (st_mode && S_IFSOCK)
+	else if (S_ISSOCK(st_mode))
 		color = def_style(ls_color, SOCKET);
-	else if (st_mode && S_IFIFO)
+	else if (S_ISFIFO(st_mode))
 		color = def_style(ls_color, PIPE);
-	else if (st_mode && S_IFREG)
-		color = color_stdf_or_ex(st_mode, EX, ls_color); //!Рассмотреть конкретнее
-	else if (st_mode && S_IFBLK)
+	else if (S_ISREG(st_mode))
+		color = color_stdf_or_ex(st_mode, ls_color);
+	else if (S_ISBLK(st_mode))
 		color = def_style(ls_color, BLKF);
-	else if (st_mode && S_IFCHR)
+	else if (S_ISCHR(st_mode))
 		color = def_style(ls_color, SYMF);
-	else if (st_mode && S_ISUID)
+	else if (st_mode & S_ISUID)
 		color = def_style(ls_color, SUID);
-	else if (st_mode && S_ISGID)
-		color == def_style(ls_color, SGID);
+	else if (st_mode & S_ISGID)
+		color = def_style(ls_color, SGID);
+	else if (st_mode & S_ISVTX)
+		color = def_style(ls_color, DSCKB);
+	else if (st_mode & S_IXGRP)
+		color = def_style(ls_color, DSCKNB);
 	else
-		color == def_style(NULL, 0);
+		color = def_style(NULL, 0);
+		// if (st_mode & S_IFDIR)
+	// 	color = def_style(ls_color, DIRF);
+	// else if (S_ISLNK(st_mode))
+	// //else if ((st_mode & S_IFREG) && !(st_mode & S_IFLNK))
+	// 	color = color_stdf_or_ex(st_mode, ls_color); //!Рассмотреть конкретнее
+	// else if (st_mode & S_IFLNK)
+	// 	color = def_style(ls_color, LINK);
+	// else if (st_mode & S_IFSOCK)
+	// 	color = def_style(ls_color, SOCKET);
+	// else if (st_mode & S_IFIFO)
+	// 	color = def_style(ls_color, PIPE);
+	// else if (st_mode & S_IFBLK)
+	// {
+	// 	color = def_style(ls_color, BLKF);
+	// }
+	// else if (st_mode & S_IFCHR)
+	// 	color = def_style(ls_color, SYMF);
+	// else if (st_mode & S_ISUID)
+	// 	color = def_style(ls_color, SUID);
+	// else if (st_mode & S_ISGID)
+	// 	color = def_style(ls_color, SGID);
+	// else
+	// 	color = def_style((const char *)NULL, 0);
 	return (color);
 }

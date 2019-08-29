@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 10:16:26 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 14:17:10 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@
 //# define EPERM	"ls: %s: Permission denied\n" //%s dirname
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
+# define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
 # define FLAG_ON		1
@@ -237,7 +238,7 @@ void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *fla
 /*
 **Lists fullinfo
 */
-void					push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags);
+void					push_buf_stat_to_filename(t_filename *beg);
 
 /*
 **Validation

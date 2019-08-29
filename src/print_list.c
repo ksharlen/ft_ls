@@ -108,6 +108,7 @@ static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 	t_len	len_max_filename;
 	size_t	size_buf;
 
+	P_UNUSED(ls_color);
 	len_max_filename = large_filename(beg);
 	size_buf = def_buf_size(beg, &len_max_filename);
 	buf = push_filenames(beg, size_buf, &len_max_filename);

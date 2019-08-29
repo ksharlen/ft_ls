@@ -86,7 +86,7 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	{
 		//?Вставить filetype в структуру на макке
 		push_list_filename_dir_content(dir, &beg, flags, dirname);
-		push_buf_stat_to_filename(beg, flags);
+		push_buf_stat_to_filename(beg);
 		beg = sort_list_by_flags(&beg, flags);
 		//exit(EXIT_SUCCESS);
 		print_list(beg, flags);
