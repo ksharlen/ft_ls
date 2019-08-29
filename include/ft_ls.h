@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 08:24:47 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 09:00:21 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ void					push_permission_o(mode_t st_mode, char *str);
 void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
+const char				*push_color(uint8_t f_type, const char *ls_color);
 
 /*
 **Compare

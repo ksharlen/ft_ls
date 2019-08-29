@@ -5,6 +5,7 @@ free()
 	t_fullinfo all_elements
 	permission
 	date
+	color
 }
 
 close()
