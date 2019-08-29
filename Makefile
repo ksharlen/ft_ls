@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/27 23:03:23 by ksharlen          #+#    #+#              #
-#    Updated: 2019/08/28 14:58:25 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/08/29 19:14:11 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC			:=	main.c\
 					print_list.c\
 					print_fullinfo.c\
 					pull.c\
-					pull_color.c
+					pull_color.c\
+					pull_permission.c
 
 OBJS 		:= $(SRC:.c=.o)
 LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))

@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 14:17:10 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:22:00 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,23 @@
 # define U_R						S_IRUSR
 # define U_W						S_IWUSR
 # define U_X						S_IXUSR
+# define U_S						S_ISUID
 
 # define G_R						S_IRGRP
 # define G_W						S_IWGRP
 # define G_X						S_IXGRP
+# define G_S						S_ISGID
 
 # define O_R						S_IROTH
 # define O_W						S_IWOTH
 # define O_X						S_IXOTH
-# define O_XX						S_IXGRP
-# define O_S						S_ISGID
 # define O_T						S_ISVTX
 
+# define PERMISS_UX(x) (((x) & U_S) ? -1 : ((x) & U_X))
+# define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))
+# define PERMISS_OX(x) (((x) & O_T) ? -1 : ((x) & O_X))
+
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
-//# define EPERM	"ls: %s: Permission denied\n" //%s dirname
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
 # define DEFAULT_STYLE	"\e[39;49;22m"
@@ -139,8 +142,6 @@
 #define	P_UNUSED(variable) ((void)variable)
 
 # define CURRENT_DIR "."
-
-//?Прежде чем вызвать ft_strlen проверяет не пустая ли строка, если пустая, вызова не происходит
 
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
@@ -269,8 +270,8 @@ int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname, const char *filename);
 void					max_weight(t_filename *beg, struct s_num *align);
-void					push_permission_o(mode_t st_mode, char *str);
-void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
+//void					push_permission_o(mode_t st_mode, char *str);
+//void					push_permission_ug(mode_t st_mode, char *p_run, int64_t gen);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
 const char				*push_color(mode_t st_mode, const char *ls_color);

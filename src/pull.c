@@ -43,24 +43,6 @@ char	pull_acl_xattr(const char *path)
 	return (ret);
 }
 
-char    *pull_access_permission(const mode_t st_mode)
-{
-    size_t          size_permission;
-    char            *return_str;
-    char            *p_run;
-
-    size_permission = 9;
-    return_str = (char *)ft_memalloc(sizeof(char) * (size_permission + 1));
-    p_run = return_str;
-    return_str[size_permission] = '\0';
-    push_permission_ug(st_mode & U_R, st_mode & U_W, st_mode & U_X, p_run);
-    p_run += 3;
-    push_permission_ug(st_mode & G_R, st_mode & G_W, st_mode & G_X, p_run);
-    p_run += 3;
-    push_permission_o(st_mode, p_run);
-    return (return_str);
-}
-
 char    pull_filetype(const int8_t int_ftype)
 {
     char filetype;

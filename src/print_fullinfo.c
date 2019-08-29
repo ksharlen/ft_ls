@@ -32,11 +32,12 @@ void	print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_
 	//тут будет определение выравнивания
 	print_info.ls_color = ls_color;
 	max_len_elem(beg, &align);
+	align.max_len_user += 2;
 	align.max_len_group += 2;
-	align.max_num_size_file += 2;
+	//align.max_num_size_file += 2;
 	if (flags[FIND_FLAG('g')])
 	{
-		align.max_len_user = align.max_len_group - 2;
+		align.max_len_user = align.max_len_group;
 		align.max_len_group = 0;
 	}
 	// printf("sf: %d\n", align.max_num_size_file);

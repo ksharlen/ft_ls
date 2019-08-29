@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 13:38:59 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 15:59:06 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,28 +125,5 @@ const char *push_color(mode_t st_mode, const char *ls_color)
 		color = def_style(ls_color, DSCKNB);
 	else
 		color = def_style(NULL, 0);
-		// if (st_mode & S_IFDIR)
-	// 	color = def_style(ls_color, DIRF);
-	// else if (S_ISLNK(st_mode))
-	// //else if ((st_mode & S_IFREG) && !(st_mode & S_IFLNK))
-	// 	color = color_stdf_or_ex(st_mode, ls_color); //!Рассмотреть конкретнее
-	// else if (st_mode & S_IFLNK)
-	// 	color = def_style(ls_color, LINK);
-	// else if (st_mode & S_IFSOCK)
-	// 	color = def_style(ls_color, SOCKET);
-	// else if (st_mode & S_IFIFO)
-	// 	color = def_style(ls_color, PIPE);
-	// else if (st_mode & S_IFBLK)
-	// {
-	// 	color = def_style(ls_color, BLKF);
-	// }
-	// else if (st_mode & S_IFCHR)
-	// 	color = def_style(ls_color, SYMF);
-	// else if (st_mode & S_ISUID)
-	// 	color = def_style(ls_color, SUID);
-	// else if (st_mode & S_ISGID)
-	// 	color = def_style(ls_color, SGID);
-	// else
-	// 	color = def_style((const char *)NULL, 0);
 	return (color);
 }
