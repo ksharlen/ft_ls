@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/27 16:28:07 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 08:24:47 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,21 @@ typedef enum
 						SUCCESSFUL_COMPLETION
 }						t_return;
 
+enum					e_typefile
+{
+						DIR = 0,
+						LINK = 2,
+						SOCKET = 4,
+						PIPE = 6,
+						EX = 8,
+						BLKF = 10,
+						SYMF = 12,
+						SUID = 14,
+						SGID = 16,
+						DSCKB = 18,
+						DSCKNB = 20
+};
+
 // typedef enum
 // {
 // 						FALSE,
@@ -206,6 +221,8 @@ struct					s_print
 	nlink_t				num_link;
 	char				acl_xattr;
 	char				filetype;
+	char				ls_color;
+	const char			*color;
 };
 
 int						ft_ls(size_t argc, char *const argv[]);

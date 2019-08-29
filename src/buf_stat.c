@@ -4,8 +4,8 @@ static void add_uname_grname(t_filename *beg)
 {
 	while (beg)
 	{
-		beg->pw_name = getpwuid(beg->buf->st_uid)->pw_name;
-		beg->gr_name = getgrgid(beg->buf->st_gid)->gr_name;
+		beg->pw_name = ft_strdup(getpwuid(beg->buf->st_uid)->pw_name);
+		beg->gr_name = ft_strdup(getgrgid(beg->buf->st_gid)->gr_name);
 		beg = beg->next;
 	}
 }
