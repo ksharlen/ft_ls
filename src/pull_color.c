@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 15:59:06 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 21:42:52 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ static const char *def_style(const char *ls_color, const ssize_t index_color)
 	return (color);
 }
 
+static const char *color_dir(mode_t st_mode, const char *ls_color)
+{
+	const char *color;
+
+	if (st_mode & O_W)
+	{
+		if (st_mode & O_T)
+			
+	}
+}
 //! НЕ ЗАБЫТЬ ПРО EXECUTE
 static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
 {
@@ -102,7 +112,8 @@ const char *push_color(mode_t st_mode, const char *ls_color)
 	const char *color;
 
 	if (S_ISDIR(st_mode))
-		color = def_style(ls_color, DIRF);
+		color = color_dir(st_mode, ls_color);
+		//color = def_style(ls_color, DIRF);
 	else if (S_ISLNK(st_mode))
 		color = def_style(ls_color, LINK);
 	else if (S_ISSOCK(st_mode))

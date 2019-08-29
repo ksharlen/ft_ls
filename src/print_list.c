@@ -93,11 +93,15 @@ static const char *push_filenames(t_filename *beg, size_t size_buf, const t_len 
 		sys_errors();
 	while (beg)
 	{
+		//ft_strcat(buf, color);
 		ft_strcat(buf, beg->filename);
-		ft_setncat(buf, ' ', *lmf - ft_strlen(beg->filename) + 1);
+		//ft_strcat(buf, color_default);
+		if (beg->next)
+			ft_setncat(buf, ' ', *lmf - ft_strlen(beg->filename) + 1);
+		else
+			ft_strcat(buf, "\n");
 		beg = beg->next;
 	}
-	buf[size_buf] = '\n';
 	return (buf);
 }
 
