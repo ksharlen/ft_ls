@@ -25,10 +25,10 @@
 // 	stat(elem->name, elem->buf);//Тут может быть ошибка
 // 	errno = 0;
 // 	pwd = (struct passwd *)ft_memalloc(sizeof(struct passwd));
-// 	printf("file_name: %s", elem->name);
+// 	ft_printf("file_name: %s", elem->name);
 // 	//Учесть файлы с точкой
 // 	//pwd = getpwuid(elem->buf->st_gid);
-// 	//printf("errno: %d\n", errno);
+// 	//ft_printf("errno: %d\n", errno);
 // 	elem->pw_name = pwd->pw_name;
 // 	return (0);
 // }

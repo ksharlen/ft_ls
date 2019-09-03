@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 19:22:00 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:20:35 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@
 # define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
+
+# define CHECK_ALLOC(x) !(x) ? sys_errors() : 1
 
 #define	P_UNUSED(variable) ((void)variable)
 

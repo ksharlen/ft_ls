@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/03 12:46:30 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:04:58 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void def_font(char *color, const char ls_color)
 {
 	if (ls_color >= 'A' && ls_color <= 'Z')
-		ft_strcat(color, "1m");
+		ft_strcat(color, "01m");
 	else
 		ft_strcat(color, "22m");
 }

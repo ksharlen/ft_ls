@@ -45,13 +45,27 @@ static void simple_print_lists(t_filename *beg)
 
 	//Простой вывод
 	buf = generate_buf_for_print(beg);
-	printf("%s\n", buf);
+	ft_printf("%s\n", buf);
 	//!free(buf);
 }
 
 #endif
 
 #if __APPLE__
+
+static const char *insert_color_filename(const char *filename, const char *color)
+{
+	char *color_filename;
+	char *free_string;
+
+	color_filename = ft_strjoin(color, filename);
+	CHECK_ALLOC(color_filename);
+	free_string = color_filename;
+	color_filename = ft_strjoin(color_filename, DEFAULT_STYLE);
+	CHECK_ALLOC(color_filename);
+	ft_strdel(&free_string);
+	return (color_filename);
+}
 
 static t_len	large_filename(t_filename *beg)
 {
@@ -69,56 +83,68 @@ static t_len	large_filename(t_filename *beg)
 	return (large_filename);
 }
 
-static size_t	def_buf_size(t_filename *beg, const t_len *const lmf)
-{
-	size_t	size_buf;
-	t_ubyte space;
+// static size_t	def_buf_size(t_filename *beg, const t_len *const lmf)
+// {
+// 	size_t	size_buf;
+// 	t_ubyte space;
 
-	size_buf = 0;
-	space = 1;
-	while (beg)
-	{
-		size_buf += *lmf + space;
-		beg = beg->next;
-	}
-	return (size_buf);
-}
+// 	size_buf = 0;
+// 	space = 1;
+// 	while (beg)
+// 	{
+// 		size_buf += *lmf + space;
+// 		beg = beg->next;
+// 	}
+// 	return (size_buf);
+// }
 
-static const char *push_filenames(t_filename *beg, size_t size_buf, const t_len *const lmf)
-{
-	char *buf;
+// static const char *push_filenames(t_filename *beg, size_t size_buf, const t_len *const lmf)
+// {
+// 	char *buf;
 
-	buf = (char *)ft_strnew(sizeof(char) * size_buf);
-	if (!buf)
-		sys_errors();
-	while (beg)
-	{
-		//ft_strcat(buf, color);
-		ft_strcat(buf, beg->filename);
-		//ft_strcat(buf, color_default);
-		if (beg->next)
-			ft_setncat(buf, ' ', *lmf - ft_strlen(beg->filename) + 1);
-		else
-			ft_strcat(buf, "\n");
-		beg = beg->next;
-	}
-	return (buf);
-}
+// 	buf = (char *)ft_strnew(sizeof(char) * size_buf);
+// 	if (!buf)
+// 		sys_errors();
+// 	while (beg)
+// 	{
+// 		//ft_strcat(buf, color);
+// 		ft_strcat(buf, beg->filename);
+// 		//ft_strcat(buf, color_default);
+// 		if (beg->next)
+// 			ft_setncat(buf, ' ', *lmf - ft_strlen(beg->filename) + 1);
+// 		else
+// 			ft_strcat(buf, "\n");
+// 		beg = beg->next;
+// 	}
+// 	return (buf);
+// }
 
 static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 {
-	//! тут будет stat
-	const char *buf;
-	t_len	len_max_filename;
-	size_t	size_buf;
+	int			len_max_filename;
+	const char	*color;
+	const char	*color_filename;
 
-	P_UNUSED(ls_color);
-	len_max_filename = large_filename(beg);
-	size_buf = def_buf_size(beg, &len_max_filename);
-	buf = push_filenames(beg, size_buf, &len_max_filename);
-	printf("%s", buf);
-	//printf("size_buf: %zu\n", size_buf);
-	//exit(EXIT_SUCCESS);
+	len_max_filename = large_filename(beg) + (11 * 2);//?Магическое число
+	while (beg)
+	{
+		color = push_color(beg->buf->st_mode, ls_color);
+		color_filename = insert_color_filename(beg->filename, color);
+		ft_strdel((char **)color);
+		//color_filename = ft_strjoin(color, beg->filename);
+		//color_filename = ft_strjoin(color_filename, DEFAULT_STYLE);
+		ft_printf("%-*s ", len_max_filename, color_filename);
+		//ft_printf("\033[1;31m");
+		//ft_printf("%-*s ", len_max_filename, beg->filename);
+		//ft_printf("%s%-*s ", color, len_max_filename, beg->filename);
+		//ft_printf("%s", DEFAULT_STYLE);
+		//ft_strdel((char **)&color);
+		beg = beg->next;
+	}
+	ft_printf("%v%s", 1, "\n");
+	//ft_printf("%v\n", 1);
+	//ft_printf("%s", DEFAULT_STYLE);
+	//ft_printf("%s", "\n");
 }
 
 #endif
