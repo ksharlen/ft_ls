@@ -55,3 +55,4 @@ dkms.conf
 .vscode
 temp/
 ./ft_ls
+./src/libft.a
