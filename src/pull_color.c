@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/29 21:42:52 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/03 12:46:30 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,14 @@ static const char *color_dir(mode_t st_mode, const char *ls_color)
 
 	if (st_mode & O_W)
 	{
-		if (st_mode & O_T)
-			
+		if (st_mode & S_ISVTX)
+			color = def_style(ls_color, DSCKB);
+		else
+			color = def_style(ls_color, DSCKNB);
 	}
+	else
+		color = def_style(ls_color, DIRF);
+	return (color);
 }
 //! НЕ ЗАБЫТЬ ПРО EXECUTE
 static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
