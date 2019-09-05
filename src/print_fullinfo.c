@@ -8,10 +8,7 @@ static void clean_mem(struct s_print print_info)
 	ft_strdel((char **)&print_info.date);
 	ft_strdel((char **)&print_info.permission);
 	if (*print_info.val_link)
-	{
-		printf("1\n");
 		ft_strdel((char **)&print_info.color);
-	}
 }
 
 static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_print *info)
