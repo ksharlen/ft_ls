@@ -72,6 +72,31 @@ static size_t		collect_flags(size_t argc, char *const argv[],
 		return (skip_opt_argv);
 	}
 
+//!Начало временного кода
+static void clear_filename(t_filename **beg)
+{
+	t_filename *res;
+//	t_filename *tmp;
+
+	if (beg && *beg)
+	{
+		res = (*beg);
+		while (res)
+		{
+			//printf("1\n");
+			(*beg) = (*beg)->next;
+			ft_memdel((void **)&res->buf);
+			ft_strdel((char **)&res->filename);
+			ft_strdel((char **)&res->path);
+			ft_strdel((char **)&res->pw_name);
+			ft_strdel((char **)&res->gr_name);
+			ft_memdel((void **)&res);
+			res = (*beg);
+		}
+	}
+}
+//!Конец временного кода
+
 static void			ls_internal(const char *dirname, t_ubyte *flags)
 {
 	//!Не забыть сделать closedir and free
@@ -79,24 +104,19 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	DIR				*dir;
 
 	//dir = opendir(dir);//Проверить errno на значение 20(это не каталог)//так же проверить на что не нашел.
-	//ft_printf("here\n");
 	beg = NULL;
 	dir = valid_opendir(dirname);
 	if (dir)
 	{
-		//?Вставить filetype в структуру на макке
 		push_list_filename_dir_content(dir, &beg, flags, dirname);
 		push_buf_stat_to_filename(beg);
 		beg = sort_list_by_flags(&beg, flags);
-		//exit(EXIT_SUCCESS);
 		print_list(beg, flags);
-		//print_dir(NULL);
 		closedir(dir);
-		//ft_printf("R: %d\n", flags[FIND_FLAG('R')]);
-		//ft_printf("filename: %s path: %s\n", beg->filename, beg->path);
 		if (flags[FIND_FLAG('R')])
 			pull_dir(beg, flags);
-		//print_lists_p(beg);
+		clear_filename(&beg);
+		//!После того как идем вверх начинаем фришить
 	}
 	// else
 		; //либо тут невалидный файл либо тут просто файл через рекурсию
@@ -117,7 +137,7 @@ int		ft_ls(size_t argc, char *const argv[])
 	t_ubyte			*flags;
 	register size_t	i;
 
-	flags = (t_ubyte[NUM_FLAGS]){0}; //ЭТО РАБОТАЕТ!!!!!
+	flags = (t_ubyte[NUM_FLAGS]){0};
 	if (argc > 1)
 	{
 		i = collect_flags(argc, argv, flags);
@@ -130,16 +150,11 @@ int		ft_ls(size_t argc, char *const argv[])
 		}
 	}
 	else
-		ls_internal(CURRENT_DIR, flags);//вывести содержимое текущей директории
-		//Могут быть другие ключи
-		//Надо будет проверить первый элемент flags на их наличие
-	//print_options(flags);
-	//print_lists(beg);
-	//!Подумать над сортировкой если указаны аргументы
+		ls_internal(CURRENT_DIR, flags);
 	return (0);
 }
 
-/*	Рабоат ft_ls:
+/*	Работа ft_ls:
 	1)	собрать все флаги до первого - или символа отличного от флага
 	//2)	Создать структуру на основе собранных флагов (не уверен на счет этого)
 		?примечание: флаги вывода информации и сортировки должны быть внутри рекурсивной ф-ии

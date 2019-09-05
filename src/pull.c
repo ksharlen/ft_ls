@@ -29,7 +29,6 @@ char	pull_acl_xattr(const char *path)
 
 	option = XATTR_NOFOLLOW;
 	type = ACL_TYPE_EXTENDED;
-	type = ACL_TYPE_EXTENDED;
 	xattr = listxattr(path, NULL, 0, option);
 	if (xattr < 0)
 		xattr = 0;
@@ -40,6 +39,7 @@ char	pull_acl_xattr(const char *path)
 		ret = '+';
 	else
 		ret = ' ';
+	acl_free(acl);
 	return (ret);
 }
 
@@ -73,8 +73,16 @@ char    pull_filetype(const int8_t int_ftype)
 const char *pull_val_link(const char *path_link)
 {
 	char *filename_from_link;
+	char *print_link;
 
-	filename_from_link = ft_strjoin(" -> ", valid_readlink(path_link));
-	CHECK_ALLOC(filename_from_link);
-	return (filename_from_link);
+	filename_from_link = valid_readlink(path_link);
+	if (filename_from_link)
+	{
+		print_link = ft_strjoin(" -> ", filename_from_link);
+		CHECK_ALLOC(filename_from_link);
+	}
+	else
+		print_link = NULL;
+	ft_strdel((char **)&filename_from_link);
+	return (print_link);
 }

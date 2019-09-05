@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/05 10:03:37 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/05 14:16:39 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char		*valid_readlink(const char *path_link)
 	else if (errno == ENOMEM)
 		sys_errors();
 	pull_val_link[ret_rdl] = '\0';
-	return (ft_strdup(pull_val_link));
+	return (ret_rdl > 0 ? ft_strdup(pull_val_link) : NULL);
 }
 
 /*
