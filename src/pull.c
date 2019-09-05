@@ -69,3 +69,12 @@ char    pull_filetype(const int8_t int_ftype)
         filetype = '-';
     return (filetype);
 }
+
+const char *pull_val_link(const char *path_link)
+{
+	char *filename_from_link;
+
+	filename_from_link = ft_strjoin(" -> ", valid_readlink(path_link));
+	CHECK_ALLOC(filename_from_link);
+	return (filename_from_link);
+}

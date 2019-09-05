@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/03 17:20:35 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/05 09:59:41 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
+# define MAX_LEN_FILENAME 255
 # define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
@@ -227,6 +228,7 @@ struct					s_print
 	char				filetype;
 	const char			*ls_color;
 	const char			*color;
+	const char			*val_link;
 };
 
 int						ft_ls(size_t argc, char *const argv[]);
@@ -250,6 +252,7 @@ void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
 int						valid_stat(const char *filename, struct stat *buf, uint8_t f_type);
+char					*valid_readlink(const char *path_link);
 
 /*
 **Errors
@@ -300,6 +303,7 @@ char					pull_filetype(const int8_t int_ftype);
 char					*pull_access_permission(const mode_t st_mode);
 char					pull_acl_xattr(const char *path);
 const char				*pull_date(const t_filename *beg, const t_ubyte *flags);
+const char				*pull_val_link(const char *path_link);
 //void					pull_dir(t_filename *beg, t_ubyte *flags);
 
 #endif

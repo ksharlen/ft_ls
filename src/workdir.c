@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/22 11:10:31 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/05 10:03:37 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,36 @@ int		valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 	// else if (errno == ESTATE_ENOTDIR)
 	// 	;//Подумать
 	return (SUCCESSFUL_COMPLETION);
+}
+
+char		*valid_readlink(const char *path_link)
+{
+	//!	Не проходит по норме
+	int ret_rdl;
+	char pull_val_link[MAX_LEN_FILENAME];
+
+	ret_rdl = readlink(path_link, pull_val_link, MAX_LEN_FILENAME);
+	errno = 0;
+	if (errno == ENOTDIR || errno == EINVAL)
+		;//?Тут подумать
+	else if (errno == EINVAL)
+		sys_errors();
+	else if (errno == ENAMETOOLONG)
+		sys_errors();
+	else if (errno == ENOENT)
+		file_errors(path_link);
+	else if (errno == EACCES)
+		file_errors(path_link);
+	else if (errno == ELOOP)
+		sys_errors();
+	else if (errno == EIO)
+		sys_errors();
+	else if (errno == EFAULT)
+		sys_errors();
+	else if (errno == ENOMEM)
+		sys_errors();
+	pull_val_link[ret_rdl] = '\0';
+	return (ft_strdup(pull_val_link));
 }
 
 /*
