@@ -1,64 +1,65 @@
 #include "ft_ls.h"
 
-static size_t	def_len_all_filename(t_filename *beg)
+static const char *insert_color_filename(const char *filename, const char *color)
 {
-	size_t	all_len;
-	t_ubyte two_spaces;
+	char *color_filename;
+	char *free_string;
 
-	all_len = 0;
-	two_spaces = 2; //Будет динамическое выравнивание
+	color_filename = ft_strjoin(color, filename);
+	CHECK_ALLOC(color_filename);
+	free_string = color_filename;
+	color_filename = ft_strjoin(color_filename, DEFAULT_STYLE);
+	CHECK_ALLOC(color_filename);
+	ft_strdel(&free_string);
+	ft_strdel((char **)&color);
+	return (color_filename);
+}
+
+static t_len	large_filename(t_filename *beg)
+{
+	t_len	len_filename;
+	t_len	large_filename;
+
+	len_filename = 0;
+	large_filename = 0;
 	while (beg)
 	{
-		all_len += ft_strlen(beg->filename);
-		all_len += two_spaces;
+		if ((len_filename = ft_strlen(beg->filename)) > large_filename)
+			large_filename = len_filename;
 		beg = beg->next;
 	}
-	return (all_len);
+	return (large_filename);
 }
 
-static void		push_filename_to_buf(t_filename *beg, t_ubyte *buf)
+static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 {
+	int			len_max_filename;
+	const char	*color;
+	const char	*color_filename;
+
+	len_max_filename = large_filename(beg) + (11 * 2);//?Магическое число
 	while (beg)
 	{
-		ft_strcat((char *)buf, (char *)beg->filename);
-		ft_strcat((char *)buf, "  ");
+		color = push_color(beg->buf->st_mode, ls_color);
+		color_filename = insert_color_filename(beg->filename, color);
+		ft_printf("%-*s ", len_max_filename, color_filename);
+		ft_strdel((char **)&color_filename);
 		beg = beg->next;
 	}
+	ft_printf("%v%s", 1, "\n");
 }
 
-static t_ubyte	*generate_buf_for_print(t_filename *beg)
+void			print_list(t_filename *beg, t_ubyte *flags)
 {
-	size_t		size_buf;
-	t_ubyte		*buf;
+	const char *ls_color;
 
-	size_buf = def_len_all_filename(beg);
-	buf = (t_ubyte *)ft_memalloc(sizeof(t_ubyte) * size_buf + 1); //1 - '\0'
-	buf[size_buf] = '\0';
-	push_filename_to_buf(beg, buf);
-	return (buf);
-}
-
-static void simple_print_lists(t_filename *beg)
-{
-	t_ubyte		*buf;
-
-	//Простой вывод
-	buf = generate_buf_for_print(beg);
-	printf("%s\n", buf);
-	//!free(buf);
-}
-
-void	print_list(t_filename *beg, t_ubyte *flags)
-{
+	ls_color = getenv("LSCOLORS");
 	if (chk_flags_for_print_fullinfo(flags) == TRUE)
 	{
-		print_fullinfo(beg, flags);
-		//print_fullinfo(beg, flags);
-		//Нужно обработать флаги для полного вывода
+		print_fullinfo(beg, flags, ls_color);
 	}
 	else
 	{
-		//Вывод простого списка
-		simple_print_lists(beg);
+		simple_print_lists(beg, ls_color);
 	}
 }

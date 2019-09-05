@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 12:13:26 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/24 16:14:59 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:38:30 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/acl.h>
 #include <sys/stat.h>
 #include <pwd.h>
+
 
 #define P_UNUSED(x) (void)(x)
 
@@ -81,9 +82,8 @@
 
 int		main(void)
 {
-	int i;
-
-	i = 0;
-	printf("%d %d\n", i, ++i);
+	//printf("\e[;37mhello world\n");
+	//printf("\e[32;41;1mhello world\n");
+	printf("one \e[1mhello wolrd \e[22mhow are you?\n");
 	return (0);
 }

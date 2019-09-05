@@ -1,5 +1,19 @@
 #include "ft_ls.h"
 
+static void		pull_dir(t_filename *beg, t_ubyte *flags);
+
+// static void print_dir(t_filename *beg)
+// {
+// 	if (beg)
+// 		while (beg)
+// 		{
+// 			ft_printf("filename: %s\n", beg->filename);
+// 			ft_printf("dirname: %s\n", beg->dirname);
+// 			ft_printf("path: %s\n\n", beg->path);
+// 			beg = beg->next;
+// 		}
+// }
+
 // static void	print_lists_p(t_filename *beg)
 // {
 // 	while (beg)
@@ -7,10 +21,10 @@
 // 		if (!ft_strncmp(beg->filename, ".", 1) || !ft_strncmp(beg->filename, "..", 2))
 // 			;
 // 		else
-// 			printf("%s	", beg->filename);
+// 			ft_printf("%s	", beg->filename);
 // 		beg = beg->next;
 // 	}
-// 	printf("\n");
+// 	ft_printf("\n");
 // }
 
 // static void	print_options(t_ubyte *flags)
@@ -20,7 +34,7 @@
 // 	i = 0;
 // 	while (i < NUM_FLAGS)
 // 	{
-// 		printf("%u", flags[i]);
+// 		ft_printf("%u", flags[i]);
 // 		++i;
 // 	}
 // }
@@ -65,17 +79,36 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	DIR				*dir;
 
 	//dir = opendir(dir);//Проверить errno на значение 20(это не каталог)//так же проверить на что не нашел.
-	//printf("here\n");
+	//ft_printf("here\n");
 	beg = NULL;
 	dir = valid_opendir(dirname);
 	if (dir)
 	{
 		//?Вставить filetype в структуру на макке
 		push_list_filename_dir_content(dir, &beg, flags, dirname);
-		push_buf_stat_to_filename(beg, flags);
+		push_buf_stat_to_filename(beg);
 		beg = sort_list_by_flags(&beg, flags);
+		//exit(EXIT_SUCCESS);
 		print_list(beg, flags);
+		//print_dir(NULL);
+		closedir(dir);
+		//ft_printf("R: %d\n", flags[FIND_FLAG('R')]);
+		//ft_printf("filename: %s path: %s\n", beg->filename, beg->path);
+		if (flags[FIND_FLAG('R')])
+			pull_dir(beg, flags);
 		//print_lists_p(beg);
+	}
+	// else
+		; //либо тут невалидный файл либо тут просто файл через рекурсию
+}
+
+static void		pull_dir(t_filename *beg, t_ubyte *flags)
+{
+	while (beg)
+	{
+		if (beg->path && (beg->f_type == D_TYPE))
+			ls_internal(beg->path, flags);
+		beg = beg->next;
 	}
 }
 

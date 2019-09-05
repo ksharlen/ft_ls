@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 12:17:44 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/17 12:29:20 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:18:46 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ size_t				ft_wcslen(const wchar_t *str);
 void				ft_ustrdel(unsigned char **str);
 char				*ft_skipfirst(char *str, int sym);
 int					ft_strcasecmp(const char *s1, const char *s2);
+char				*ft_setncat(char *str, int sym, size_t size);
 
 #endif

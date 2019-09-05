@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/08/24 17:38:01 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/05 09:59:41 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,27 @@
 # define U_R						S_IRUSR
 # define U_W						S_IWUSR
 # define U_X						S_IXUSR
+# define U_S						S_ISUID
 
 # define G_R						S_IRGRP
 # define G_W						S_IWGRP
 # define G_X						S_IXGRP
+# define G_S						S_ISGID
 
 # define O_R						S_IROTH
 # define O_W						S_IWOTH
 # define O_X						S_IXOTH
-# define O_XX						S_IXGRP
-# define O_S						S_ISGID
 # define O_T						S_ISVTX
 
+# define PERMISS_UX(x) (((x) & U_S) ? -1 : ((x) & U_X))
+# define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))
+# define PERMISS_OX(x) (((x) & O_T) ? -1 : ((x) & O_X))
+
 # define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
-//# define EPERM	"ls: %s: Permission denied\n" //%s dirname
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
+# define MAX_LEN_FILENAME 255
+# define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
 # define FLAGS			"adfglrtuR"
 # define FLAG_ON		1
@@ -135,14 +140,15 @@
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
 
+# define CHECK_ALLOC(x) !(x) ? sys_errors() : 1
+
 #define	P_UNUSED(variable) ((void)variable)
 
 # define CURRENT_DIR "."
 
-//?Прежде чем вызвать ft_strlen проверяет не пустая ли строка, если пустая, вызова не происходит
-
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
+typedef	uint64_t		t_len;
 
 # define BYTE	t_byte;
 # define UBYTE 	t_ubyte;
@@ -152,6 +158,21 @@ typedef enum
 						FAILD_COMPLETION = -1,
 						SUCCESSFUL_COMPLETION
 }						t_return;
+
+enum					e_typefile
+{
+						DIRF = 0,
+						LINK = 2,
+						SOCKET = 4,
+						PIPE = 6,
+						EX = 8,
+						BLKF = 10,
+						SYMF = 12,
+						SUID = 14,
+						SGID = 16,
+						DSCKB = 18,
+						DSCKNB = 20
+};
 
 // typedef enum
 // {
@@ -205,6 +226,9 @@ struct					s_print
 	nlink_t				num_link;
 	char				acl_xattr;
 	char				filetype;
+	const char			*ls_color;
+	const char			*color;
+	const char			*val_link;
 };
 
 int						ft_ls(size_t argc, char *const argv[]);
@@ -219,7 +243,7 @@ void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *fla
 /*
 **Lists fullinfo
 */
-void					push_buf_stat_to_filename(t_filename *beg, t_ubyte *flags);
+void					push_buf_stat_to_filename(t_filename *beg);
 
 /*
 **Validation
@@ -228,6 +252,7 @@ void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
 int						valid_stat(const char *filename, struct stat *buf, uint8_t f_type);
+char					*valid_readlink(const char *path_link);
 
 /*
 **Errors
@@ -250,10 +275,11 @@ int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname, const char *filename);
 void					max_weight(t_filename *beg, struct s_num *align);
-void					push_permission_o(mode_t st_mode, char *str);
-void					push_permission_ug(uint16_t r, uint16_t w, uint16_t x, char *str);
+//void					push_permission_o(mode_t st_mode, char *str);
+//void					push_permission_ug(mode_t st_mode, char *p_run, int64_t gen);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
+const char				*push_color(mode_t st_mode, const char *ls_color);
 
 /*
 **Compare
@@ -268,7 +294,7 @@ int						cmp_name(t_filename *one, t_filename *two);
 **print_list
 */
 void					print_list(t_filename *beg, t_ubyte *flags);
-void					print_fullinfo(const t_filename *beg, const t_ubyte *flags);
+void					print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_color);
 
 /*
 **pull_info
@@ -277,5 +303,7 @@ char					pull_filetype(const int8_t int_ftype);
 char					*pull_access_permission(const mode_t st_mode);
 char					pull_acl_xattr(const char *path);
 const char				*pull_date(const t_filename *beg, const t_ubyte *flags);
+const char				*pull_val_link(const char *path_link);
+//void					pull_dir(t_filename *beg, t_ubyte *flags);
 
 #endif
