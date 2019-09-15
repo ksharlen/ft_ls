@@ -14,8 +14,10 @@ const char *pull_date(const t_filename *beg, const t_ubyte *flags)
 	}
 	else if (flags[FIND_FLAG('u')])
 		ret_date = cut_date(beg->buf->st_atimespec.tv_sec);
-	else
+	else if (flags[FIND_FLAG('c')])
 		ret_date = cut_date(beg->buf->st_ctimespec.tv_sec);
+	else
+		ret_date = cut_date(beg->buf->st_mtimespec.tv_sec);
 	return (ret_date);
 }
 

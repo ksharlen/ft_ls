@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/05 09:59:41 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/16 02:57:28 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@
 # define MAX_LEN_FILENAME 255
 # define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
-# define FLAGS			"adfglrtuR"
+# define FLAGS			"adfglrtucR"
 # define FLAG_ON		1
 # define FLAG_OFF		0
 # define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)

@@ -23,5 +23,3 @@ int		cmp_name(t_filename *one, t_filename *two)
 	else
 		return (FALSE);
 }
-
-#endif
