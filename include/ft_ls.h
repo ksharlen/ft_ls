@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/16 02:57:28 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/16 07:14:43 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
 
+# define MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
+# define MINOR(x) ((int32_t)((x) & 0xffffff))
+
 # define CHECK_ALLOC(x) !(x) ? sys_errors() : 1
 
 #define	P_UNUSED(variable) ((void)variable)
@@ -208,11 +211,9 @@ struct					s_num
 	int					max_num_size_file;
 	int					max_len_user;
 	int					max_len_group;
-	#if __APPLE__
+	int					max_len_little_dev;
+	int					max_len_big_dev;
 	quad_t				total;
-	#elif __linux__
-	blkcnt_t			total;
-	#endif
 };
 
 struct					s_print
@@ -280,6 +281,7 @@ void					max_weight(t_filename *beg, struct s_num *align);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
 const char				*push_color(mode_t st_mode, const char *ls_color);
+void					max_len_little_big_dev(const t_filename *beg, struct s_num *align);
 
 /*
 **Compare

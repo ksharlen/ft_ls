@@ -54,12 +54,20 @@ void			print_list(t_filename *beg, t_ubyte *flags)
 	const char *ls_color;
 
 	ls_color = getenv("LSCOLORS");
-	if (chk_flags_for_print_fullinfo(flags) == TRUE)
+	if (beg)
 	{
-		print_fullinfo(beg, flags, ls_color);
-	}
-	else
-	{
-		simple_print_lists(beg, ls_color);
+		// if (!ft_strcmp(beg->dirname, "dev") ||
+		// ft_strcmp(beg->dirname, "/dev") && chk_flags_for_print_fullinfo(flags) == TRUE)
+		// {
+		// 	print_dev(beg, flags, ls_color);
+		// }
+		if (chk_flags_for_print_fullinfo(flags) == TRUE)
+		{
+			print_fullinfo(beg, flags, ls_color);
+		}
+		else
+		{
+			simple_print_lists(beg, ls_color);
+		}
 	}
 }

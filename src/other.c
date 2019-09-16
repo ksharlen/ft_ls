@@ -12,6 +12,27 @@ const char	*cut_date(const time_t sec)
 	return (ret_date);
 }
 //?Переделать
+void	max_len_little_big_dev(const t_filename *beg, struct s_num *align)
+{
+	int cmp;
+
+	if (!ft_strcmp(beg->dirname, "dev") || !ft_strcmp(beg->dirname, "/dev"))
+	{
+		align->max_len_little_dev = 0;
+		align->max_len_big_dev = 0;
+		while (beg)
+		{
+			cmp = ft_size_num(MAJOR(beg->buf->st_rdev));
+			if (cmp > align->max_len_big_dev)
+				align->max_len_big_dev = cmp;
+			cmp = ft_size_num(MINOR(beg->buf->st_rdev));
+			if (cmp > align->max_len_little_dev)
+				align->max_len_little_dev = cmp;
+			beg = beg->next;
+		}
+	}
+}
+
 void	max_len_elem(const t_filename *beg, struct s_num *align)
 {
 	int		cmp;
@@ -44,7 +65,7 @@ char	*cat_path_filename(const char *dirname, const char *filename)
 {
 	size_t	size_ret;
 	size_t	size_dirname;
-	char *ret;
+	char 	*ret;
 	int8_t	separator;
 
 	separator = 1;
