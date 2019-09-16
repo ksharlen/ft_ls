@@ -37,7 +37,7 @@ static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 	const char	*color;
 	const char	*color_filename;
 
-	len_max_filename = large_filename(beg) + (11 * 2);//?Магическое число
+	len_max_filename = large_filename(beg) + (11 * 2);
 	while (beg)
 	{
 		color = push_color(beg->buf->st_mode, ls_color);
@@ -56,18 +56,9 @@ void			print_list(t_filename *beg, t_ubyte *flags)
 	ls_color = getenv("LSCOLORS");
 	if (beg)
 	{
-		// if (!ft_strcmp(beg->dirname, "dev") ||
-		// ft_strcmp(beg->dirname, "/dev") && chk_flags_for_print_fullinfo(flags) == TRUE)
-		// {
-		// 	print_dev(beg, flags, ls_color);
-		// }
 		if (chk_flags_for_print_fullinfo(flags) == TRUE)
-		{
 			print_fullinfo(beg, flags, ls_color);
-		}
 		else
-		{
 			simple_print_lists(beg, ls_color);
-		}
 	}
 }

@@ -24,8 +24,6 @@ t_filename	*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)
 	t_filename *new = &tmp;
 	t_filename *res = new;
 
-	//new = &tmp;
-	//res = new;
 	while (l_one && l_two)
 	{
 		if (key(l_one, l_two) == TRUE)
@@ -105,7 +103,3 @@ void	push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags, 
 		}
 	}
 }
-
-//list_filename_delete()
-//list_filename_free()
-//list_filename_size()

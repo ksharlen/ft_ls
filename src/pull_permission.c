@@ -1,7 +1,5 @@
 #include "ft_ls.h"
 
-
-//!ПЕРЕПИСАТЬ!!!!!!!!!!!!!!!!
 static void push_permission_u(mode_t st_mode, char *str)
 {
 	int permiss_exe;

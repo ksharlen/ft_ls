@@ -18,7 +18,7 @@ static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_
 	list->next = NULL;
 	return (list_filename_merge(merge_sort(left, sort_key, NULL), merge_sort(right, sort_key, NULL), sort_key));
 }
-//! Понять почему работает????!!!!
+
 t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
 	if (!flags[FIND_FLAG('f')])

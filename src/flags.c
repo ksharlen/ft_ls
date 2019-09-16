@@ -2,9 +2,8 @@
 
 static void	flag_error(t_ubyte sym)
 {
-	ft_printf("%vls: illegal option -- %c\n%s", 2, sym, EFLAGS);
+	ft_printf("%vft_ls: illegal option -- %c\n%s", 2, sym, EFLAGS);
 	exit(EXIT_SUCCESS);
-	//Подумать над выводом флагов которые действительно есть
 }
 
 void	valid_flags(const t_ubyte *flags)
@@ -38,7 +37,6 @@ int		get_options(const char *options, t_ubyte *flags)
 
 int		chk_flags_for_create_fullinfo(t_ubyte *flags)
 {
-	//l, g, t
 	if (flags[FIND_FLAG('l')] || flags[FIND_FLAG('g')] || flags[FIND_FLAG('t')])
 		return (TRUE);
 	else

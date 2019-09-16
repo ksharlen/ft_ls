@@ -37,14 +37,9 @@ void	push_buf_stat_to_filename(t_filename *beg)
 	t_filename *res;
 
 	res = beg;
-	//добавляем в любом случае
 	buf_stat_add_to_filename(beg);
 	while (beg)
 	{
-		//beg->path = cat_path_filename()
-		//beg->dirname = ft_strjoin(dirname, "/");//Думаю это будет не тут
-		//!Зафришить
-		//beg->dirname = ft_strjoin(beg->dirname, beg->filename);
 		valid_stat(beg->path, beg->buf, beg->f_type);
 		beg = beg->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/16 08:22:17 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/16 10:01:55 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@
 # define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))
 # define PERMISS_OX(x) (((x) & O_T) ? -1 : ((x) & O_X))
 
-# define EFLAGS	"usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n"
+# define EFLAGS	"usage: ft_ls [-acdfglrtuR] [file ...]\n"
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
 # define MAX_LEN_FILENAME 255
@@ -177,21 +177,6 @@ enum					e_typefile
 						DSCKNB = 20
 };
 
-// typedef enum
-// {
-// 						FALSE,
-// 						TRUE
-// }						t_bool;
-
-
-//*Отсортировать по размеру для экономии места
-// typedef struct			s_fullinfo
-// {
-// 	struct stat			buf;
-// 	//char				*pw_name;
-// 	//char				*gr_name;
-// }						t_fullinfo;
-
 typedef struct			s_filename
 {
 	struct s_filename	*next;
@@ -202,7 +187,6 @@ typedef struct			s_filename
 	const char			*pw_name;
 	const char			*gr_name;
 	uint8_t				f_type;
-	//t_fullinfo			*info;
 }						t_filename;
 
 struct					s_num
@@ -276,8 +260,6 @@ int						get_options(const char *options, t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname, const char *filename);
 void					max_weight(t_filename *beg, struct s_num *align);
-//void					push_permission_o(mode_t st_mode, char *str);
-//void					push_permission_ug(mode_t st_mode, char *p_run, int64_t gen);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
 const char				*push_color(mode_t st_mode, const char *ls_color);
@@ -286,8 +268,6 @@ void					max_len_little_big_dev(const t_filename *beg, struct s_num *align);
 /*
 **Compare
 */
-// int						cmp_max_num_link(int num_cmp, const t_filename *elem);
-// int						cmp_max_size_file(int num_cmp, const t_filename *elem);
 int						cmp_atime(t_filename *one, t_filename *two);
 int						cmp_mtime(t_filename *one, t_filename *two);
 int						cmp_name(t_filename *one, t_filename *two);

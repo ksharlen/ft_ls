@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/16 09:02:55 by ksharlen          #+#    #+#              #
-#    Updated: 2019/09/16 09:02:57 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/09/16 09:12:43 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LIBFT		:=	libft.a
 REMOVE		:=	rm -rf
 SRC			:=	main.c\
 					ft_ls.c\
-					lists.c\
 					lists_filename.c\
 					workdir.c\
 					flags.c\

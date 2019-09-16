@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/05 14:16:39 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/16 09:17:08 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ int		valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 		file_errors(filename);
 	else if (errno == ESTATE_ENOMEM)
 		sys_errors();
-	// else if (errno == ESTATE_ENOTDIR)
-	// 	;//Подумать
 	return (SUCCESSFUL_COMPLETION);
 }
 
 char		*valid_readlink(const char *path_link)
 {
-	//!	Не проходит по норме
 	int ret_rdl;
 	char pull_val_link[MAX_LEN_FILENAME];
 
@@ -102,10 +99,3 @@ char		*valid_readlink(const char *path_link)
 	pull_val_link[ret_rdl] = '\0';
 	return (ret_rdl > 0 ? ft_strdup(pull_val_link) : NULL);
 }
-
-/*
-	Возможные ошибки:
-		1) Доступ запрещен
-		2) каталога
-		3) Это не каталог
-*/
