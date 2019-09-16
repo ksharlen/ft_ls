@@ -15,7 +15,8 @@ static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_p
 {
 	if (info->ls_color)
 		info->color = push_color(beg->buf->st_mode, info->ls_color);
-	info->filetype = pull_filetype(beg->f_type);
+	//info->filetype = pull_filetype(beg->f_type);
+	info->filetype = pull_filetype(beg->buf->st_mode);
 	if (S_ISLNK(beg->buf->st_mode))
 		info->val_link = pull_val_link(beg->path);
 	else

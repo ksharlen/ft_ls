@@ -45,31 +45,25 @@ char	pull_acl_xattr(const char *path)
 	return (ret);
 }
 
-char    pull_filetype(const int8_t int_ftype)
+char    pull_filetype(const mode_t st_mode)
 {
     char filetype;
 
-    if (int_ftype == D_TYPE)
-        filetype = 'd';
-    else if (int_ftype == U_TYPE)
-        filetype = 'u';
-    else if (int_ftype == F_TYPE)
-        filetype = 'f';
-    else if (int_ftype == C_TYPE)
-        filetype = 'c';
-    else if (int_ftype == B_TYPE)
-        filetype = 'b';
-    else if (int_ftype == R_TYPE)
-        filetype = '-';
-    else if (int_ftype == L_TYPE)
-        filetype = 'l';
-    else if (int_ftype == S_TYPE)
-        filetype = 's';
-    else if (int_ftype == W_TYPE)
-        filetype = 'w';
-    else
-        filetype = '-';
-    return (filetype);
+	if (S_ISLNK(st_mode))
+		filetype = 'l';
+	else if (S_ISDIR(st_mode))
+		filetype = 'd';
+	else if (S_ISCHR(st_mode))
+		filetype = 'c';
+	else if (S_ISBLK(st_mode))
+		filetype = 'b';
+	else if (S_ISFIFO(st_mode))
+		filetype = 'p';
+	else if (S_ISSOCK(st_mode))
+		filetype = 's';
+	else
+		filetype = '-';
+	return (filetype);
 }
 
 const char *pull_val_link(const char *path_link)
