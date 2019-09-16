@@ -2,43 +2,6 @@
 
 static void		pull_dir(t_filename *beg, t_ubyte *flags);
 
-// static void print_dir(t_filename *beg)
-// {
-// 	if (beg)
-// 		while (beg)
-// 		{
-// 			ft_printf("filename: %s\n", beg->filename);
-// 			ft_printf("dirname: %s\n", beg->dirname);
-// 			ft_printf("path: %s\n\n", beg->path);
-// 			beg = beg->next;
-// 		}
-// }
-
-// static void	print_lists_p(t_filename *beg)
-// {
-// 	while (beg)
-// 	{
-// 		if (!ft_strncmp(beg->filename, ".", 1) || !ft_strncmp(beg->filename, "..", 2))
-// 			;
-// 		else
-// 			ft_printf("%s	", beg->filename);
-// 		beg = beg->next;
-// 	}
-// 	ft_printf("\n");
-// }
-
-// static void	print_options(t_ubyte *flags)
-// {
-// 	register size_t	i;
-
-// 	i = 0;
-// 	while (i < NUM_FLAGS)
-// 	{
-// 		ft_printf("%u", flags[i]);
-// 		++i;
-// 	}
-// }
-
 static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 {
 	register size_t i;
@@ -102,19 +65,26 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	//!Не забыть сделать closedir and free
 	t_filename		*beg;
 	DIR				*dir;
+	static size_t	i;
 
 	//dir = opendir(dir);//Проверить errno на значение 20(это не каталог)//так же проверить на что не нашел.
 	beg = NULL;
 	dir = valid_opendir(dirname);
 	if (dir)
 	{
+		if (FIND_FLAG('R') && i != 0)
+			ft_printf("%s:\n", dirname);
 		push_list_filename_dir_content(dir, &beg, flags, dirname);
 		push_buf_stat_to_filename(beg);
 		beg = sort_list_by_flags(&beg, flags);
 		print_list(beg, flags);
 		closedir(dir);
 		if (flags[FIND_FLAG('R')])
+		{
+			ft_printf("\n");
+			++i;
 			pull_dir(beg, flags);
+		}
 		clear_filename(&beg);
 		//!После того как идем вверх начинаем фришить
 	}
