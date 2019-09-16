@@ -1,11 +1,11 @@
 #include "ft_ls.h"
 
-static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_filename *))
+static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_filename *), t_filename *until)
 {
 	t_filename *left;
 	t_filename *right;
 
-	if (!list || !list->next)
+	if (list == until || !list->next)
 		return (list);
 	left = list;
 	right = left->next;
@@ -16,9 +16,9 @@ static t_filename *merge_sort(t_filename *list, int (*sort_key)(t_filename *, t_
 	}
 	right = list->next;
 	list->next = NULL;
-	return (list_filename_merge(merge_sort(left, sort_key), merge_sort(right, sort_key), sort_key));
+	return (list_filename_merge(merge_sort(left, sort_key, NULL), merge_sort(right, sort_key, NULL), sort_key));
 }
-
+//! Понять почему работает????!!!!
 t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
 	if (!flags[FIND_FLAG('f')])
@@ -26,12 +26,12 @@ t_filename 	*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 		if (flags[FIND_FLAG('t')])
 		{
 			if (flags[FIND_FLAG('u')])
-				(*beg) = merge_sort(*beg, cmp_atime);
+				(*beg) = merge_sort(*beg, cmp_atime, NULL);
 			else
-				(*beg) = merge_sort(*beg, cmp_mtime);
+				(*beg) = merge_sort(*beg, cmp_mtime, NULL);
 		}
 		else
-			(*beg) = merge_sort(*beg, cmp_name);
+			(*beg) = merge_sort(*beg, cmp_name, NULL);
 		if (flags[FIND_FLAG('r')])
 			list_revers(beg);
 	}
