@@ -49,14 +49,14 @@ char    pull_filetype(const int8_t int_ftype)
 {
     char filetype;
 
-    if (int_ftype == U_TYPE)
+    if (int_ftype == D_TYPE)
+        filetype = 'd';
+    else if (int_ftype == U_TYPE)
         filetype = 'u';
     else if (int_ftype == F_TYPE)
         filetype = 'f';
     else if (int_ftype == C_TYPE)
         filetype = 'c';
-    else if (int_ftype == D_TYPE)
-        filetype = 'd';
     else if (int_ftype == B_TYPE)
         filetype = 'b';
     else if (int_ftype == R_TYPE)

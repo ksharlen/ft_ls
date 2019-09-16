@@ -42,14 +42,19 @@ static void print_long_line(struct s_print *print_info, struct s_num *align, con
 {
 	int32_t	little_init_dev;
 	int32_t big_init_dev;
+	char	*big_init_dev_str;
+	char	sym;
 
+	sym = ((print_info->filetype == 'c' || print_info->filetype == 'b') ? ',' : ' ');
 	if (!ft_strcmp(dirname, "dev") || !ft_strcmp(dirname, "/dev"))
 	{
 		little_init_dev = MINOR(st_rdev);
 		big_init_dev = MAJOR(st_rdev);
-		ft_printf("%c%s%c %*d %-*s%-*s %*d, %*d %s %s%s%s%s\n", print_info->filetype, print_info->permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
+		big_init_dev_str = (print_info->filetype == 'c' || print_info->filetype == 'b') ? ft_itoa(big_init_dev) : ft_strsetalloc(' ', align->max_len_big_dev); //!ЗАЧИСТИТЬ!!!!!!!
+		ft_printf("%c%s%c %*d %-*s%-*s %*s%c %*d %s %s%s%s%s\n", print_info->filetype, print_info->permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
 	print_info->acl_xattr, align->max_num_link, print_info->num_link, align->max_len_user, print_info->user, align->max_len_group, print_info->group,
-	align->max_len_big_dev, big_init_dev, align->max_len_little_dev, little_init_dev, print_info->date, print_info->color, print_info->filename, DEFAULT_STYLE, print_info->val_link);
+	align->max_len_big_dev, big_init_dev_str, sym, align->max_len_little_dev, little_init_dev, print_info->date, print_info->color, print_info->filename, DEFAULT_STYLE, print_info->val_link);
+		ft_strdel(&big_init_dev_str);
 	}
 	else
 		ft_printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s%s\n", print_info->filetype, print_info->permission, //%s - цвет и ширина, %s имя файла %s - файл ссылки
