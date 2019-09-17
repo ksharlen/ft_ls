@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:38:07 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 11:53:50 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:41:24 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ void		print_fullinfo(const t_filename *beg,
 		fill_s_print(beg, flags, &print_info);
 		print_long_line(&print_info, &align, beg->dirname, beg->buf->st_rdev);
 		beg = beg->next;
-		clean_mem(print_info);
+		//clean_mem(print_info);
 	}
 }

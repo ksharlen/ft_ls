@@ -6,11 +6,30 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:49:25 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:56:14 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static t_filename	*find_repeat(t_filename *beg,
+	int (*sort_key)(t_filename *, t_filename *), size_t *count)
+{
+	t_filename *end;
+
+	if (beg)
+	{
+		*count = 0;
+		end = beg;
+		while (!sort_key(beg, beg->next))
+		{
+			beg = beg->next;
+			(*count)++;
+		}
+		return (beg);
+	}
+	return (NULL);
+}
 
 static t_filename	*merge_sort(t_filename *list,
 	int (*sort_key)(t_filename *, t_filename *), t_filename *until)
@@ -33,6 +52,51 @@ static t_filename	*merge_sort(t_filename *list,
 		merge_sort(right, sort_key, NULL), sort_key));
 }
 
+static t_filename	*skip_sort(t_filename *beg, size_t *count)
+{
+	if (beg)
+	{
+		while (*count)
+		{
+			beg = beg->next;
+			(*count)--;
+		}
+		return(beg);
+	}
+	return (NULL);
+}
+
+static t_filename	*sort_repeat(t_filename *beg, int (*sort_key)(t_filename *, t_filename *))
+{
+	t_filename	*end;
+	t_filename	*begin;
+	size_t		count;
+	char		flag;
+
+	begin = beg;
+	flag = 0;
+	// if (sort_key(beg, beg->next))
+	// {
+	// 	end = find_repeat(beg, sort_key, &count);
+	// 	beg = merge_sort(beg, cmp_name, end);
+	// 	begin = beg;
+	// 	beg = skip_sort(beg, &count);
+	// }
+	while (beg->next->next)
+	{
+		if (!sort_key(beg, beg->next))
+		{
+			end = find_repeat(beg, sort_key, &count);
+			beg = merge_sort(beg, cmp_name, end);
+			beg = skip_sort(beg, &count);
+			//!Нужен указатель на следу
+		}
+		else
+			beg = beg->next;
+	}
+	return (begin);
+}
+
 t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
 	if (!flags[FIND_FLAG('f')])
@@ -40,9 +104,15 @@ t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 		if (flags[FIND_FLAG('t')])
 		{
 			if (flags[FIND_FLAG('u')])
+			{
 				(*beg) = merge_sort(*beg, cmp_atime, NULL);
+				(*beg) = sort_repeat(*beg, cmp_atime);
+			}
 			else
+			{
 				(*beg) = merge_sort(*beg, cmp_mtime, NULL);
+				(*beg) = sort_repeat(*beg, cmp_mtime);
+			}
 		}
 		else
 			(*beg) = merge_sort(*beg, cmp_name, NULL);
