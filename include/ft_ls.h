@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:45:17 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:22:56 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,53 +35,7 @@
 # define EOPENDIR_ENOMEM			ENOMEM
 # define EOPENDIR_ENOTDIR			ENOTDIR
 
-# define ECLOSEDIR_EBADF			EBADF
-
 # define EREADDIR_ENBADF			EBADF
-//!
-# define EGETPWUID_ENOENT			ENOENT
-# define EGETPWUID_ESRCH			ESRCH
-# define EGETPWUID_EBADF			EBADF
-# define EGETPWUID_EPERM			EPERM
-# define EGETPWUID_ENOMEM			ENOMEM
-# define EGETPWUID_EIO				EIO
-# define EGETPWUID_EINTR			EINTR
-# define EGETPWUID_EMFILE			EMFILE
-# define EGETPWUID_ENFILE			ENFILE
-
-# define EGETGRGID_ENOENT			ENOENT
-# define EGETGRGID_ESRCH			ESRCH
-# define EGETGRGID_EBADF			EBADF
-# define EGETGRGID_EPERM			EPERM
-# define EGETGRGID_ENOMEM			ENOMEM
-# define EGETGRGID_EIO				EIO
-# define EGETGRGID_EINTR			EINTR
-# define EGETGRGID_EMFILE			EMFILE
-# define EGETGRGID_ENFILE			ENFILE
-//!
-# define ELISRXATTR_ENOTSUP			ENOTSUP
-# define ELISRXATTR_ERANGE			ERANGE
-# define ELISRXATTR_EPERM			EPERM
-# define ELISRXATTR_ENOTDIR			ENOTDIR
-# define ELISRXATTR_ENAMETOOLONG	ENAMETOOLONG
-# define ELISRXATTR_EACCES			EACCES
-# define ELISRXATTR_ELOOP			ELOOP
-# define ELISRXATTR_EFAULT			EFAULT
-# define ELISRXATTR_EIO				EIO
-# define ELISRXATTR_EINVAL			EINVAL
-
-# define EGETXATTR_ENOATTR			ENOATTR
-# define EGETXATTR_ENOTSUP			ENOTSUP
-# define EGETXATTR_ERANGE			ERANGE
-# define EGETXATTR_EPRERM			EPERM
-# define EGETXATTR_EINVAL			EINVAL
-# define EGETXATTR_EISDIR			EISDIR
-# define EGETXATTR_ENOTDIR			ENOTDIR
-# define EGETXATTR_ENAMETOOLONG		ENAMETOOLONG
-# define EGETXATTR_EACCES			EACCES
-# define EGETXATTR_ELOOP			ELOOP
-# define EGETXATTR_EFAULT			EFAULT
-# define EGETXATTR_EIO				EIO
 
 # define ESTATE_EBADF 				EBADF
 # define ESTATE_ENOENT 				ENOENT
@@ -92,15 +46,8 @@
 # define ESTATE_ENOMEM				ENOMEM
 # define ESTATE_ENAMETOOLONG		ENAMETOOLONG
 
-# define U_TYPE						DT_UNKNOWN
-# define F_TYPE						DT_FIFO
-# define C_TYPE						DT_CHR
 # define D_TYPE						DT_DIR
-# define B_TYPE						DT_BLK
-# define R_TYPE						DT_REG
 # define L_TYPE						DT_LNK
-# define S_TYPE						DT_SOCK
-# define W_TYPE						DT_WHT
 
 /*
 **Access permission
@@ -164,16 +111,13 @@
 
 # define CHECK_ALLOC(x) !(x) ? sys_errors() : 1
 
-#define	P_UNUSED(variable) ((void)variable)
+# define P_UNUSED(variable) ((void)variable)
 
 # define CURRENT_DIR "."
 
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
 typedef	uint64_t		t_len;
-
-# define BYTE	t_byte;
-# define UBYTE 	t_ubyte;
 
 typedef enum
 {

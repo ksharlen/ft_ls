@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:42:58 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:47:52 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:16:57 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void		ls_internal(const char *dirname, t_ubyte *flags)
 		push_buf_stat_to_filename(beg);
 		beg = sort_list_by_flags(&beg, flags);
 		print_list(beg, flags);
-		closedir(dir);
+		if ((closedir(dir) == -1))
+			sys_errors();
 		if (flags[FIND_FLAG('R')])
 		{
 			ft_printf("\n");
