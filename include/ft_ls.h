@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 12:15:27 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:28:57 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@
 # define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))
 # define PERMISS_OX(x) (((x) & O_T) ? -1 : ((x) & O_X))
 
-# define EFLAGS	"usage: ft_ls [-acdfglrtuR] [file ...]\n"
+# define EFLAGS	"usage: ft_ls [-acfglrtuR] [file ...]\n"
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
 # define MAX_LEN_FILENAME 255
 # define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
-# define FLAGS			"adfglrtucR"
+# define FLAGS			"afglrtucR"
 # define FLAG_ON		1
 # define FLAG_OFF		0
 # define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)
