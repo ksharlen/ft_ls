@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/16 10:49:57 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 08:34:04 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,21 +124,23 @@
 # define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))
 # define PERMISS_OX(x) (((x) & O_T) ? -1 : ((x) & O_X))
 
-# define EFLAGS	"usage: ft_ls [-acdfglrtuR1] [file ...]\n"
+# define EFLAGS	"usage: ft_ls [-acdfglrtuR] [file ...]\n"
 # define FILE_ERROR(filename)	ft_printf("%vft_ls: %s: ", 2, filename)
 
 # define MAX_LEN_FILENAME 255
 # define DEFAULT_STYLE	"\e[39;49;22m"
 # define NUM_FLAGS		53
-# define FLAGS			"adfglrtucR1"
+# define FLAGS			"adfglrtucR"
 # define FLAG_ON		1
 # define FLAG_OFF		0
-# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' || (x) == '1' ? 1 : 0)
+# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)
 # define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z' ? 1 : 0)
 # define FLAG_VALID(x) ((FLAG_LOW_REG(x) || FLAG_UPP_REG(x) ? 1 : 0))
 # define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
+
+# define CHECK_SYS_ERR_RLINK(x) (((x) == ELOOP) || ((x) == EIO) || ((x) == EFAULT) || ((x) == ENOMEM) || ((x) == ENOTDIR) || ((x) == EINVAL) || ((x) == ENAMETOOLONG) ? 1 : 0)
 
 # define MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 # define MINOR(x) ((int32_t)((x) & 0xffffff))
@@ -236,7 +238,7 @@ void					push_buf_stat_to_filename(t_filename *beg);
 void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
-int						valid_stat(const char *filename, struct stat *buf, uint8_t f_type);
+void					valid_stat(const char *filename, struct stat *buf, uint8_t f_type);
 char					*valid_readlink(const char *path_link);
 
 /*

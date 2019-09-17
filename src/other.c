@@ -11,7 +11,7 @@ const char	*cut_date(const time_t sec)
 		sys_errors();
 	return (ret_date);
 }
-//?Переделать
+
 void	max_len_little_big_dev(const t_filename *beg, struct s_num *align)
 {
 	int cmp;

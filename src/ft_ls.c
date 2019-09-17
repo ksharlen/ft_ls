@@ -1,5 +1,7 @@
 #include "ft_ls.h"
 
+//FIXME: Нужно одну ф-ию убрать в другой файл
+
 static void		pull_dir(t_filename *beg, t_ubyte *flags);
 
 static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
@@ -35,7 +37,6 @@ static size_t		collect_flags(size_t argc, char *const argv[],
 		return (skip_opt_argv);
 	}
 
-//!Начало временного кода
 static void clear_filename(t_filename **beg)
 {
 	t_filename *res;
@@ -56,7 +57,6 @@ static void clear_filename(t_filename **beg)
 		}
 	}
 }
-//!Конец временного кода
 
 static void			ls_internal(const char *dirname, t_ubyte *flags)
 {

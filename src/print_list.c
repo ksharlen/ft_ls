@@ -42,10 +42,7 @@ static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 	{
 		color = push_color(beg->buf->st_mode, ls_color);
 		color_filename = insert_color_filename(beg->filename, color);
-		if (beg->next)
-			ft_printf("%-*s%c", len_max_filename, color_filename, FIND_FLAG('1') ? '\n' : ' ');
-		else
-			ft_printf("%-*s", len_max_filename, color_filename);
+		ft_printf("%-*s ", len_max_filename, color_filename);
 		ft_strdel((char **)&color_filename);
 		beg = beg->next;
 	}

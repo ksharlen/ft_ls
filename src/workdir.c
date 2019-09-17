@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/16 09:17:08 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 08:42:21 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ DIR		*valid_opendir(const char *filename)
 	else if (errno == EOPENDIR_ENOMEM)
 		sys_errors();
 	else if (errno == EOPENDIR_ENOTDIR)
-	{
-		//файл не директория, но ее все равно нужно вывести на экран
-	}
+		;
 	else
 		return (dir);
 	return (NULL);
@@ -47,7 +45,7 @@ struct dirent *valid_readdir(DIR *dir)
 	return (dent);
 }
 
-int		valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
+void	valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 {
 	errno = 0;
 	if (f_type == L_TYPE)
@@ -68,7 +66,6 @@ int		valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 		file_errors(filename);
 	else if (errno == ESTATE_ENOMEM)
 		sys_errors();
-	return (SUCCESSFUL_COMPLETION);
 }
 
 char		*valid_readlink(const char *path_link)
@@ -78,24 +75,12 @@ char		*valid_readlink(const char *path_link)
 
 	ret_rdl = readlink(path_link, pull_val_link, MAX_LEN_FILENAME);
 	errno = 0;
-	if (errno == ENOTDIR || errno == EINVAL)
-		;//?Тут подумать
-	else if (errno == EINVAL)
-		sys_errors();
-	else if (errno == ENAMETOOLONG)
+	if (CHECK_SYS_ERR_RLINK(errno))
 		sys_errors();
 	else if (errno == ENOENT)
 		file_errors(path_link);
 	else if (errno == EACCES)
 		file_errors(path_link);
-	else if (errno == ELOOP)
-		sys_errors();
-	else if (errno == EIO)
-		sys_errors();
-	else if (errno == EFAULT)
-		sys_errors();
-	else if (errno == ENOMEM)
-		sys_errors();
 	pull_val_link[ret_rdl] = '\0';
 	return (ret_rdl > 0 ? ft_strdup(pull_val_link) : NULL);
 }

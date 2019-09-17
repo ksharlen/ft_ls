@@ -53,6 +53,5 @@ char    *pull_access_permission(const mode_t st_mode)
 	push_permission_g(st_mode, p_run);
 	p_run += 3;
 	push_permission_o(st_mode, p_run);
-
     return (return_str);
 }

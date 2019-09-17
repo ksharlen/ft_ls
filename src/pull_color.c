@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/16 09:14:18 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 08:24:10 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
 		color = def_style(NULL, 0);
 	return (color);
 }
-
+//FIXME: сократить и в другой файл
 const char *push_color(mode_t st_mode, const char *ls_color)
 {
 	const char *color;
