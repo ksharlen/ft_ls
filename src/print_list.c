@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_list.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:55:09 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 09:55:31 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static const char *insert_color_filename(const char *filename, const char *color)
+static const char	*insert_color_filename(const char *filename,
+	const char *color)
 {
 	char *color_filename;
 	char *free_string;
@@ -15,7 +28,7 @@ static const char *insert_color_filename(const char *filename, const char *color
 	return (color_filename);
 }
 
-static t_len	large_filename(t_filename *beg)
+static t_len		large_filename(t_filename *beg)
 {
 	t_len	len_filename;
 	t_len	large_filename;
@@ -31,7 +44,8 @@ static t_len	large_filename(t_filename *beg)
 	return (large_filename);
 }
 
-static void 	simple_print_lists(t_filename *beg, const char *ls_color)
+static void			simple_print_lists(t_filename *beg,
+	const char *ls_color)
 {
 	int			len_max_filename;
 	const char	*color;
@@ -49,7 +63,7 @@ static void 	simple_print_lists(t_filename *beg, const char *ls_color)
 	ft_printf("%v%s", 1, "\n");
 }
 
-void			print_list(t_filename *beg, t_ubyte *flags)
+void				print_list(t_filename *beg, t_ubyte *flags)
 {
 	const char *ls_color;
 

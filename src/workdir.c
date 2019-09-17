@@ -6,13 +6,13 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 08:42:21 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:00:05 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-DIR		*valid_opendir(const char *filename)
+DIR				*valid_opendir(const char *filename)
 {
 	DIR	*dir;
 
@@ -35,7 +35,7 @@ DIR		*valid_opendir(const char *filename)
 	return (NULL);
 }
 
-struct dirent *valid_readdir(DIR *dir)
+struct dirent	*valid_readdir(DIR *dir)
 {
 	struct dirent *dent;
 
@@ -45,7 +45,8 @@ struct dirent *valid_readdir(DIR *dir)
 	return (dent);
 }
 
-void	valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
+void			valid_stat(const char *filename,
+	struct stat *buf, uint8_t f_type)
 {
 	errno = 0;
 	if (f_type == L_TYPE)
@@ -68,10 +69,10 @@ void	valid_stat(const char *filename, struct stat *buf, uint8_t f_type)
 		sys_errors();
 }
 
-char		*valid_readlink(const char *path_link)
+char			*valid_readlink(const char *path_link)
 {
-	int ret_rdl;
-	char pull_val_link[MAX_LEN_FILENAME];
+	int		ret_rdl;
+	char	pull_val_link[MAX_LEN_FILENAME];
 
 	ret_rdl = readlink(path_link, pull_val_link, MAX_LEN_FILENAME);
 	errno = 0;

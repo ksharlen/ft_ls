@@ -1,6 +1,16 @@
-#include "ft_ls.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:42:58 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 09:47:52 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void		pull_dir(t_filename *beg, t_ubyte *flags);
+#include "ft_ls.h"
 
 static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 {
@@ -21,21 +31,21 @@ static size_t	push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 	return (i);
 }
 
-static size_t		collect_flags(size_t argc, char *const argv[],
-	t_ubyte *flags)
+static size_t	collect_flags(size_t argc, char *const argv[],
+t_ubyte *flags)
 {
-		size_t	skip_opt_argv;
+	size_t	skip_opt_argv;
 
-		skip_opt_argv = 0;
-		if (CHECK_KEY(argv[1]))
-		{
-			skip_opt_argv = push_flags(argc, argv, flags);
-			valid_flags(flags);
-		}
-		return (skip_opt_argv);
+	skip_opt_argv = 0;
+	if (CHECK_KEY(argv[1]))
+	{
+		skip_opt_argv = push_flags(argc, argv, flags);
+		valid_flags(flags);
+	}
+	return (skip_opt_argv);
 }
 
-static void			ls_internal(const char *dirname, t_ubyte *flags)
+static void		ls_internal(const char *dirname, t_ubyte *flags)
 {
 	t_filename		*beg;
 	DIR				*dir;
@@ -62,7 +72,7 @@ static void			ls_internal(const char *dirname, t_ubyte *flags)
 	}
 }
 
-static void		pull_dir(t_filename *beg, t_ubyte *flags)
+void			pull_dir(t_filename *beg, t_ubyte *flags)
 {
 	while (beg)
 	{
@@ -72,7 +82,7 @@ static void		pull_dir(t_filename *beg, t_ubyte *flags)
 	}
 }
 
-int		ft_ls(size_t argc, char *const argv[])
+int				ft_ls(size_t argc, char *const argv[])
 {
 	t_ubyte			*flags;
 	register size_t	i;

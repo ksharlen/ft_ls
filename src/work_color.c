@@ -6,13 +6,13 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:05:43 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:07:54 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:59:02 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void def_font(char *color, const char ls_color)
+void	def_font(char *color, const char ls_color)
 {
 	if (ls_color >= 'A' && ls_color <= 'Z')
 		ft_strcat(color, "01m");
@@ -20,7 +20,7 @@ void def_font(char *color, const char ls_color)
 		ft_strcat(color, "22m");
 }
 
-void def_backgrnd(char *color, const char ls_color)
+void	def_backgrnd(char *color, const char ls_color)
 {
 	if (ls_color == 'a' || ls_color == 'A')
 		ft_strcat(color, "40;");
@@ -42,7 +42,7 @@ void def_backgrnd(char *color, const char ls_color)
 		ft_strcat(color, "49;");
 }
 
-void def_color(char *color, const char ls_color)
+void	def_color(char *color, const char ls_color)
 {
 	if (ls_color == 'a' || ls_color == 'A')
 		ft_strcpy(color, "\e[30;");

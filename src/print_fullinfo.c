@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_fullinfo.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:38:07 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 10:01:12 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-//*СДЕЛАТЬ РЕФАКТ!!!
-
-static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_print *info)
+static void	fill_s_print(const t_filename *beg,
+	const t_ubyte *flags, struct s_print *info)
 {
 	if (info->ls_color)
 		info->color = push_color(beg->buf->st_mode, info->ls_color);
@@ -26,8 +37,9 @@ static void	fill_s_print(const t_filename *beg, const t_ubyte *flags, struct s_p
 	info->date = pull_date(beg, flags);
 	info->filename = beg->filename;
 }
-//FIXME: Переделать по норме
-static void print_long_line(struct s_print *print_info, struct s_num *align, const char *dirname, const dev_t st_rdev)
+
+static void	print_long_line(struct s_print *print_info,
+	struct s_num *align, const char *dirname, const dev_t st_rdev)
 {
 	int32_t	little_init_dev;
 	int32_t big_init_dev;
@@ -52,7 +64,8 @@ static void print_long_line(struct s_print *print_info, struct s_num *align, con
 			VARS_FOR_PRINT_LONG_FORMAT);
 }
 
-void	print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_color)
+void		print_fullinfo(const t_filename *beg,
+	const t_ubyte *flags, const char *ls_color)
 {
 	struct s_print	print_info;
 	struct s_num	align;

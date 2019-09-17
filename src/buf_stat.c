@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   buf_stat.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:40:00 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 09:40:45 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static void add_uname_grname(t_filename *beg)
+static void			add_uname_grname(t_filename *beg)
 {
 	while (beg)
 	{
@@ -12,7 +24,7 @@ static void add_uname_grname(t_filename *beg)
 
 static struct stat	*buf_stat_create(void)
 {
-	struct stat		*new;
+	struct stat	*new;
 
 	new = (struct stat *)ft_memalloc(sizeof(struct stat));
 	if (!new)
@@ -32,9 +44,9 @@ static void			buf_stat_add_to_filename(t_filename *beg)
 	}
 }
 
-void	push_buf_stat_to_filename(t_filename *beg)
+void				push_buf_stat_to_filename(t_filename *beg)
 {
-	t_filename *res;
+	t_filename	*res;
 
 	res = beg;
 	buf_stat_add_to_filename(beg);

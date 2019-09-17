@@ -6,13 +6,13 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:12:41 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:56:22 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static const char *def_style(const char *ls_color, const ssize_t index_color)
+static const char	*def_style(const char *ls_color, const ssize_t index_color)
 {
 	char *color;
 	char sym;
@@ -33,7 +33,7 @@ static const char *def_style(const char *ls_color, const ssize_t index_color)
 	return (color);
 }
 
-static const char *color_dir(mode_t st_mode, const char *ls_color)
+static const char	*color_dir(mode_t st_mode, const char *ls_color)
 {
 	const char *color;
 
@@ -49,18 +49,19 @@ static const char *color_dir(mode_t st_mode, const char *ls_color)
 	return (color);
 }
 
-static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
+static const char	*color_stdf_or_ex(mode_t st_mode, const char *ls_color)
 {
 	const char *color;
 
 	if ((st_mode & U_X) || (st_mode & G_X) || (st_mode & O_X))
-			color = def_style(ls_color, EX);
+		color = def_style(ls_color, EX);
 	else
 		color = def_style(NULL, 0);
 	return (color);
 }
 
-static const char *push_color_for_spec_file(mode_t st_mode, const char *ls_color)
+static const char	*push_color_for_spec_file(mode_t st_mode,
+	const char *ls_color)
 {
 	const char *color;
 
@@ -77,7 +78,7 @@ static const char *push_color_for_spec_file(mode_t st_mode, const char *ls_color
 	return (color);
 }
 
-const char *push_color(const mode_t st_mode, const char *ls_color)
+const char			*push_color(const mode_t st_mode, const char *ls_color)
 {
 	const char *color;
 

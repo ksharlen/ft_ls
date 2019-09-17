@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   other.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:54:12 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 09:54:31 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 const char	*cut_date(const time_t sec)
@@ -12,7 +24,7 @@ const char	*cut_date(const time_t sec)
 	return (ret_date);
 }
 
-void	max_len_little_big_dev(const t_filename *beg, struct s_num *align)
+void		max_len_little_big_dev(const t_filename *beg, struct s_num *align)
 {
 	int cmp;
 
@@ -33,7 +45,7 @@ void	max_len_little_big_dev(const t_filename *beg, struct s_num *align)
 	}
 }
 
-void	max_len_elem(const t_filename *beg, struct s_num *align)
+void		max_len_elem(const t_filename *beg, struct s_num *align)
 {
 	int		cmp;
 
@@ -61,11 +73,11 @@ void	max_len_elem(const t_filename *beg, struct s_num *align)
 	}
 }
 
-char	*cat_path_filename(const char *dirname, const char *filename)
+char		*cat_path_filename(const char *dirname, const char *filename)
 {
 	size_t	size_ret;
 	size_t	size_dirname;
-	char 	*ret;
+	char	*ret;
 	int8_t	separator;
 
 	separator = 1;

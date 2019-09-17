@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pull.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/17 09:56:59 by ksharlen          #+#    #+#             */
+/*   Updated: 2019/09/17 09:58:34 by ksharlen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-const char *pull_date(const t_filename *beg, const t_ubyte *flags)
+const char	*pull_date(const t_filename *beg, const t_ubyte *flags)
 {
 	const char *ret_date;
 
@@ -21,13 +33,13 @@ const char *pull_date(const t_filename *beg, const t_ubyte *flags)
 	return (ret_date);
 }
 
-char	pull_acl_xattr(const char *path)
+char		pull_acl_xattr(const char *path)
 {
-	ssize_t	xattr;
-	acl_t	acl;
-	acl_type_t type;
-	size_t option;
-	char	ret;
+	ssize_t		xattr;
+	acl_t		acl;
+	acl_type_t	type;
+	size_t		option;
+	char		ret;
 
 	option = XATTR_NOFOLLOW;
 	type = ACL_TYPE_EXTENDED;
@@ -45,9 +57,9 @@ char	pull_acl_xattr(const char *path)
 	return (ret);
 }
 
-char    pull_filetype(const mode_t st_mode)
+char		pull_filetype(const mode_t st_mode)
 {
-    char filetype;
+	char	filetype;
 
 	if (S_ISLNK(st_mode))
 		filetype = 'l';
@@ -66,7 +78,7 @@ char    pull_filetype(const mode_t st_mode)
 	return (filetype);
 }
 
-const char *pull_val_link(const char *path_link)
+const char	*pull_val_link(const char *path_link)
 {
 	char *filename_from_link;
 	char *print_link;

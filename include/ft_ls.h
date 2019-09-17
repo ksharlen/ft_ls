@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:35:32 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:45:17 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,9 @@
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
 
-# define CHECK_SYS_ERR_RLINK(x) (((x) == ELOOP) || ((x) == EIO) || ((x) == EFAULT) || ((x) == ENOMEM) || ((x) == ENOTDIR) || ((x) == EINVAL) || ((x) == ENAMETOOLONG) ? 1 : 0)
+# define CHECK_SYS_ERR_RLINK(x) (((x) == ELOOP) || ((x) == EIO) ||\
+	((x) == EFAULT) || ((x) == ENOMEM) || ((x) == ENOTDIR) ||\
+	((x) == EINVAL) || ((x) == ENAMETOOLONG) ? 1 : 0)
 
 # define MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 # define MINOR(x) ((int32_t)((x) & 0xffffff))
@@ -301,6 +303,7 @@ char					*pull_access_permission(const mode_t st_mode);
 char					pull_acl_xattr(const char *path);
 const char				*pull_date(const t_filename *beg, const t_ubyte *flags);
 const char				*pull_val_link(const char *path_link);
+void					pull_dir(t_filename *beg, t_ubyte *flags);
 
 /*
 **Garbage_collector
