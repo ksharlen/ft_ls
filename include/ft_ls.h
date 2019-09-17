@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 08:48:13 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:04:10 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,6 @@ int						ft_ls(size_t argc, char *const argv[]);
 /*
 **Lists filename
 */
-size_t					list_filename_size(t_filename *beg);
 void					list_filename_add_end(t_filename **beg, const char *filename, uint8_t f_type, const char *dirname);
 void					push_list_filename_dir_content(DIR *dir, t_filename **beg, t_ubyte *flags, const char *dirname);
 

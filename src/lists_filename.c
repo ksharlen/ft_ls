@@ -43,13 +43,6 @@ t_filename	*list_filename_merge(t_filename *l_one, t_filename *l_two, int (*key)
 	return (new->next);
 }
 
-size_t				list_filename_size(t_filename *beg)
-{
-	if (!beg->next)
-		return (1);
-	return (1 + list_filename_size(beg->next));
-}
-
 static t_filename	*list_filename_create(const char *filename, uint8_t f_type, const char *dirname)
 {
 	t_filename	*new;
