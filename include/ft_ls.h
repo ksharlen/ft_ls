@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:04:10 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:08:05 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ char					*cat_path_filename(const char *dirname, const char *filename);
 void					max_weight(t_filename *beg, struct s_num *align);
 void					max_len_elem(const t_filename *beg, struct s_num *align);
 const char				*cut_date(const time_t sec);
-const char				*push_color(mode_t st_mode, const char *ls_color);
 void					max_len_little_big_dev(const t_filename *beg, struct s_num *align);
 
 /*
@@ -293,5 +292,13 @@ const char				*pull_val_link(const char *path_link);
 */
 void 					clear_filename(t_filename **beg);
 void					clean_mem(struct s_print print_info);
+
+/*
+**color
+*/
+const char				*push_color(mode_t st_mode, const char *ls_color);
+void					def_font(char *color, const char ls_color);
+void					def_backgrnd(char *color, const char ls_color);
+void					def_color(char *color, const char ls_color);
 
 #endif

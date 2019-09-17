@@ -6,7 +6,7 @@
 #    By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/16 09:02:55 by ksharlen          #+#    #+#              #
-#    Updated: 2019/09/17 08:45:32 by ksharlen         ###   ########.fr        #
+#    Updated: 2019/09/17 09:08:18 by ksharlen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC			:=	main.c\
 					pull.c\
 					pull_color.c\
 					pull_permission.c\
-					garbage_collector.c
+					garbage_collector.c\
+					work_color.c
 
 OBJS 		:= $(SRC:.c=.o)
 LIBFT		:= $(addprefix $(DIR_SRC), $(LIBFT))
