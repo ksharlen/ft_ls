@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:11:51 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:35:32 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,21 @@
 # define O_W						S_IWOTH
 # define O_X						S_IXOTH
 # define O_T						S_ISVTX
+
+# define VARS_FOR_PRINT_LONG_FORMAT_DEV print_info->filetype,\
+	print_info->permission, print_info->acl_xattr, align->max_num_link,\
+	print_info->num_link, align->max_len_user, print_info->user,\
+	align->max_len_group, print_info->group, align->max_len_big_dev,\
+	big_init_dev_str, sym, align->max_len_little_dev, little_init_dev,\
+	print_info->date, print_info->color, print_info->filename, DEFAULT_STYLE,\
+	print_info->val_link
+
+# define VARS_FOR_PRINT_LONG_FORMAT print_info->filetype,\
+	print_info->permission, print_info->acl_xattr, align->max_num_link,\
+	print_info->num_link, align->max_len_user, print_info->user,\
+	align->max_len_group, print_info->group, align->max_num_size_file,\
+	print_info->size_file, print_info->date, print_info->color,\
+	print_info->filename, DEFAULT_STYLE, print_info->val_link
 
 # define PERMISS_UX(x) (((x) & U_S) ? -1 : ((x) & U_X))
 # define PERMISS_GX(x) (((x) & G_S) ? -1 : ((x) & G_X))

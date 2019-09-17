@@ -34,22 +34,22 @@ static void print_long_line(struct s_print *print_info, struct s_num *align, con
 	char	*big_init_dev_str;
 	char	sym;
 
-	sym = ((print_info->filetype == 'c' || print_info->filetype == 'b') ? ',' : ' ');
+	sym = ((print_info->filetype == 'c' || print_info->filetype == 'b')
+		? ',' : ' ');
 	if (!ft_strcmp(dirname, "dev") || !ft_strcmp(dirname, "/dev"))
 	{
 		little_init_dev = MINOR(st_rdev);
 		big_init_dev = MAJOR(st_rdev);
 		big_init_dev_str = (print_info->filetype == 'c' ||
-print_info->filetype == 'b') ? ft_itoa(big_init_dev) : ft_strsetalloc(' ', align->max_len_big_dev);
-		ft_printf("%c%s%c %*d %-*s%-*s %*s%c %*d %s %s%s%s%s\n", print_info->filetype, print_info->permission,
-print_info->acl_xattr, align->max_num_link, print_info->num_link, align->max_len_user, print_info->user, align->max_len_group, print_info->group,
-align->max_len_big_dev, big_init_dev_str, sym, align->max_len_little_dev, little_init_dev, print_info->date, print_info->color, print_info->filename, DEFAULT_STYLE, print_info->val_link);
+			print_info->filetype == 'b') ? ft_itoa(big_init_dev)
+			: ft_strsetalloc(' ', align->max_len_big_dev);
+		ft_printf("%c%s%c %*d %-*s%-*s %*s%c %*d %s %s%s%s%s\n",
+			VARS_FOR_PRINT_LONG_FORMAT_DEV);
 		ft_strdel(&big_init_dev_str);
 	}
 	else
-		ft_printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s%s\n", print_info->filetype, print_info->permission,
-	print_info->acl_xattr, align->max_num_link, print_info->num_link, align->max_len_user, print_info->user, align->max_len_group, print_info->group,
-	align->max_num_size_file, print_info->size_file, print_info->date, print_info->color, print_info->filename, DEFAULT_STYLE, print_info->val_link);
+		ft_printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s%s\n",
+			VARS_FOR_PRINT_LONG_FORMAT);
 }
 
 void	print_fullinfo(const t_filename *beg, const t_ubyte *flags, const char *ls_color)
