@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:41:31 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:42:39 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:39:38 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		valid_flags(const t_ubyte *flags)
 	}
 }
 
-int			get_options(const char *options, t_ubyte *flags)
+void		get_options(const char *options, t_ubyte *flags)
 {
 	++options;
 	while (*options)
@@ -45,15 +45,6 @@ int			get_options(const char *options, t_ubyte *flags)
 			flag_error(*(t_ubyte *)options);
 		++options;
 	}
-	return (SUCCESSFUL_COMPLETION);
-}
-
-int			chk_flags_for_create_fullinfo(t_ubyte *flags)
-{
-	if (flags[FIND_FLAG('l')] || flags[FIND_FLAG('g')] || flags[FIND_FLAG('t')])
-		return (TRUE);
-	else
-		return (FALSE);
 }
 
 int			chk_flags_for_print_fullinfo(t_ubyte *flags)

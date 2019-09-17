@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 10:00:05 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 11:57:25 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ char			*valid_readlink(const char *path_link)
 
 	ret_rdl = readlink(path_link, pull_val_link, MAX_LEN_FILENAME);
 	errno = 0;
-	if (CHECK_SYS_ERR_RLINK(errno))
+	if ((errno == ELOOP) || (errno == EIO) ||
+	(errno == EFAULT) || (errno == ENOMEM) || (errno == ENOTDIR) ||
+	(errno == EINVAL) || (errno == ENAMETOOLONG) ? 1 : 0)
 		sys_errors();
 	else if (errno == ENOENT)
 		file_errors(path_link);

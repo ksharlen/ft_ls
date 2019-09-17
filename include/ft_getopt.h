@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:12:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/07/27 22:44:28 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 10:12:27 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef struct	s_opt
 	char		opt;
 }				t_opt;
 
-int		ft_getopt_internal(int argc, char *const argv[], const char *stringopt);
-int		ft_getopt(int argc, char *const argv[], const char *stringopt);
+int				ft_getopt_internal(int argc, char *const argv[],
+	const char *stringopt);
+int				ft_getopt(int argc, char *const argv[], const char *stringopt);
 
 #endif
