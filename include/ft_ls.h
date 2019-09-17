@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:08:05 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:11:51 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,7 @@ void					clean_mem(struct s_print print_info);
 /*
 **color
 */
-const char				*push_color(mode_t st_mode, const char *ls_color);
+const char				*push_color(const mode_t st_mode, const char *ls_color);
 void					def_font(char *color, const char ls_color);
 void					def_backgrnd(char *color, const char ls_color);
 void					def_color(char *color, const char ls_color);

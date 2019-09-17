@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 14:58:02 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:07:46 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 09:12:41 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,25 @@ static const char *color_stdf_or_ex(mode_t st_mode, const char *ls_color)
 		color = def_style(NULL, 0);
 	return (color);
 }
-//FIXME: сократить и в другой файл
-const char *push_color(mode_t st_mode, const char *ls_color)
+
+static const char *push_color_for_spec_file(mode_t st_mode, const char *ls_color)
+{
+	const char *color;
+
+	if (st_mode & S_ISUID)
+		color = def_style(ls_color, SUID);
+	else if (st_mode & S_ISGID)
+		color = def_style(ls_color, SGID);
+	else if (st_mode & S_ISVTX)
+		color = def_style(ls_color, DSCKB);
+	else if (st_mode & S_IXGRP)
+		color = def_style(ls_color, DSCKNB);
+	else
+		color = def_style(NULL, 0);
+	return (color);
+}
+
+const char *push_color(const mode_t st_mode, const char *ls_color)
 {
 	const char *color;
 
@@ -78,15 +95,7 @@ const char *push_color(mode_t st_mode, const char *ls_color)
 		color = def_style(ls_color, BLKF);
 	else if (S_ISCHR(st_mode))
 		color = def_style(ls_color, SYMF);
-	else if (st_mode & S_ISUID)
-		color = def_style(ls_color, SUID);
-	else if (st_mode & S_ISGID)
-		color = def_style(ls_color, SGID);
-	else if (st_mode & S_ISVTX)
-		color = def_style(ls_color, DSCKB);
-	else if (st_mode & S_IXGRP)
-		color = def_style(ls_color, DSCKNB);
 	else
-		color = def_style(NULL, 0);
+		color = push_color_for_spec_file(st_mode, ls_color);
 	return (color);
 }
