@@ -6,11 +6,50 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:38:07 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 10:01:12 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/17 11:53:50 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void	print_long_format_dev(const struct s_print *print_info,
+	const struct s_num *align, const dev_t st_rdev)
+{
+	int32_t	little_init_dev;
+	int32_t big_init_dev;
+	char	*big_init_dev_str;
+	char	sym;
+
+	sym = ((print_info->filetype == 'c' || print_info->filetype == 'b')
+		? ',' : ' ');
+	little_init_dev = MINOR(st_rdev);
+	big_init_dev = MAJOR(st_rdev);
+	big_init_dev_str = (print_info->filetype == 'c' ||
+		print_info->filetype == 'b') ? ft_itoa(big_init_dev)
+		: ft_strsetalloc(' ', align->max_len_big_dev);
+	ft_printf("%c%s%c %*d %-*s%-*s %*s%c %*d %s %s%s%s%s\n",
+		print_info->filetype, print_info->permission, print_info->acl_xattr,
+		align->max_num_link, print_info->num_link, align->max_len_user,
+		print_info->user, align->max_len_group, print_info->group,
+		align->max_len_big_dev, big_init_dev_str, sym,
+		align->max_len_little_dev,
+		little_init_dev, print_info->date, print_info->color,
+		print_info->filename,
+		DEFAULT_STYLE, print_info->val_link);
+	ft_strdel(&big_init_dev_str);
+}
+
+static void	print_long_format(const struct s_print *print_info,
+	struct s_num *align)
+{
+	ft_printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s%s\n",
+		print_info->filetype,
+		print_info->permission, print_info->acl_xattr, align->max_num_link,
+		print_info->num_link, align->max_len_user, print_info->user,
+		align->max_len_group, print_info->group, align->max_num_size_file,
+		print_info->size_file, print_info->date, print_info->color,
+		print_info->filename, DEFAULT_STYLE, print_info->val_link);
+}
 
 static void	fill_s_print(const t_filename *beg,
 	const t_ubyte *flags, struct s_print *info)
@@ -41,27 +80,10 @@ static void	fill_s_print(const t_filename *beg,
 static void	print_long_line(struct s_print *print_info,
 	struct s_num *align, const char *dirname, const dev_t st_rdev)
 {
-	int32_t	little_init_dev;
-	int32_t big_init_dev;
-	char	*big_init_dev_str;
-	char	sym;
-
-	sym = ((print_info->filetype == 'c' || print_info->filetype == 'b')
-		? ',' : ' ');
 	if (!ft_strcmp(dirname, "dev") || !ft_strcmp(dirname, "/dev"))
-	{
-		little_init_dev = MINOR(st_rdev);
-		big_init_dev = MAJOR(st_rdev);
-		big_init_dev_str = (print_info->filetype == 'c' ||
-			print_info->filetype == 'b') ? ft_itoa(big_init_dev)
-			: ft_strsetalloc(' ', align->max_len_big_dev);
-		ft_printf("%c%s%c %*d %-*s%-*s %*s%c %*d %s %s%s%s%s\n",
-			VARS_FOR_PRINT_LONG_FORMAT_DEV);
-		ft_strdel(&big_init_dev_str);
-	}
+		print_long_format_dev(print_info, align, st_rdev);
 	else
-		ft_printf("%c%s%c %*d %-*s%-*s%*lld %s %s%s%s%s\n",
-			VARS_FOR_PRINT_LONG_FORMAT);
+		print_long_format(print_info, align);
 }
 
 void		print_fullinfo(const t_filename *beg,
