@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 23:34:50 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:14:00 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@
 # define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0))
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
-//# define PRINT
 
 # define MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 # define MINOR(x) ((int32_t)((x) & 0xffffff))
@@ -96,6 +95,7 @@
 # define P_UNUSED(variable) ((void)variable)
 
 # define CURRENT_DIR "."
+# define PREV_DIR ".."
 
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
@@ -181,7 +181,7 @@ void					push_buf_stat_to_filename(t_filename *beg);
 /*
 **Validation
 */
-void					valid_flags(const t_ubyte *flags);
+//void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
 void					valid_stat(const char *filename,
@@ -193,6 +193,7 @@ char					*valid_readlink(const char *path_link);
 */
 void					sys_errors(void);
 void					file_errors(const char *filename);
+void					flag_error(t_ubyte sym);
 
 /*
 **Sorts
@@ -205,7 +206,8 @@ t_filename				*list_filename_merge(t_filename *l_one,
 **Other
 */
 int						chk_flags_for_print_fullinfo(t_ubyte *flags);
-void					get_options(const char *options, t_ubyte *flags);
+size_t					collect_flags(size_t argc, char *const argv[],
+	t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname,
 	const char *filename);
