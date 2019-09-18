@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:42:58 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 13:48:21 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 19:49:40 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,29 @@ void			pull_dir(t_filename *beg, t_ubyte *flags)
 	}
 }
 
-int				ft_ls(size_t argc, char *const argv[])
+int				ft_ls(const size_t argc, char *const argv[])
 {
 	t_ubyte			*flags;
 	register size_t	i;
+	t_ubyte			flag_for_print_dir;
 
+	flag_for_print_dir = FLAG_OFF;
 	flags = (t_ubyte[NUM_FLAGS]){0};
 	if (argc > 1)
 	{
 		i = collect_flags(argc, argv, flags);
 		if (i == argc)
 			ls_internal(CURRENT_DIR, flags);
-		while (i < argc)
+		else
 		{
-			ls_internal(argv[i], flags);
-			++i;
+			if (argc - i > 1)
+				flag_for_print_dir = FLAG_ON;
+			while (argc - i > 0)
+			{
+				if (flag_for_print_dir && i)
+					ft_printf("%s:\n", argv[i]);
+				ls_internal(argv[i++], flags);
+			}
 		}
 	}
 	else

@@ -6,11 +6,25 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:54:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:54:31 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:46:33 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+t_filename	*list_end_elem(t_filename *beg)
+{
+	t_filename *res;
+
+	res = NULL;
+	if (beg)
+	{
+		res = beg;
+		while (res->next)
+			res = res->next;
+	}
+	return (res);
+}
 
 const char	*cut_date(const time_t sec)
 {

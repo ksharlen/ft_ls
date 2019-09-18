@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 18:02:23 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:46:57 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ void					max_len_elem(const t_filename *beg,
 const char				*cut_date(const time_t sec);
 void					max_len_little_big_dev(const t_filename *beg,
 	struct s_num *align);
+t_filename				*list_end_elem(t_filename *beg);
 
 /*
 **Compare
