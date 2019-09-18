@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:42:58 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 21:19:39 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 21:51:48 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,21 @@ int				ft_ls(const size_t argc, char *const argv[])
 	if (argc > 1)
 	{
 		i = collect_flags(argc, argv, flags);
+		i = (!i ? ++i : i);
 		if (i == argc)
 			ls_internal(CURRENT_DIR, flags);
 		else
 		{
-			flag_for_print_dir = (argc - i > 1) ? FLAG_ON : FLAG_OFF;
-			while (argc - i > 0)
+			flag_for_print_dir = (argc - i + 1 > 1) ? FLAG_ON : FLAG_OFF;
+			while ((argc - i) > 0)
 			{
-				//printf("i: %zu\n", i);
-				if (flag_for_print_dir && i)
+				if (flag_for_print_dir && argc > 2 && !FIND_FLAG('R'))// && i + 1 < argc + 1)
 					ft_printf("%s:\n", argv[i]);
-				ls_internal(argv[i++], flags);
-				(((i - 1) == (argc - 1)) && (i - 1)) ? 0 : ft_printf("\n");
+				else if (FIND_FLAG('R') && i == 1)
+					ft_printf("%s:\n", argv[i]);
+				ls_internal(argv[i], flags);
+				(((argc - 1) - i)) && !FIND_FLAG('R') ? ft_printf("\n") : 0;
+				++i;
 			}
 		}
 	}
