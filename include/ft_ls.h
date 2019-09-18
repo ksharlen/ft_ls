@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 18:46:57 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 23:34:50 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,13 @@
 # define FLAGS			"afglrtucR"
 # define FLAG_ON		1
 # define FLAG_OFF		0
-# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)
-# define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z' ? 1 : 0)
-# define FLAG_VALID(x) ((FLAG_LOW_REG(x) || FLAG_UPP_REG(x) ? 1 : 0))
-# define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
+# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z')
+# define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z')
+# define FLAG_VALID(x) (FLAG_LOW_REG((x)) || FLAG_UPP_REG((x)))
+# define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0))
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
+//# define PRINT
 
 # define MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 # define MINOR(x) ((int32_t)((x) & 0xffffff))
