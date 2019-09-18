@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 17:23:49 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:38:52 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ static t_filename	*find_end_repeat(t_filename *beg, int (*cmp)(t_filename *, t_f
 	{
 		res = beg;
 		while (res->next && !cmp(res, res->next))
-		{
-			//ft_printf("filename: %s\n", beg->filename);
 			res = res->next;
-		}
 	}
 	return (res);
 }
@@ -59,9 +56,7 @@ static t_filename	*list_end_elem(t_filename *beg)
 	{
 		res = beg;
 		while (res->next)
-		{
 			res = res->next;
-		}
 	}
 	return (res);
 }
@@ -82,29 +77,20 @@ static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filen
 		{
 			if (!cmp(beg, beg->next))
 			{
+				end = find_end_repeat(beg, cmp);
+				tmp = end->next;
+				end->next = NULL;
 				if (begin_list && (begin_list == beg))
-				{
-					end = find_end_repeat(begin_list, cmp);
-					tmp = end->next;
-					end->next = NULL;
-					begin_list = merge_sort(begin_list, cmp_name, NULL);
-					end = list_end_elem(begin_list);
-					end->next = tmp;
-					beg = end;
-					prev = beg;
-				}
+					begin_list = merge_sort(beg, cmp_name, NULL);
 				else
 				{
-					end = find_end_repeat(beg, cmp);
-					tmp = end->next;
-					end->next = NULL;
 					beg = merge_sort(beg, cmp_name, NULL);
-					end = list_end_elem(beg);
 					prev->next = beg;
-					end->next = tmp;
-					beg = end;
-					prev = beg;
 				}
+				end = list_end_elem(beg);
+				end->next = tmp;
+				beg = end;
+				prev = beg;
 			}
 			else
 			{
@@ -113,17 +99,8 @@ static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filen
 			}
 		}
 	}
-	return (begin_list); //!временно
+	return (begin_list);
 }
-
-//?		1)	Найти начало повторяющегося интервала
-//?		2)	Найти последний повторяющийся элемент
-//?		3)	Сохранить элемент после последнего(что бы не потерять связь)
-//?		4)	занулить конечный повторный элемент
-//?		5)	отсортировать повторки через merge_sort
-//?		6)	Найти последний элемент в отсортированном списке
-//?		7)	Присвоить ему сохраненную связь
-//?		8)	Перенести указатель на конец репитов
 
 t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
