@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 18:05:05 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:13:24 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,23 @@ static t_filename	*list_end_elem(t_filename *beg)
 	return (res);
 }
 
-// static t_filename	*test_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
-// {
-// 	t_filename *end;
-// 	t_filename *tmp;
-// }
+static void			test_repeat(t_filename **beg, struct s_sort *sort, int (*cmp)(t_filename *, t_filename *))
+{
+	sort->end = find_end_repeat(*beg, cmp);
+	sort->tmp = sort->end->next;
+	sort->end->next = NULL;
+	if (sort->begin_list && (sort->begin_list == (*beg)))
+		sort->begin_list = merge_sort(*beg, cmp_name, NULL);
+	else
+	{
+		(*beg) = merge_sort(*beg, cmp_name, NULL);
+		sort->prev->next = (*beg);
+	}
+	sort->end = list_end_elem(*beg);
+	sort->end->next = sort->tmp;
+	(*beg) = sort->end;
+	sort->prev = (*beg);
+}
 
 static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
 {
@@ -75,22 +87,7 @@ static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filen
 	sort.prev = beg;
 	while (beg->next)
 		if (!cmp(beg, beg->next))
-		{
-			sort.end = find_end_repeat(beg, cmp);
-			sort.tmp = sort.end->next;
-			sort.end->next = NULL;
-			if (sort.begin_list && (sort.begin_list == beg))
-				sort.begin_list = merge_sort(beg, cmp_name, NULL);
-			else
-			{
-				beg = merge_sort(beg, cmp_name, NULL);
-				sort.prev->next = beg;
-			}
-			sort.end = list_end_elem(beg);
-			sort.end->next = sort.tmp;
-			beg = sort.end;
-			sort.prev = beg;
-		}
+			test_repeat(&beg, &sort, cmp);
 		else
 		{
 			sort.prev = beg;
