@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/19 00:14:00 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:30:36 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ void					push_buf_stat_to_filename(t_filename *beg);
 /*
 **Validation
 */
-//void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
 void					valid_stat(const char *filename,

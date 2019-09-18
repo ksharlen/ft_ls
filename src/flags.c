@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:41:31 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 23:51:43 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:29:03 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static size_t		push_flags(size_t argc, char *const argv[], t_ubyte *flags)
 	return (i);
 }
 
-static void		valid_flags(const t_ubyte *flags)
+static void			valid_flags(const t_ubyte *flags)
 {
 	register size_t	i;
 	t_ubyte			sym;
@@ -60,8 +60,7 @@ static void		valid_flags(const t_ubyte *flags)
 	}
 }
 
-
-int				chk_flags_for_print_fullinfo(t_ubyte *flags)
+int					chk_flags_for_print_fullinfo(t_ubyte *flags)
 {
 	if (flags[FIND_FLAG('l')] || flags[FIND_FLAG('g')])
 		return (TRUE);
@@ -69,7 +68,7 @@ int				chk_flags_for_print_fullinfo(t_ubyte *flags)
 		return (FALSE);
 }
 
-size_t			collect_flags(size_t argc, char *const argv[],
+size_t				collect_flags(size_t argc, char *const argv[],
 	t_ubyte *flags)
 {
 	size_t	skip_opt_argv;
