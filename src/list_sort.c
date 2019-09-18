@@ -6,17 +6,11 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 06:45:08 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 07:02:48 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-// static t_filename	*find_repeat(t_filename *beg,
-// 	int (*sort_key)(t_filename *, t_filename *), size_t *count)
-// {
-	
-// }
 
 static t_filename	*merge_sort(t_filename *list,
 	int (*sort_key)(t_filename *, t_filename *), t_filename *until)
@@ -39,15 +33,38 @@ static t_filename	*merge_sort(t_filename *list,
 		merge_sort(right, sort_key, NULL), sort_key));
 }
 
-// static t_filename	*skip_sort(t_filename *beg, size_t *count)
-// {
+static t_filename	*skip_sort(t_filename *beg, size_t *count)
+{
 	
-// }
+}
 
-// static t_filename	*sort_repeat(t_filename *beg, int (*sort_key)(t_filename *, t_filename *))
-// {
-	
-// }
+static t_filename	*sort_repeat(t_filename *beg, int (*sort_key)(t_filename *, t_filename *))
+{
+	t_filename *begin_list;
+	t_filename *beg_repeat;
+
+	begin_list = NULL;
+	if (beg)
+	{
+		begin_list = beg;
+		while (beg->next)
+		{
+			if (!sort_key(beg, beg->next))
+			{
+				if (beg == begin_list)
+				{
+					begin_list = sort_repeat();
+					beg = begin_list;
+				}
+				else
+					beg = sort_repeat();
+				beg = skip_sort();
+			}
+			else
+				beg = beg->next;
+		}
+	}
+}
 
 t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 {
