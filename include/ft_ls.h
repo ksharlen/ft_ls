@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 15:22:25 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:02:23 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,14 @@ struct					s_print
 	const char			*ls_color;
 	const char			*color;
 	const char			*val_link;
+};
+
+struct					s_sort
+{
+	t_filename			*begin_list;
+	t_filename			*prev;
+	t_filename			*end;
+	t_filename			*tmp;
 };
 
 int						ft_ls(size_t argc, char *const argv[]);

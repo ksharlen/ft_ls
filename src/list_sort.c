@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 17:38:52 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 18:05:05 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,45 +61,42 @@ static t_filename	*list_end_elem(t_filename *beg)
 	return (res);
 }
 
+// static t_filename	*test_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
+// {
+// 	t_filename *end;
+// 	t_filename *tmp;
+// }
+
 static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
 {
-	t_filename *begin_list;
-	t_filename *prev;
-	t_filename *end;
-	t_filename *tmp;
+	struct s_sort sort;
 
-	begin_list = NULL;
-	if (beg)
-	{
-		begin_list = beg;
-		prev = beg;
-		while (beg->next)
+	sort.begin_list = beg;
+	sort.prev = beg;
+	while (beg->next)
+		if (!cmp(beg, beg->next))
 		{
-			if (!cmp(beg, beg->next))
-			{
-				end = find_end_repeat(beg, cmp);
-				tmp = end->next;
-				end->next = NULL;
-				if (begin_list && (begin_list == beg))
-					begin_list = merge_sort(beg, cmp_name, NULL);
-				else
-				{
-					beg = merge_sort(beg, cmp_name, NULL);
-					prev->next = beg;
-				}
-				end = list_end_elem(beg);
-				end->next = tmp;
-				beg = end;
-				prev = beg;
-			}
+			sort.end = find_end_repeat(beg, cmp);
+			sort.tmp = sort.end->next;
+			sort.end->next = NULL;
+			if (sort.begin_list && (sort.begin_list == beg))
+				sort.begin_list = merge_sort(beg, cmp_name, NULL);
 			else
 			{
-				prev = beg;
-				beg = beg->next;
+				beg = merge_sort(beg, cmp_name, NULL);
+				sort.prev->next = beg;
 			}
+			sort.end = list_end_elem(beg);
+			sort.end->next = sort.tmp;
+			beg = sort.end;
+			sort.prev = beg;
 		}
-	}
-	return (begin_list);
+		else
+		{
+			sort.prev = beg;
+			beg = beg->next;
+		}
+	return (sort.begin_list);
 }
 
 t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
