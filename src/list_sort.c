@@ -6,14 +6,14 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:48:23 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 12:28:36 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:23:49 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 static t_filename	*merge_sort(t_filename *list,
-	int (*sort_key)(t_filename *, t_filename *), t_filename *until)
+	int (*cmp)(t_filename *, t_filename *), t_filename *until)
 {
 	t_filename *left;
 	t_filename *right;
@@ -29,26 +29,47 @@ static t_filename	*merge_sort(t_filename *list,
 	}
 	right = list->next;
 	list->next = NULL;
-	return (list_filename_merge(merge_sort(left, sort_key, NULL),
-		merge_sort(right, sort_key, NULL), sort_key));
+	return (list_filename_merge(merge_sort(left, cmp, NULL),
+		merge_sort(right, cmp, NULL), cmp));
 }
 
 static t_filename	*find_end_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
 {
+	t_filename *res;
+
+	res = NULL;
 	if (beg)
 	{
-		while (beg->next && !cmp(beg, beg->next))
+		res = beg;
+		while (res->next && !cmp(res, res->next))
 		{
-			ft_printf("filename: %s\n", beg->filename);
-			beg = beg->next;
+			//ft_printf("filename: %s\n", beg->filename);
+			res = res->next;
 		}
 	}
-	return (beg);
+	return (res);
 }
 
-static t_filename	*sort_repeat(t_filename *beg, int (*sort_key)(t_filename *, t_filename *))
+static t_filename	*list_end_elem(t_filename *beg)
+{
+	t_filename *res;
+
+	res = NULL;
+	if (beg)
+	{
+		res = beg;
+		while (res->next)
+		{
+			res = res->next;
+		}
+	}
+	return (res);
+}
+
+static t_filename	*sort_repeat(t_filename *beg, int (*cmp)(t_filename *, t_filename *))
 {
 	t_filename *begin_list;
+	t_filename *prev;
 	t_filename *end;
 	t_filename *tmp;
 
@@ -56,20 +77,43 @@ static t_filename	*sort_repeat(t_filename *beg, int (*sort_key)(t_filename *, t_
 	if (beg)
 	{
 		begin_list = beg;
+		prev = beg;
 		while (beg->next)
 		{
-			if (!sort_key(beg, beg->next))
+			if (!cmp(beg, beg->next))
 			{
-				end = find_end_repeat(beg, sort_key);
-				ft_printf("end: %s\n", end->filename);
-				tmp = end->next;
-				beg = end;
+				if (begin_list && (begin_list == beg))
+				{
+					end = find_end_repeat(begin_list, cmp);
+					tmp = end->next;
+					end->next = NULL;
+					begin_list = merge_sort(begin_list, cmp_name, NULL);
+					end = list_end_elem(begin_list);
+					end->next = tmp;
+					beg = end;
+					prev = beg;
+				}
+				else
+				{
+					end = find_end_repeat(beg, cmp);
+					tmp = end->next;
+					end->next = NULL;
+					beg = merge_sort(beg, cmp_name, NULL);
+					end = list_end_elem(beg);
+					prev->next = beg;
+					end->next = tmp;
+					beg = end;
+					prev = beg;
+				}
 			}
 			else
+			{
+				prev = beg;
 				beg = beg->next;
+			}
 		}
 	}
-	return (NULL); //!временно
+	return (begin_list); //!временно
 }
 
 //?		1)	Найти начало повторяющегося интервала
@@ -96,7 +140,6 @@ t_filename			*sort_list_by_flags(t_filename **beg, t_ubyte *flags)
 			{
 				(*beg) = merge_sort(*beg, cmp_mtime, NULL);
 				(*beg) = sort_repeat(*beg, cmp_mtime);
-				//exit(EXIT_SUCCESS);
 			}
 		}
 		else

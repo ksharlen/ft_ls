@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:40:57 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 06:48:07 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:00:05 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int		cmp_mtime(t_filename *one, t_filename *two)
 
 int		cmp_name(t_filename *one, t_filename *two)
 {
+	//return (ft_strcmp(one->filename, two->filename));
 	if (ft_strcmp(one->filename, two->filename) < 0)
+	//if (strcasecmp(one->filename, two->filename) < 0)
 		return (TRUE);
 	else
 		return (FALSE);
