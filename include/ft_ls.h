@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 15:28:57 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:30:36 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@
 # define FLAGS			"afglrtucR"
 # define FLAG_ON		1
 # define FLAG_OFF		0
-# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z' ? 1 : 0)
-# define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z' ? 1 : 0)
-# define FLAG_VALID(x) ((FLAG_LOW_REG(x) || FLAG_UPP_REG(x) ? 1 : 0))
-# define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0) ? 1 : 0)
+# define FLAG_LOW_REG(x) ((x) >= 'a' && (x) <= 'z')
+# define FLAG_UPP_REG(x) ((x) >= 'A' && (x) <= 'Z')
+# define FLAG_VALID(x) (FLAG_LOW_REG((x)) || FLAG_UPP_REG((x)))
+# define CHECK_KEY(x) ((*(x) == '-') && (*(x + 1) != 0))
 # define GET_FLAG(flag) ((flag) >= 'a' && ((flag) <= 'z') ? ('a' - 1) : 38)
 # define FIND_FLAG(flag) ((flag) - GET_FLAG(flag))
 
@@ -95,6 +95,7 @@
 # define P_UNUSED(variable) ((void)variable)
 
 # define CURRENT_DIR "."
+# define PREV_DIR ".."
 
 typedef	int8_t			t_byte;
 typedef uint8_t			t_ubyte;
@@ -154,6 +155,14 @@ struct					s_print
 	const char			*val_link;
 };
 
+struct					s_sort
+{
+	t_filename			*begin_list;
+	t_filename			*prev;
+	t_filename			*end;
+	t_filename			*tmp;
+};
+
 int						ft_ls(size_t argc, char *const argv[]);
 
 /*
@@ -172,7 +181,6 @@ void					push_buf_stat_to_filename(t_filename *beg);
 /*
 **Validation
 */
-void					valid_flags(const t_ubyte *flags);
 DIR						*valid_opendir(const char *filename);
 struct dirent			*valid_readdir(DIR *dir);
 void					valid_stat(const char *filename,
@@ -184,6 +192,7 @@ char					*valid_readlink(const char *path_link);
 */
 void					sys_errors(void);
 void					file_errors(const char *filename);
+void					flag_error(t_ubyte sym);
 
 /*
 **Sorts
@@ -196,7 +205,8 @@ t_filename				*list_filename_merge(t_filename *l_one,
 **Other
 */
 int						chk_flags_for_print_fullinfo(t_ubyte *flags);
-void					get_options(const char *options, t_ubyte *flags);
+size_t					collect_flags(size_t argc, char *const argv[],
+	t_ubyte *flags);
 void					list_revers(t_filename **beg);
 char					*cat_path_filename(const char *dirname,
 	const char *filename);
@@ -205,6 +215,7 @@ void					max_len_elem(const t_filename *beg,
 const char				*cut_date(const time_t sec);
 void					max_len_little_big_dev(const t_filename *beg,
 	struct s_num *align);
+t_filename				*list_end_elem(t_filename *beg);
 
 /*
 **Compare

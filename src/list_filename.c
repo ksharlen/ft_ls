@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:49:38 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:53:03 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 06:47:24 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_filename			*list_filename_merge(t_filename *l_one, t_filename *l_two,
 	res = new;
 	while (l_one && l_two)
 	{
-		if (key(l_one, l_two) == TRUE)
+		if (key(l_one, l_two) > 0)
 		{
 			res->next = l_one;
 			res = l_one;

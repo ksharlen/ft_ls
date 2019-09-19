@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 12:48:19 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 11:57:25 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/19 00:18:05 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ DIR				*valid_opendir(const char *filename)
 	else if (errno == EOPENDIR_ENOMEM)
 		sys_errors();
 	else if (errno == EOPENDIR_ENOTDIR)
-		;
+		ft_printf("%s\n", filename);
 	else
 		return (dir);
 	return (NULL);

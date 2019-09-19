@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:40:00 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:40:45 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/09/18 17:50:42 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ void				push_buf_stat_to_filename(t_filename *beg)
 
 	res = beg;
 	buf_stat_add_to_filename(beg);
-	while (beg)
+	if (beg)
 	{
-		valid_stat(beg->path, beg->buf, beg->f_type);
-		beg = beg->next;
+		while (beg)
+		{
+			valid_stat(beg->path, beg->buf, beg->f_type);
+			beg = beg->next;
+		}
+		add_uname_grname(res);
 	}
-	add_uname_grname(res);
 }
