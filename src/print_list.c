@@ -6,13 +6,13 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:55:09 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/10/13 19:50:32 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 20:48:10 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static const char	*insert_color_filename(const char *filename,
+static char		*insert_color_filename(const char *filename,
 	const char *color)
 {
 	char *color_filename;
@@ -28,7 +28,7 @@ static const char	*insert_color_filename(const char *filename,
 	return (color_filename);
 }
 
-static t_len		large_filename(t_filename *beg)
+static t_len	large_filename(t_filename *beg)
 {
 	t_len	len_filename;
 	t_len	large_filename;
@@ -44,26 +44,43 @@ static t_len		large_filename(t_filename *beg)
 	return (large_filename);
 }
 
-static void			simple_print_lists(t_filename *beg,
+static char		**get_files(t_filename *begin, const char *ls_color)
+{
+	size_t		len_files;
+	char		**files;
+	char		**p_files;
+	const char	*color;
+
+	files = NULL;
+	len_files = pull_size_list(begin);
+	files = (char **)ft_memalloc(sizeof(char *) * (len_files + 1));
+	p_files = files;
+	while (begin)
+	{
+		color = push_color(begin->buf->st_mode, ls_color);
+		*p_files = insert_color_filename(begin->filename, color);
+		++p_files;
+		begin = begin->next;
+	}
+	column(len_files, files);
+	return (files);
+}
+
+static void		simple_print_lists(t_filename *beg,
 	const char *ls_color)
 {
 	int			len_max_filename;
-	const char	*color;
-	const char	*color_filename;
+	char		**files;
+	t_filename	*begin;
 
+	begin = beg;
 	len_max_filename = large_filename(beg) + (11 * 2);
-	while (beg)
-	{
-		color = push_color(beg->buf->st_mode, ls_color);
-		color_filename = insert_color_filename(beg->filename, color);
-		ft_printf("%-*s ", len_max_filename, color_filename);
-		ft_strdel((char **)&color_filename);
-		beg = beg->next;
-	}
-	ft_printf("%v%s", 1, "\n");
+	files = get_files(begin, ls_color);
+	ft_strdel_split(files);
+	free(files);
 }
 
-void				print_list(t_filename *beg, t_ubyte *flags)
+void			print_list(t_filename *beg, t_ubyte *flags)
 {
 	char	*ls_color;
 

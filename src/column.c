@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 19:46:01 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/10/13 19:48:58 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 20:47:16 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static void			din_alig(char *files, int w_column, int col_cln,
 {
 	char		*str;
 	char		*buf;
+	char		*p_str;
 
 	if (col_cln > 1 && col_files > 1)
 	{
 		if (!(str = (char *)ft_memalloc(sizeof(char) * w_column + 1)))
 			exit(1);
+		p_str = str;
 		buf = str;
 		ft_memset(str, ' ', w_column);
 		while (*files)
@@ -31,6 +33,7 @@ static void			din_alig(char *files, int w_column, int col_cln,
 			files++;
 		}
 		write(1, buf, w_column);
+		ft_strdel(&p_str);
 	}
 	else
 		ft_printf("%s\n", files);

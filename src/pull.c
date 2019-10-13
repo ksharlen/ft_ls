@@ -6,11 +6,27 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:56:59 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/18 23:44:46 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 19:56:23 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+size_t		pull_size_list(const t_filename *beg)
+{
+	size_t	len;
+
+	len = 0;
+	if (beg)
+	{
+		while (beg)
+		{
+			len++;
+			beg = beg->next;
+		}
+	}
+	return (len);
+}
 
 const char	*pull_date(const t_filename *beg, const t_ubyte *flags)
 {

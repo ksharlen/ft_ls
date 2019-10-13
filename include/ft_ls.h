@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/10/13 19:48:36 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 20:50:19 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@
 
 # define CHECK_ALLOC(x) !(x) ? sys_errors() : 1
 
-# define P_UNUSED(variable) ((void)variable)
-
 # define CURRENT_DIR "."
 # define PREV_DIR ".."
 
@@ -164,7 +162,7 @@ struct					s_sort
 	t_filename			*tmp;
 };
 
-typedef struct	s_column
+typedef struct			s_column
 {
 	int			width;
 	int			col;
@@ -172,7 +170,7 @@ typedef struct	s_column
 	int			col_files_whl;
 	int			col_iter;
 	int			poz;
-}				t_column;
+}						t_column;
 
 int						ft_ls(size_t argc, char *const argv[]);
 
@@ -241,6 +239,7 @@ int						cmp_name(t_filename *one, t_filename *two);
 void					print_list(t_filename *beg, t_ubyte *flags);
 void					print_fullinfo(const t_filename *beg,
 	const t_ubyte *flags, const char *ls_color);
+size_t					pull_size_list(const t_filename *beg);
 
 /*
 **pull_info
