@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:19:12 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/19 00:30:36 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 19:48:36 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <grp.h>
 # include <errno.h>
 # include <sys/acl.h>
+# include <sys/ioctl.h>
 
 /*
 **ERRORS
@@ -163,6 +164,16 @@ struct					s_sort
 	t_filename			*tmp;
 };
 
+typedef struct	s_column
+{
+	int			width;
+	int			col;
+	int			col_files;
+	int			col_files_whl;
+	int			col_iter;
+	int			poz;
+}				t_column;
+
 int						ft_ls(size_t argc, char *const argv[]);
 
 /*
@@ -256,5 +267,7 @@ const char				*push_color(const mode_t st_mode,
 void					def_font(char *color, const char ls_color);
 void					def_backgrnd(char *color, const char ls_color);
 void					def_color(char *color, const char ls_color);
+
+void					column(int argc, char **files);
 
 #endif
