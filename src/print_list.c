@@ -6,7 +6,7 @@
 /*   By: ksharlen <ksharlen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 09:55:09 by ksharlen          #+#    #+#             */
-/*   Updated: 2019/09/17 09:55:31 by ksharlen         ###   ########.fr       */
+/*   Updated: 2019/10/13 19:33:35 by ksharlen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,14 @@ static void			simple_print_lists(t_filename *beg,
 
 void				print_list(t_filename *beg, t_ubyte *flags)
 {
-	const char *ls_color;
+	char	*ls_color;
 
 	ls_color = getenv("LSCOLORS");
+	if (!ls_color)
+	{
+		ls_color = (char[SIZE_BUF]){0};
+		ft_strcpy(ls_color, "Gxfxcxdxbxegedabagacad");
+	}
 	if (beg)
 	{
 		if (chk_flags_for_print_fullinfo(flags) == TRUE)
